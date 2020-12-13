@@ -1,0 +1,29 @@
+version: '3'
+services:
+    frontend:
+        build: ./videoUI
+        ports: 
+            - "3000:3000"
+        container_name: videoui-docker
+        restart: always
+        links:
+            - backend
+    
+    backend:
+        build: ./VideoApi
+        ports : 
+            - "5000:5000"
+        container_name: videoapi-docker
+        restart: always
+        links:
+            - db
+
+    db : 
+        image: postgres:latest
+        ports: 
+            - "5432:5432"
+        container_name: database-docker
+        restart: always
+
+
+

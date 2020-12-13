@@ -4,9 +4,18 @@ const app = express();
 const router = express.Router();
 const axios = require('axios');
 const cors = require('cors');
-router.get('/tweets', async (req, res) => {
-    client.tokens.create().then(token => {console.log(token.username)})
+let {apiKey, apiSecret, bearerToken, accountSid} = require('../config');
+const client = require('twilio')(accountSid, bearerToken);
 
+router.get('/icecandidate', async (req, res) => {
+    console.log('requested server buddy');
+    client.tokens.create().then(token => {
+        console.log(token);         
+        let iceServer = token.iceServers;
+        res.status(200).send({'iceServers': [{iceServer}]});
+    }).catch(err => {
+        res.status(422);
+    });
 });  
 /*
     client.messages.create({

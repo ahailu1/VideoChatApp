@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
-export default class Twitter extends React.Component {
+export default class Video extends React.Component {
 
     constructor(props){
         super(props);
@@ -13,21 +13,27 @@ export default class Twitter extends React.Component {
             apiKeySecret : 'yirBKGgGn0IwCEixrfod4dbB3PJJK2X8DAyL6jSD9DstRLy11N',
             bearerToken : 'AAAAAAAAAAAAAAAAAAAAALfDJgEAAAAAnHbxN%2Fb42QTed54Ao0XEwf%2FJytc%3D7L6LUDYhlpKDSaKG7ezA6cN0gVVl3IlHP8PgZjX4xxp3q8kd4s',
         }
-
     }
+
  async componentDidMount(){
     this.initSocket();
     await this.getRequests();
 }
    peerCall = async () => {
+       let iceServers = axios.get('http://localhost:5000/getservers/icecandidate'); 
+       let peerConnection = new RTCPeerConnection(iceServers);
        let socket = this.state.socket;
-    this.state.socket.on( 'peerConnection', el => {
-        let configuration = el.config;
-        let peerConnection = new RTCPeerConnection(configuration);
-        socket.on('peerMessage', el => {
+    //signalling channel
 
-        })
-    })
+       socket.on('peerMessage',async el => {
+            if(el.peerAnswer){
+                let createDescription = new RTCSessionDescription(el.peerAnswer);
+                await peerConnection.setRemoteDescription(createDescription);
+            }
+        });
+    const offer = await peerConnection.createOffer();
+    socket.emit('offer', offer);
+
 };
 handleSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +58,9 @@ this.setState({socket:socket});
     }
 
  getRequests = async () => {
+    let iceServers = await axios.get('http://localhost:5000/getservers/icecandidate'); 
+    console.log(iceServers);    
+
     let constraints = {
         'video' : true,
         'audio' : true,

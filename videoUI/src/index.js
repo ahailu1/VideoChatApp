@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Twitter from './components/twitter';
+import Video from './components/video';
 import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
   <React.StrictMode>
-    <Twitter/>
+    <Video/>
   </React.StrictMode>,
   document.getElementById('root')
 );

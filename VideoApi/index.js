@@ -1,25 +1,35 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
+const server = require("http").createServer(app);
+const socketio = require("socket.io");
 
-const cors = require("cors");
-const http = require("http");
-
+const bodyParser = require("body-parser");
 const { port } = require("./config.js");
 
-const io = require("socket.io")(port);
-const hostname = "127.0.0.1";
-
 const iceCandidate = require("./router/getserver.js");
+const io = socketio(server, { cors: {
+    origin: "http://localhost:3000  ",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  } 
+});
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
 app.use("/getservers", iceCandidate);
-console.log(port);
+
 io.on("connection", (socket) => {
   console.log("aaaaaaa");
   socket.on("message", (data) => {
-    socket.emit(`${data.username}`, pc);
+    console.log(`${data.username}hahaa`);
     console.log(data);
-    console.log(iceServer);
   });
+});
+server.listen(port, (err) => {
+    console.log('i tried');
 });

@@ -7,8 +7,8 @@ const cors = require("cors");
 const { apiKey, apiSecret, bearerToken, accountSid } = require("../config");
 const client = require("twilio")(accountSid, bearerToken);
 
-router.get("/icecandidate", async (req, res) => {
-  console.log("requested server buddy");
+router.get("/icecandidate", async (req, res, next) => {
+  console.log("here baby");
   client.tokens
     .create()
     .then((token) => {

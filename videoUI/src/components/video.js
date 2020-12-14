@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 export default class Video extends React.Component {
 
     constructor(props){
@@ -16,11 +16,12 @@ export default class Video extends React.Component {
     }
 
  async componentDidMount(){
-    this.initSocket();
+    await this.initSocket();
     await this.getRequests();
 }
    peerCall = async () => {
-       let iceServers = axios.get('http://localhost:5000/getservers/icecandidate'); 
+       let iceServers = await axios.get('http://localhost:5000/getservers/icecandidate'); 
+
        let peerConnection = new RTCPeerConnection(iceServers);
        let socket = this.state.socket;
     //signalling channel
@@ -45,9 +46,10 @@ handleSubmit = (e) => {
     }
     this.state.socket.emit('message', data);
 }
-initSocket = () => {
-const socket = io('http://localhost:5000');
-this.setState({socket:socket});
+initSocket = async () => {
+    
+const socket = await io('http://localhost:5000');
+this.setState({socket: socket});
 }
     mycb = (stream) => {
         return (

@@ -20,8 +20,7 @@ export default class Video extends React.Component {
     await this.getRequests();
 }
    peerCall = async () => {
-       let iceServers = await axios.get('http://localhost:5000/getservers/icecandidate'); 
-
+    let iceServers = await axios.get('http://localhost:5000/getservers/icecandidate'); 
        let peerConnection = new RTCPeerConnection(iceServers);
        let socket = this.state.socket;
     //signalling channel
@@ -33,6 +32,7 @@ export default class Video extends React.Component {
             }
         });
     const offer = await peerConnection.createOffer();
+    await peerConnection.setLocalDescription(offer);
     socket.emit('offer', offer);
 
 };
@@ -60,8 +60,6 @@ this.setState({socket: socket});
     }
 
  getRequests = async () => {
-    let iceServers = await axios.get('http://localhost:5000/getservers/icecandidate'); 
-    console.log(iceServers);    
 
     let constraints = {
         'video' : true,

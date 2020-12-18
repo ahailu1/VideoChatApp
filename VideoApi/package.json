@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "lint": "eslint --fix --ext .js,.jsx .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test" : "jest"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +27,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.0",
     "index.js": "0.0.3",
+    "jest": "^26.6.3",
     "nodemon": "^2.0.6",
     "prettier": "2.2.1"
   }

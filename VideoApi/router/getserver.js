@@ -4,21 +4,21 @@ const app = express();
 const router = express.Router();
 const axios = require("axios");
 const cors = require("cors");
-const { apiKey, apiSecret, bearerToken, accountSid } = require("../config");
-const client = require("twilio")(accountSid, bearerToken);
+const { apiKey, apiSecret, bearerToken, accountSid, authToken } = require("../config");
+const client = require("twilio")(accountSid, authToken);
 
-router.get("/icecandidate", async (req, res, next) => {
-  console.log("here baby");
-  client.tokens
-    .create()
-    .then((token) => {
-      console.log(token);
-      const iceServer = token.iceServers;
-      res.status(200).send({ iceServers: [{ iceServer }] });
-    })
-    .catch((err) => {
-      res.status(422);
-    });
+router.get("/icecandidate",async (req, res, next) => {
+  console.log([authToken, accountSid])
+  try{
+    let ab = await client.tokens.create();
+    const iceServer = await ab.iceServers;
+    console.log(iceServer);
+    res.status(200).send({iceServers: iceServer});
+  } catch (err) {
+    res.status(422).send({error: 'couldnt fetch ice servers'})
+    throw new Error();
+  }
+
 });
 /*
     client.messages.create({

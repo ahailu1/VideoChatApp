@@ -6,4 +6,5 @@ module.exports = {
   apiSecret: process.env.API_SECRET,
   bearerToken: process.env.BEARER_TOKEN,
   accountSid: process.env.ACCOUNT_SID,
+  authToken : process.env.AUTH_TOKEN
 };

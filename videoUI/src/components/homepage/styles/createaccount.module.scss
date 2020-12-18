@@ -1,0 +1,85 @@
+.testing{
+    border: solid #343a40;
+    border-radius: 0.5rem;
+}
+.input__group{
+}
+.form{
+    &__row{
+        width: 80%;
+    margin: 1.25em 0 1.25rem 0;
+    &.toggled{
+        border: solid red;
+    }
+    }
+    &__column{
+        flex-direction: column;
+        align-items: center;
+        padding: 4rem 2rem 4rem 2rem;
+        position: relative;
+        z-index: 10;
+        &::after{
+            background-color:#343a40;
+            content: '';
+            display: flex;    
+        position: absolute;
+        top: 0;
+        left:0;
+        height: 100%;
+        width: 100%;
+        clip-path: polygon(100% 23%, 86% 38%, 100% 52%);
+        }
+        &.toggled{
+        }
+        &__welcome{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0rem 0.4rem 0.4rem 0;
+        background-color: #343a40;
+    &::after{
+
+    }
+    }
+    }
+}
+.form{
+&__createaccount{
+    display: none;
+    border: solid red;
+&.toggled{
+    display: flex;
+}
+}
+
+    &__login{
+        border: solid red;
+        display: none;
+        &.toggled{
+            display: flex;
+            border: solid pink;
+        }
+    }
+    &__heading{
+        color: white;
+        font-size: 2rem;
+    }
+    &__paragraph{
+        font-size: 1rem;
+        color: white;
+    }
+    &__welcome{
+        border: solid orange;
+        &.toggled{
+            display: none;
+        }
+    &__login{
+        border: solid red;
+    &.toggled{
+        display: none;
+    }
+    }
+    }
+
+}

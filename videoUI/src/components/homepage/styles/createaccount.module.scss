@@ -1,3 +1,16 @@
+@mixin afterEffect {
+    position: absolute;
+    top: 0;
+    left:0;
+    content: "";
+    display: flex;
+
+}
+.error{
+    font-size: 0.75rem;
+    color: black;
+    font-weight: 700;
+}
 .testing{
     border: solid #343a40;
     border-radius: 0.5rem;
@@ -9,14 +22,18 @@
         width: 80%;
     margin: 1.25em 0 1.25rem 0;
     &.toggled{
-        border: solid red;
     }
     }
     &__column{
+        position: relative;
+        width: 0%;
+        transition: all ease-in-out 0.5s;
         flex-direction: column;
         align-items: center;
         padding: 4rem 2rem 4rem 2rem;
         position: relative;
+        display: flex;
+        justify-content: center;
         z-index: 10;
         &::after{
             background-color:#343a40;
@@ -24,14 +41,36 @@
             display: flex;    
         position: absolute;
         top: 0;
+        transition: all ease-in-out 0.5s;
         left:0;
         height: 100%;
         width: 100%;
-        clip-path: polygon(100% 23%, 86% 38%, 100% 52%);
-        }
+        clip-path: circle(15.0% at 100% 50%);
+    }
         &.toggled{
+            transition: all ease-in-out 0.5s;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+            background-color: #343a40;
+        &::after{
+            content: '';
+            display: flex;    
+        position: absolute;
+        top: 0;
+        transition: all ease-in-out 0.5s;
+        left:0;
+        height: 100%;
+        background-color: white;
+        width: 0%;
+        clip-path: none;
+        z-index: 0;
+
+
+        }
         }
         &__welcome{
+            padding: 4rem 2rem 4rem 2rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -39,7 +78,36 @@
         border-radius: 0rem 0.4rem 0.4rem 0;
         background-color: #343a40;
     &::after{
+        height: 100%;
+        width: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        content: '';
 
+    }
+    &.toggled{
+        position: relative;
+        background-color: transparent;
+        width: 0%;
+        transition: all ease-in-out 1s;
+        z-index: 5;
+    &::after{
+        background-color:#343a40;
+        content: '';
+        display: flex;    
+    position: absolute;
+    top: 0;
+    transition: all ease-in-out 0.5s;
+    left:0;
+    height: 100%;
+    width: 100%;
+    //clip-path: polygon(0 17%, 0 57%, 17% 38%);
+    clip-path: circle(15.0% at 0 49%);
+
+}
+    
     }
     }
     }
@@ -47,35 +115,49 @@
 .form{
 &__createaccount{
     display: none;
-    border: solid red;
+    width: 0%;
+    transition: all ease-in-out 0.5s;
 &.toggled{
+    width: 100%;
+    transition: all ease-in-out 0.5s;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     display: flex;
+}
+}
+&__input{
+&.toggled{
+    display: none;
 }
 }
 
     &__login{
-        border: solid red;
         display: none;
         &.toggled{
             display: flex;
-            border: solid pink;
+            flex-direction: column;
         }
     }
     &__heading{
         color: white;
         font-size: 2rem;
+        &.toggled{
+            //color: #343a40;
+        }
     }
     &__paragraph{
         font-size: 1rem;
         color: white;
+    &.toggled{
+        //color: #343a40;
+    }
     }
     &__welcome{
-        border: solid orange;
         &.toggled{
             display: none;
         }
     &__login{
-        border: solid red;
     &.toggled{
         display: none;
     }

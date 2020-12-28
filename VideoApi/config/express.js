@@ -1,5 +1,5 @@
 const express = require("express");
-
+const bodyParser = require("body-parser");
 const app = express();
 const cors = require("cors");
 
@@ -16,6 +16,8 @@ module.exports = {
   app,
   router,
   server,
+  express,
   cors,
   initServer,
+  bodyParser
 };

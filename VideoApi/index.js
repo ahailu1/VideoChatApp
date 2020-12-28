@@ -1,11 +1,10 @@
-const bodyParser = require("body-parser");
-const { app, cors, initServer } = require("./config/express");
+const { app, cors, initServer, bodyParser, server } = require("./config/express");
 const { dbMethods } = require("./models/createuser");
-const { port, dbPassword } = require("./config/config.js");
+const socketio = require("socket.io");
 const iceCandidate = require("./router/getserver.js");
+let initSocket = require('./subscriptions/socketio');
 initServer();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+initSocket(server);
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-require('./router/index')(app); 
+let initRoute = require('./router/index')(app);
 

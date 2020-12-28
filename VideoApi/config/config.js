@@ -15,4 +15,5 @@ module.exports = {
   dbPassword: process.env.PGPASSWORD,
   dbName: process.env.PGDATABASE,
   dbPort: process.env.PGPORT,
+  secretKey : process.env.SECRET_KEY
 };

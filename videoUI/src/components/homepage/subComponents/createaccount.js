@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
 import {Form, Row, Col, InputGroup, FormControl, Button,Container} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Cookies from 'js-cookie';
 import axios from 'axios';
-import '../globalSass/variables.module.scss';
-import styles from './styles/createaccount.module.scss';
+//import '../../globalSass/app.scss';
+import styles from '../styles/createaccount.module.scss';
 
- const CreateAccountForm  = () => {
+ const CreateAccountForm  = (props) => {
    
 const [changeForm,initChange] = useState(true);
-const [error, toggleError] = useState(false);
+const [formError, toggleError] = useState(false);
+
     let toggleForm = (e) => {
         e.preventDefault();
         initChange(!changeForm);
     }
+
+let handleError = (text) => {
+    toggleError(text);
+    setTimeout(() => {
+        toggleError(false);
+    }, 5000);
+}
 
 let handleCreateAccount = async (e) => {
     e.preventDefault();
@@ -21,7 +30,7 @@ let handleCreateAccount = async (e) => {
     let confirmPassword = e.target.confirmPassword.value;
     let config = {
         method: 'post',
-        url : 'http://localhost:5000/',
+        url : 'http://localhost:5000/api/createaccount',
         data: {
             username,
             password,
@@ -29,18 +38,51 @@ let handleCreateAccount = async (e) => {
         }
     }
     if(password !== confirmPassword){
-        toggleError(true);
-        setTimeout(3000, () => {
-            toggleError(false);
-        });
-    }   
+        handleError('passwords dont match');
 
-    console.log(';creating account')
-    console.log(username);
-
+    } else if (false){
+        
+    } else {
+        try{
+            let response = await axios(config);
+            let {token} = response.data;
+            handleError('account successfully created');
+            props.handleAuthentication(username, token, true);
+        } catch (err) {
+            let errorData = err.response.data;
+            console.log(errorData);
+            let errorMsg = errorData.data.error;
+            handleError(errorMsg);
+  
+        }
+    }
 }    
-let handleLogin = (e) => {
-    console.log(';logging in')
+let handleLogin = async (e) => {
+    e.preventDefault();
+    let username = e.target.username.value;
+    let password = e.target.password.value;
+    let config = {
+        method: 'post',
+        url : 'http://localhost:5000/api/login',
+        data: {
+            username,
+            password,
+        }
+    }
+    try {
+        console.log(props);
+        let response = await axios(config); 
+        let {token} = response.data;
+        console.log([username, token]);
+        console.log(token);
+
+        props.handleAuthentication(username, token, true);
+
+    } catch (err) {
+        console.log(props);
+        handleError('couldnt login. Please re-enter your credentals and then try again');
+    }
+
 }
 
 const WelcomeForm = () => {
@@ -57,6 +99,7 @@ const LoginForm = () => {
     return (
         <>
 <h1>{changeForm ? "Create Account" : "Login"}</h1>
+<p class = {`${styles.error} ${styles.error && styles.toggled}`}>{formError && formError}</p>
 
 <Form onSubmit = {changeForm ? handleCreateAccount : handleLogin}>
      <Form.Row className = {`${styles.form__row}`}>
@@ -66,10 +109,10 @@ const LoginForm = () => {
  
  <InputGroup.Prepend>
      <InputGroup.Text>
-         <FontAwesomeIcon icon = "user"/>   
+         <FontAwesomeIcon icon = "user"/>    
      </InputGroup.Text>
  </InputGroup.Prepend>
- <FormControl id="username" placeholder="Username" required />
+ <FormControl id="username" placeholder="Username" pattern = {"[a-zA-Z0-9-_]{5,24}"} title = "please enter a combination of only numbers, letters,dashes and underscores. Username must be a minimum of 7 characters" required ={true} minLength = {5} maxLength = {24} />
 </InputGroup>
 
  </Form.Row>
@@ -81,7 +124,7 @@ const LoginForm = () => {
          <FontAwesomeIcon icon = "key"/>   
      </InputGroup.Text>
      </InputGroup.Prepend>
-     <FormControl id="password" placeholder="Password" required />
+     <Form.Control id="password" placeholder="Password" required = {true} />
      </InputGroup>
      </Form.Row>
      <Form.Row className = {`${styles.form__row}`}>
@@ -92,10 +135,9 @@ const LoginForm = () => {
      </InputGroup.Text>
      </InputGroup.Prepend>
 
-     <FormControl id="confirmPassword" placeholder="Confirm password" required />
+     <Form.Control id="confirmPassword" placeholder="Confirm password" minLength = {5} required = {!changeForm ? false : true} />
         <br/>
      </InputGroup>
-     <p class = {`${styles.error} ${styles.error && styles.toggled}`}>{error && "error"}</p>
      </Form.Row>
 
      <Button type="submit" variant = "dark">Submit form</Button>

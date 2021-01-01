@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Video from './components/video';
 import reportWebVitals from './reportWebVitals';
 import RouteApp from './components/router';
-import './globalStyles.scss';
 import './components/icons/iconLibrary';
 import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(

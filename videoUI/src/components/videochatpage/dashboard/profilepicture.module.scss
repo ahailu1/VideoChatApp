@@ -1,0 +1,38 @@
+@use '../../globalSass/app' as *;
+.yeahmon{
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    &__column{
+        border: solid red;
+        padding: 0 0 0 2rem;
+        width: 20%;
+    }
+    &__image{
+        background-color: whitesmoke;
+        //margin: 0 0 0 0.5rem;
+        padding: 2rem;
+        position: relative;
+        box-shadow: 0 0 2px 0 gray;
+    }
+    &__icon{
+
+    }
+}
+.icon{
+    color: $secondary-color;
+    font-size: 2rem;
+    position: absolute;
+    bottom: 9%;
+    left: 40%;
+    opacity: 0.75;
+    //box-shadow: 0 0 3px 0 gray;
+&:hover{
+    opacity: 1;
+    font-size: 2.5rem;
+    color: #0c68f1;
+}
+}
+

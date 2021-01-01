@@ -1,0 +1,25 @@
+.Dashboard{
+    display: flex;
+    flex-direction: column;
+    border: solid red;
+}
+.flex-columm{
+    border: solid green;
+}
+.container{
+    &__columnaz{
+        padding: 0rem !important;
+        display: flex;
+    }
+    &__document{
+        height: 100vh;
+    }
+    &__row{
+        height: 100%;
+    }
+    &__list{
+        width: 100%;
+        flex-grow: 1;
+        margin-left: -1rem;
+    }
+}

@@ -11,7 +11,6 @@ router.post("/createaccount", async (req,res) => {
     if(results === true){
       console.log(results);
       let token = await createToken(username);
-      console.log(token + ' faggot');
       res.status(200).send({ data: token });
     } else {
       console.log(item);

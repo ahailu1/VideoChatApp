@@ -9,6 +9,7 @@ router.post('/login', async (req, res) => {
     let confirmPassword = await loginUser(username, password);
     console.log(confirmPassword + 'faaa');
     let token = await createToken(username);
+    //confirm token
     if(confirmPassword){
         res.status(200).send({
     token});

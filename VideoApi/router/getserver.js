@@ -6,11 +6,10 @@ router.get("/:username", async (req, res, next) => {
   
   try{
     let iceServers = await getIceToken();
-    console.log(iceServers);
     res.status(200).send({iceServers: iceServers});
   } catch (err) {
     res.status(422).send({error: 'couldnt fetch ice servers'})
-    throw new Error();
+    throw new Error(err);
   }
 });
 

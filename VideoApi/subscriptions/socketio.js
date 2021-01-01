@@ -10,15 +10,19 @@ const io = socketio(server, {
     allowedHeaders: ["my-custom-header"],
     credentials: true,
   },
-})
-;
+});
+
 io.on("connection", (socket) => {
-  console.log("aaaaaaa");
-  socket.on("message", (data) => {
-    console.log(data);
-    socket.emit('message', 'helloworld');
+  socket.on('initsession', (data) => {
+      console.log(data)
+      console.log(data.recipient + ' is here');
+      let username = data.recipient;
+      let thisData = data;
+      socket.emit('testing', 'phaggot')
+    socket.emit(`${username}`, thisData);
+    });
   });
-})
+
 };
 
 module.exports = initSocket;

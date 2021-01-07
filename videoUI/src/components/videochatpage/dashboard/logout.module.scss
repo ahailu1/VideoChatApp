@@ -1,0 +1,12 @@
+.dropdown{
+    &__container{
+        width: 100% !important;
+        display:flex !important;
+        flex-grow: 1;
+    
+    &__toggle{
+        border: solid orange;
+        width: 100%;
+    }
+    }
+}

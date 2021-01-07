@@ -1,17 +1,16 @@
 FROM node:latest
 
-RUN mkdir -p /usr/app/src
-RUN mkdir -p /usr/app/src/VideoApi
+RUN mkdir -p /var/www
 
-WORKDIR /app/src/VideoApi
+WORKDIR /var/www/
 
-COPY package*.json ./
+COPY package*.json ./var/www/
 
 RUN npm install
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 5000 5432
 
 CMD ["npm", "start"]
 

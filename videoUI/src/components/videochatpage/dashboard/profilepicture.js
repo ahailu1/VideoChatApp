@@ -63,6 +63,7 @@ e.preventDefault();
 return (
 <>
 <Col sm = {2} xs = {4} lg = {12} className = {styles.container__image}>
+
 <Image src = {imageUrl !== "" ? imageUrl : "/logo192.png"} thumbnail className = {styles.imageaz} />
 <FontAwesomeIcon type = "submit" icon = "pencil-alt" className = {styles.icon} onClick = {handleFileSelect} />
 </Col>

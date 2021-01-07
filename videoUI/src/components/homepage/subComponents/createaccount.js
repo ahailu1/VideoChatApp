@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 //import '../../globalSass/app.scss';
-import styles from '../styles/createaccount.module.scss';
+import styles from './createaccount.module.scss';
 
  const CreateAccountForm  = (props) => {
    
@@ -70,12 +70,10 @@ let handleLogin = async (e) => {
         }
     }
     try {
-        console.log(props);
         let response = await axios(config); 
         let {token} = response.data;
         console.log([username, token]);
         console.log(token);
-
         props.handleAuthentication(username, token, true);
 
     } catch (err) {
@@ -150,10 +148,13 @@ const LoginForm = () => {
    
     return(
     <>
-<Container className = {`${styles.testing}`}>
+<Container className = {`${styles.testing}`} fluid>
 <Row className = {`${styles.row} ${!changeForm && styles.toggled}`}>
-    
-    <Col className = {`${styles.form__column} ${!changeForm && styles.toggled}`}>
+
+<Col lg = {8} className = {styles.column__one}>
+
+    <Col className = {`${styles.form__column} ${!changeForm && styles.toggled}`} lg = {6}>
+        
         <div className = {`${styles.form__createaccount} ${changeForm && styles.toggled}`}> 
     <LoginForm/>
     </div>
@@ -161,8 +162,6 @@ const LoginForm = () => {
         <WelcomeForm/>
     </div>
     </Col>
-
-
     <Col className = {`${styles.form__column__welcome} ${!changeForm && styles.toggled}`} lg = {6} center = "lg">
 
         <div className = {`${styles.form__login} ${!changeForm && styles.toggled}`}> 
@@ -172,6 +171,11 @@ const LoginForm = () => {
         <WelcomeForm/>
     </div>
     </Col>
+    </Col>
+<Col lg = {4}>
+    <h1>hello alex</h1>
+</Col>
+
     </Row> 
     </Container>
     </>   

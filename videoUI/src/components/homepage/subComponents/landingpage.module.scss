@@ -1,0 +1,63 @@
+@use '../main.scss' as *;
+.container{
+    &__landing{
+        display: flex;
+    background-color: $secondary-color;
+    //background-image: url('../../images/bg1.jpg');
+    background-size: cover;
+    padding: 3rem;
+    background-position: top 25%;
+    }
+&__column{
+}
+}
+
+.text{
+    &__header{
+        color: $primary-color;
+        font-size: 3rem;
+        font-weight: 700;
+
+    }
+    &__paragraph{
+        font-weight: 400;
+        color: $primary-color;
+        font-size: 1.5rem;
+    }
+    color: $primary-color;
+    &__button{
+
+    &:hover{
+        color: white;
+        background-color: grey;
+    }}
+}
+.columnaz{
+    margin: 3rem 0 0 1rem;
+    padding: 6rem 2rem 2rem 15rem !important;
+}
+
+.image{
+    perspective: 25rem;
+    animation: laughing ease-in-out 5s infinite;
+}
+@keyframes laughing {
+
+0%{
+transform: translate(-5rem, 5rem);
+}
+
+50%{
+
+    transform: translate(5rem, 3rem) perspective(25rem) rotate(30deg);
+
+}
+
+100%{
+    opacity: 1;
+    transform: translate(-5rem, 5rem);
+
+}
+
+
+}

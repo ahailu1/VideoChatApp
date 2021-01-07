@@ -5,6 +5,7 @@ import VideoUi from './videodesign/myvideo';
 import Dashboard from './dashboard/sidebar';
 import Profilepicture from './dashboard/profilepicture';
 import styles from './videochat.module.scss';
+import Logout from './dashboard/logout';
 const Initvideo = (props) => {
 
 useEffect(() => {
@@ -18,12 +19,18 @@ useEffect(() => {
 return( <div className = {styles.container__document}>
     <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
  <Row className = {styles.container__row}>
-    <Col lg = {3}>
+    
+    
+    <Col lg = {3} className = {styles.container__first}>
+    <Logout lg = {3} handleLogout = {props.handleLogout}/>
+
 
     <Profilepicture userdata = {props.userdata}/>    
 
+
     <Col lg = {12} className = {styles.container__columnaz}>
     <ListGroup className = {styles.container__list}>
+   
         <ListGroup.Item action href="#link1">
           Link 1
         </ListGroup.Item>
@@ -32,6 +39,9 @@ return( <div className = {styles.container__document}>
         </ListGroup.Item>
       </ListGroup>
     </Col>
+
+
+
 
     </Col>
 

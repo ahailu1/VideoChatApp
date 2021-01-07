@@ -5,6 +5,6 @@ const iceCandidate = require("./router/getserver.js");
 let initSocket = require('./subscriptions/socketio');
 initServer();
 initSocket(server);
+console.log('faat');
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 let initRoute = require('./router/index')(app);
-

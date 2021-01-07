@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Video from './components/video';
 import reportWebVitals from './reportWebVitals';
 import RouteApp from './components/router';
 import './components/icons/iconLibrary';

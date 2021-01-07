@@ -13,24 +13,33 @@ const RouterApp = (props) => {
     useEffect(() => {
         let userdata = Cookies.get('userdata');
         if(userdata === 'undefined' || userdata === undefined){
+            console.log(userdata);
                 authenticate(false);
             } else {
                 let info = JSON.parse(userdata);
                 let {username, token, authenticated} = info;
-                        authenticate(true);
                 setUserData({username, token, authenticated});
+                authenticate(true);
             }
         }, []);
 
     let handleAuthentication = (username, token, isAuthenticated) => {
         if(isAuthenticated === true){
             Cookies.set('userdata', {username: username, token: token, authenticated: true});
+            console.log(username + 'whaat');
+            setUserData({username, token, isAuthenticated});
             authenticate(true);          
   
         } else {
             authenticate(false);
         }      
 
+    }
+
+    let handleLogout = () => {
+        Cookies.remove('userdata');
+        setUserData({});
+        authenticate(false);
     }
 
 
@@ -40,14 +49,16 @@ const RouterApp = (props) => {
         <Route exact path = "/" render = { (props) => {
             let {username, token, authenticated} = userData;
             return (
-          !isLogged ? (<SectionOne handleAuthentication = {handleAuthentication}/>) : 
-                    <Redirect to = {`/dashboard/${username}`} />
+          isLogged ? (<Redirect to = {`/dashboard/${username}`} />) : 
+                    <SectionOne handleAuthentication = {handleAuthentication}/>
           )
         } }>
             </Route>
             <Route path = "/dashboard/:username" render = {(props) => {
-                return ( <Initvideo userdata = {userData}/>
-                    )
+               return  (isLogged ?
+                ( <Initvideo userdata = {userData} handleLogout = {handleLogout}/>
+                    ) : (<Redirect to = {`/`} />)
+               )
             }}/>
         </Switch>
         </Router>

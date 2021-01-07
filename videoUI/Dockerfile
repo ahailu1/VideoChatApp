@@ -1,11 +1,10 @@
 FROM node:latest
 
-RUN mkdir -p /usr/app/src/
-RUN mkdir -p /usr/app/src/videoUI
+RUN mkdir -p /var/www
 
-WORKDIR /app/src/videoUI
+WORKDIR /var/www
 
-COPY package*.json ./
+COPY package*.json /var/www
 
 RUN npm install
 

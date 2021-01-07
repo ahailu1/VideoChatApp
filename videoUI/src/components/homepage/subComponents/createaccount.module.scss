@@ -1,3 +1,5 @@
+@use '../main.scss' as * ;
+
 @mixin afterEffect {
     position: absolute;
     top: 0;
@@ -6,13 +8,21 @@
     display: flex;
 
 }
+.column__one{
+    display: flex;
+    box-shadow: 0 0 3px 0;
+    margin: 1rem 0 0 0em;
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+    padding: 0 !important;
+}
 .error{
     font-size: 0.75rem;
     color: black;
     font-weight: 700;
 }
 .testing{
-    border: solid #343a40;
+        //border-top: none;
+            z-index: 5;
     border-radius: 0.5rem;
 }
 .input__group{
@@ -25,18 +35,19 @@
     }
     }
     &__column{
+        background-color: $primary-color;
         position: relative;
         width: 0%;
         transition: all ease-in-out 0.5s;
-        flex-direction: column;
         align-items: center;
         padding: 4rem 2rem 4rem 2rem;
         position: relative;
         display: flex;
         justify-content: center;
         z-index: 10;
+         border-radius: 0.5rem 0 0 0.5rem;
         &::after{
-            background-color:#343a40;
+            background-color:$secondary-color;
             content: '';
             display: flex;    
         position: absolute;
@@ -52,7 +63,7 @@
             width: 100%;
             z-index: 1;
             position: relative;
-            background-color: #343a40;
+            background-color: $secondary-color;
         &::after{
             content: '';
             display: flex;    
@@ -60,7 +71,6 @@
         top: 0;
         transition: all ease-in-out 0.5s;
         left:0;
-        height: 100%;
         background-color: white;
         width: 0%;
         clip-path: none;
@@ -76,7 +86,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 0rem 0.4rem 0.4rem 0;
-        background-color: #343a40;
+        background-color: $secondary-color;
     &::after{
         height: 100%;
         width: 0;
@@ -85,16 +95,15 @@
         left: 0;
         display: flex;
         content: '';
-
     }
     &.toggled{
         position: relative;
-        background-color: transparent;
         width: 0%;
+        background-color: whitesmoke;
         transition: all ease-in-out 1s;
         z-index: 5;
     &::after{
-        background-color:#343a40;
+        background-color:$secondary-color;
         content: '';
         display: flex;    
     position: absolute;

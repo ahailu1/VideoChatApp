@@ -1,0 +1,68 @@
+@use '../../globalSass/app' as *;
+
+
+@mixin afterEffect {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: flex;
+    content: '';
+    transform: rotate(-45deg);
+    width: 4px;
+    height: 95%;
+    //border: solid lighten($third-color, 25%);
+    background-color: darken(red, 10%);
+    transition: all ease-in-out 0.5s;
+
+}
+
+.video, .mic{
+    color: red;
+    &.toggled{
+        border: solid red;
+        color: $third-color;
+    }
+}
+
+.container{
+
+&__icon{
+    justify-content: flex-start;
+    display: flex;
+    padding: 1rem 1rem 0.75rem 0.75rem;
+    border: none;
+}
+&__iconfont{
+
+opacity: 0.75;
+display: flex;
+color: whitesmoke;
+justify-content: center;
+align-items: center;
+height: 3.5rem;
+width: 3.5rem;
+border-radius: 50%;
+font-size: 1.5rem;
+position: relative;
+transition: all ease-in-out 0.5s;
+&:hover{
+cursor: pointer;
+color: lighten($third-color, 25%);
+background-color: $primary-color;
+}
+&:hover::after{
+    @include afterEffect;
+}
+&.toggled, &__iconfont{
+    color: $third-color;
+    background-color: $primary-color;
+}
+&.toggled::after{
+    @include afterEffect;
+
+}
+}
+&__iconfont:nth-child(2){
+    margin: 0 1rem 0 1rem;
+}
+}

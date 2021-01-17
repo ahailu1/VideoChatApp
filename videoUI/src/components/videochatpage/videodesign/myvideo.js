@@ -1,12 +1,22 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import {Col, Button} from 'react-bootstrap';
+import {Col, Button, Row} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import io from 'socket.io-client';
+import SetIcon from './toggleicon';
+import styles from './myvideo.module.scss';
 const VideoUi = (props) => {
 
    let [socket, initSocket] = useState(io('http://localhost:5000'));
    let [inputVal, setInput] = useState('');
    let [iceServers, setServers] = useState([]);
+   let [countdown, setTimer] = useState(15);
+   let [thisStream, setStream] = useState('');
+   let [screen, toggleScreen] = useState(true);
+   let [thisMic, toggleMic] = useState(true);
+   let [thisVideo, toggleVideo] = useState(true);
+
+
     useEffect(  () => {
         fetchData();
     }, []);
@@ -16,6 +26,7 @@ let fetchData = async () => {
     await initMediaDevice();
     await peerAnswer();
     testSocket();
+    timer(10);
 
 }
 
@@ -137,13 +148,28 @@ const handleRequest = async (e)=> {
         })
     }
 
-
-
     let initMediaDevice = async () => {
             try {
-                let item = await navigator.mediaDevices.getUserMedia({video:true, audio: true});
                 let devices = await navigator.mediaDevices.enumerateDevices();
+                let deviceId = devices[2].toJSON();
+                console.log(deviceId);
+                let constraints = {
+                    'video': true,
+                    'audio' : {
+                        'deviceId': deviceId,
+                        'echoCancellation': true
+                    }
+                }
+                let item = await navigator.mediaDevices.getUserMedia(constraints);
+                setStream(item);
+                let edit = item.getAudioTracks()[0];
+                let videoTracks = item.getVideoTracks();
+               
+                console.log(videoTracks);
+                await edit.applyConstraints(deviceId);
+                console.log(edit);
                 let vid = document.getElementById('myvid');
+                
                 vid.srcObject = item;
                 return item;
             } catch(err) {
@@ -151,11 +177,40 @@ const handleRequest = async (e)=> {
             }
     }
 
+    let timer =  (item) => {
+        if(item > 0){
+            setTimeout(() => {
+                item--
+                setTimer(item);
+                return timer(item);
+    
+            }, 1000);
+        }
+    }
+    let toggleIcons = (iconname) => {
+        if(iconname === 'video'){
+            toggleVideo(!thisVideo);
+            thisStream.getVideoTracks().forEach(el => {
+                el.enabled = !thisVideo;
+            })
+        } else if (iconname === 'mic'){
+            toggleMic(!thisMic);
+
+            thisStream.getAudioTracks().forEach(el => {
+                el.enabled = !thisMic;
+            })
+        } else {
+
+        }
+
+    }
+
+   
+    
 
     return (
-        <Col>
-<h1>hello world</h1>
-
+        <Row className = {styles.container__videopage}>
+            <Col className = {styles.container__column} noGutters = {true} lg = {4}>
 <form name = "submitform" onSubmit = {handleRequest}>
 
 <input type = "text" name = "request"/>
@@ -167,11 +222,22 @@ const handleRequest = async (e)=> {
     <source type = "video/mpg"/>
     </video>
 
-    <video autoplay playsinline controls="false" id = 'friendvid'>
+        <div className = {styles.container__icon}>
+            <SetIcon icon = {thisVideo} iconName = 'video' callBack = { () => {toggleIcons('video') }}/>
+            <SetIcon icon = {thisMic} iconName = 'microphone' callBack = { () => {toggleIcons('mic') }}/>
+        </div>
+        </Col>
+        <Col lg = {2} className = {styles.container__column__count}>
+        <div className = {styles.container__count}>
+            <p className = {styles.text}>{countdown}</p>
+        </div>
+        </Col>
+        <Col lg = {4}>
+        <video autoplay playsinline controls="false" id = 'friendvid'>
     <source type = "video/mpg"/>
     </video>
         </Col>
-        
+        </Row>
     )
 }
 

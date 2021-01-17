@@ -1,58 +1,68 @@
 import React, {useState, useEffect} from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
-import {Row,Nav, Col, Container,ListGroup, Tab} from 'react-bootstrap';
+import {Row,Nav, Col, Container,ListGroup, Collapse, Tab} from 'react-bootstrap';
 import VideoUi from './videodesign/myvideo';
-import Dashboard from './dashboard/sidebar';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Profilepicture from './dashboard/profilepicture';
 import styles from './videochat.module.scss';
 import Logout from './dashboard/logout';
+import ListBar from './dashboard/listgroup';
 const Initvideo = (props) => {
 
 useEffect(() => {
     console.log(props);
     let {username, token, authenticated} = props.userdata;
     console.log(username);
-
 });
+  let [arrow, setArrow] = useState(true);
+
+let toggleSidebar = () => {
+  setArrow(!arrow);
+}
+
 
 
 return( <div className = {styles.container__document}>
-    <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+    <Tab.Container defaultActiveKey="#link1">
  <Row className = {styles.container__row}>
     
+    <Col lg = {arrow ? 2 : 1} className = {styles.container__first}>
     
-    <Col lg = {3} className = {styles.container__first}>
-    <Logout lg = {3} handleLogout = {props.handleLogout}/>
+    <Col sm = {2} xs = {4} lg = {12} className = {styles.container__image}>
+    <Profilepicture userdata = {props.userdata}/>   
+    </Col> 
 
+    <Col lg = {12} className = {`${styles.container__icon} ${!arrow && styles.toggled}`} onClick = {toggleSidebar}>
+      <div className = {`${styles.icon__div} ${!arrow && styles.toggled}`}>
 
-    <Profilepicture userdata = {props.userdata}/>    
+      {arrow ?   <FontAwesomeIcon icon = 'arrow-left' className = {`${styles.icon} `}/>
+:   <FontAwesomeIcon icon = 'arrow-right' className = {`${styles.icon} ${!arrow && styles.toggled}`}/>
+}
+    </div>
 
+    </Col>
 
     <Col lg = {12} className = {styles.container__columnaz}>
-    <ListGroup className = {styles.container__list}>
-   
-        <ListGroup.Item action href="#link1">
-          Link 1
-        </ListGroup.Item>
-        <ListGroup.Item action href="#link2">
-          Link 2
-        </ListGroup.Item>
-      </ListGroup>
+    <ListBar arrow = {arrow}/>
     </Col>
 
 
+    
+    <Logout lg = {12} handleLogout = {props.handleLogout}/>
 
 
     </Col>
-
-    <Col>
-    <Tab.Content>
-        <Tab.Pane eventKey="#link1">
+    <Col className = {styles.container__column__tabcontent}>
+    <Tab.Content className = {styles.container__tabcontent}>
+        <Tab.Pane eventKey="#link1" className = {styles.container__tabpane}>
             <VideoUi userdata = {props.userdata}/>
-        <h2>idiot</h2>
         </Tab.Pane>
         <Tab.Pane eventKey="#link2">
-        <h2>hello world</h2>
+        </Tab.Pane>
+        <Tab.Pane eventKey="#link3">
+        </Tab.Pane>
+        <Tab.Pane eventKey="#link">
+        </Tab.Pane>
+        <Tab.Pane eventKey="#link2">
         </Tab.Pane>
       </Tab.Content>
     </Col>

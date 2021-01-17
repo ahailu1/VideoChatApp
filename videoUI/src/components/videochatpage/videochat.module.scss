@@ -1,29 +1,104 @@
+@use '../globalSass/app' as *;
 .Dashboard{
     display: flex;
     flex-direction: column;
-    border: solid green;
     }
-.flex-columm{
-    border: solid green;
-}
+
 .container{
+    &__document{
+        overflow-x: hidden;
+    }
+    &__image{
+        background-color: $third-color;
+        margin: 1rem 0 1rem 0rem;
+        padding: 0rem 0rem 0rem 0rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__column{
+    &__tabcontent{
+        margin: 0 !important;
+        width: 100%;
+        padding: 0 !important;
+        box-sizing: border-box;
+    }
+}
+&__tabcontent{
+    height: 100%;
+    width:100%;
+}
     &__first{
-        height: 99vh;
+        
+                height: 99vh;
+        background-color: $third-color;
+        padding: 0rem 0.5rem 0rem 1.5rem !important;
+        border-right: solid whitesmoke 3px;
+        transition: all ease-in-out 0.5s;
+    }
+    &__tabpane{
+        overflow-x: hidden;
+        height: 100%;
+        width: 100%;
+        margin: 0rem !important;
+        padding: 0 !important;
+        background-color: $third-color;
     }
     &__columnaz{
-        width: 100% !important;
         padding: 0rem !important;
         display: flex;
-        border-radius: 0 !important; 
+
     }
-    &__document{
+ 
+}
+
+.container{
+
+&__icon{
+    width: 100%;
+    margin: 1.5rem 0rem 0.5rem 0rem;
+    //background-color: lighten($third-color, 5%);
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    transition: all ease-in-out 0.5s;
+
+&.toggled{
+    transition: all ease-in-out 0.5s;
+    justify-content: center;
+
+}
+}
+
+}
+.icon{
+    border-radius: 50%;
+    font-size: 1.5rem;
+    color: $primary-color;
+    &.toggled{
+        font-size: 1rem;
     }
-    &__row{
-        height: 100%;
+    &__div{
+        //border: solid $primary-color;
+        display: flex;
+        align-self: flex-end;
+        justify-content: center;
+        align-items: center;
+        height: 3rem;
+        width: 3rem;
+        background-color: lighten($third-color, 10%);
+        border-radius: 50%;
+    &.toggled{
+        height: 2.5rem;
+        width: 2.5rem;
+        transition: all ease-in-out 0.5s;
     }
-    &__list{
-        border-radius: 0 !important;
-        width: 100%;
-        flex-grow: 1;
-    }
+}
+&:hover{
+    cursor: pointer;
+    color: darken($primary-color, 25%);
+    font-size: 1.5rem;
+    transition: all ease-in-out 0.25s;
+}
 }

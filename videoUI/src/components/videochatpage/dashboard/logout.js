@@ -8,7 +8,6 @@ const Logout = (props) => {
 
 return (
     <>
-<div>
 <DropdownButton className = {styles.dropdown__container} lg = {12} as = {ButtonGroup} title = "Logout">
 
 
@@ -18,7 +17,6 @@ Logout
 
 </DropdownButton>
 
-</div>
 </>
 )
 

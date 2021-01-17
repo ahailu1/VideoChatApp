@@ -1,9 +1,11 @@
+@use '../../globalSass/app' as *;
+
 .dropdown{
     &__container{
         width: 100% !important;
         display:flex !important;
         flex-grow: 1;
-    
+        background-color: $third-color !important;
     &__toggle{
         border: solid orange;
         width: 100%;

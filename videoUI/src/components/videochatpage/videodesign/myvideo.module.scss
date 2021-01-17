@@ -1,0 +1,47 @@
+@use '../../globalSass/app' as *;
+.container{
+&__videopage{
+    margin: 0 !important;
+    padding: 0!important;
+    position: relative;
+    box-sizing: border-box;
+}
+
+
+    &__column{
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex;
+        box-shadow: 0 0 1px 0 whitesmoke;
+        flex-direction: column;
+        height: 100%;
+    &__count{
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+    }
+    &__count{
+        height: 10rem;
+        width: 10rem;
+        border-radius: 50%;
+        background-color: lighten($third-color, 5%);
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    &__icon{
+        justify-content: flex-start;
+        display: flex;
+        padding: 1rem 1rem 0.75rem 0.75rem;
+        border: none;
+    }
+}
+.text{
+    text-transform: capitalize;
+    font-size: 3rem;
+    color: white;
+}

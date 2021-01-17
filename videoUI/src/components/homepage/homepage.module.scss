@@ -53,6 +53,14 @@
 }
 
 .row{
+    &__svg{
+    
+        position: absolute;
+        left : 35%;
+        z-index: 5;
+        opacity: 0.15;
+        top: -10rem;
+    }
     &__container__heading{
         background-color: $primary-color;
         justify-content: center;

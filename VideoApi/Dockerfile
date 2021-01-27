@@ -8,6 +8,8 @@ COPY package*.json ./var/www/
 
 RUN npm install
 
+
+
 COPY . .
 
 EXPOSE 5000 5432

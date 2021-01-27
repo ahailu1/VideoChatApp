@@ -9,7 +9,7 @@ const { port } = require("./config.js");
 
 const initServer = () => {
   server.listen(port, (err) => {
-    console.log("i tried");
+    console.log("server listening on port" + port);
   });
 };
 module.exports = {

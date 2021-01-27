@@ -1,10 +1,9 @@
-const { app, cors, initServer, bodyParser, server } = require("./config/express");
+const { app, cors, initServer, bodyParser, server, router } = require("./config/express");
 const { dbMethods } = require("./models/createuser");
 const socketio = require("socket.io");
 const iceCandidate = require("./router/getserver.js");
 let initSocket = require('./subscriptions/socketio');
 initServer();
 initSocket(server);
-console.log('faat');
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "*" }));
 let initRoute = require('./router/index')(app);

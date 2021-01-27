@@ -8,7 +8,7 @@ const io = socketio(server, {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
-    credentials: true,
+    credentials: false,
   },
 });
 

@@ -97,7 +97,7 @@ const handleRequest = async (e)=> {
     let initIceServers = async () => {
         let {username} = props.userdata;
         let config = {
-            url: 'http://localhost:5000/iceservers/:username',
+            url: `http://localhost:5000/api/iceservers/${username}`,
             method: 'get',
             data: {
                 username: username
@@ -113,16 +113,11 @@ const handleRequest = async (e)=> {
         socket.on(`${username}`, async data => {   
             if(data.recipient === username ){
                 let answer = data.answer;
-                console.log(answer);
-                console.log('still here')
-                console.log(data);
                 let remoteDescription = new RTCSessionDescription(answer);
                 await peerConnection.setRemoteDescription(remoteDescription);
              }
             });
         } catch (err) {
-
-            throw new Error(err);
         }
 }
 

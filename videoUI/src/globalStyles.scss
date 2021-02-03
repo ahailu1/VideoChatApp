@@ -1,6 +1,6 @@
 @use './components/globalSass/app' as *;
 *, body{
-    margin: 0;
+    margin: 5rem;
     padding: 0;
     box-sizing: border-box;
     border: $primary-color;

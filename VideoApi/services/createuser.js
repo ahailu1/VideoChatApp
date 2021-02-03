@@ -12,11 +12,11 @@ let checkUsers = async (username) => {
             }
             return getUsers;
 } catch (err) {
+    console.log('database error');
     throw new Error(err);
     }
 }
 let insertUsers = async (username, password, confirmPassword) => {
-    //let checkExistance = await dbMethods.checkUsers(username);
     let errors = {};
     let saltRounds = 10;
     let regex = /^[a-zA-Z0-9-_]{7,}$/;
@@ -27,28 +27,37 @@ let insertUsers = async (username, password, confirmPassword) => {
     console.log(checkExistance);
     if(!regexTestUsername){
         errors.error = "invalid username";
-        console.log('adfsafd');
-
+        errors.authenticated = false;
         return errors
     } else if(checkExistance === true){
         console.log('hello world');
+        errors.authenticated = false;
         errors.error = "username already exists"
         return errors;
     } else if (password !== confirmPassword){
         console.log('sdfdfsfdsfdsdfs');
-        errors.error = "passwords dont match"
-        return errors
+        errors.authenticated = false;
+        errors.error = "passwords dont match";
+        return errors;
     } else if (passwordTest === false) { 
-        console.log('vanauley');
-        errors.error = 'password is too short'
+        errors.authenticated = false;
+        errors.error = 'password is too short';
         return errors;
     } else { 
         try {
+
             let password = await bcrypt.hash(userPassword, saltRounds);
-        await dbMethods.insertUsers(username, password);
-        return true
+        let user_id = await dbMethods.insertUsers(username, password);
+        let initAcc = {
+            authenticated: true,
+            user_id : user_id[0].user_id,
+        }
+        return initAcc
         } catch(err) {
-            throw new Error(err);
+            console.log('some error');
+            errors.authenticated = false
+            errors.error = 'network error';    
+            return errors;
         }
     }
 }

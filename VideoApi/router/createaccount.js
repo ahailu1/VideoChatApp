@@ -1,23 +1,22 @@
 const { router } = require("../config/express.js");
-let {insertUsers} = require('../services/getUsers');
+let {insertUsers} = require('../services/createuser');
 const {createToken} = require('../services/generateToken');
 router.post("/createaccount", async (req,res) => {
   const { username, password, confirmPassword } = req.body;
-  console.log([username,password, confirmPassword]);
   try {
     let item = await insertUsers(username,password,confirmPassword);
-    let results = item;
+    console.log('here phaggots');
 
-    if(results === true){
-      console.log(results);
+    let {authenticated, user_id} = item;
+    console.log([authenticated, user_id, 'phaggot']);
+    if(authenticated === true){
       let token = await createToken(username);
-      res.status(200).send({ data: token });
+      res.status(200).send({ token: token, user_id: user_id });
     } else {
-      console.log(item);
       res.status(422).send({data:item});
     }
   } catch (err) {
-    res.status(422).send({err: err});
+    res.status(422).send({data: 'eriiisfdfdsfdsror'});
   }
 });
 

@@ -29,7 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "initdocker": "docker create --name frontend_container -p 3000:3000 -v frontend_volume:/var/www frontend_image",
-    "dockerstart": "docker start -i frontend_container",
+    "dockerstart": "docker start --interactive frontend_container",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

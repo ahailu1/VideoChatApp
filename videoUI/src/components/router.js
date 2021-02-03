@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 const RouterApp = (props) => {
 
     const [isLogged, authenticate] = useState(false);
-    const [userData, setUserData] = useState({username: "", token: "", authenticated: false});
+    const [userData, setUserData] = useState({username: "", token: "", authenticated: false, user_id: ''});
 
     useEffect(() => {
         let userdata = Cookies.get('userdata');
@@ -17,17 +17,17 @@ const RouterApp = (props) => {
                 authenticate(false);
             } else {
                 let info = JSON.parse(userdata);
-                let {username, token, authenticated} = info;
-                setUserData({username, token, authenticated});
+                let {username, token, authenticated, user_id} = info;
+                setUserData({username, token, authenticated, user_id});
                 authenticate(true);
             }
         }, []);
 
-    let handleAuthentication = (username, token, isAuthenticated) => {
+    let handleAuthentication = (username, token, isAuthenticated, user_id) => {
         if(isAuthenticated === true){
-            Cookies.set('userdata', {username: username, token: token, authenticated: true});
+            Cookies.set('userdata', {username: username, token: token, authenticated: true, user_id: user_id});
             console.log(username + 'whaat');
-            setUserData({username, token, isAuthenticated});
+            setUserData({username, token, isAuthenticated, user_id});
             authenticate(true);          
   
         } else {

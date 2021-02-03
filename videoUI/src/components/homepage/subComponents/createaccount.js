@@ -45,9 +45,10 @@ let handleCreateAccount = async (e) => {
     } else {
         try{
             let response = await axios(config);
-            let {token} = response.data;
+            let {token, user_id} = response.data;
+            console.log(['userid is a phaggot', user_id, token]);
             handleError('account successfully created');
-            props.handleAuthentication(username, token, true);
+            props.handleAuthentication(username, token, true, user_id);
         } catch (err) {
             let errorData = err.response.data;
             console.log(errorData);
@@ -71,10 +72,9 @@ let handleLogin = async (e) => {
     }
     try {
         let response = await axios(config); 
-        let {token} = response.data;
-        console.log([username, token]);
-        console.log(token);
-        props.handleAuthentication(username, token, true);
+        let {token,user_id} = response.data;
+        console.log([user_id, token, 'moron']);
+        props.handleAuthentication(username, token, true, user_id);
 
     } catch (err) {
         console.log(props);
@@ -101,8 +101,6 @@ const LoginForm = () => {
 
 <Form onSubmit = {changeForm ? handleCreateAccount : handleLogin}>
      <Form.Row className = {`${styles.form__row}`}>
-
-
 <InputGroup className = {`${styles.input__group}`}>
  
  <InputGroup.Prepend>

@@ -4,25 +4,19 @@ services:
         build: ./videoUI
         ports: 
             - "3000:3000"
-        container_name: videoui-docker
+        volumes:
+            - ${pwd}/videoUI/frontend_volume:var/www
+        container_name: frontend_compose_container
         restart: always
         links:
             - backend
-    
     backend:
         build: ./VideoApi
         ports : 
             - "5000:5000"
-        container_name: videoapi-docker
-        restart: always
-        links:
-            - db
-
-    db : 
-        image: postgres:latest
-        ports: 
-            - "5432:5432"
-        container_name: database-docker
+        volumes: 
+            - ${pwd}/VideoApi/videoapi_volume:/var/www
+        container_name: videoapi_compose_container
         restart: always
 
 

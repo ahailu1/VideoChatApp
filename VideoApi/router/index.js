@@ -6,7 +6,7 @@ let loginUser = require('./login');
 let iceServer = require('./getserver');
 let uploadImage = require('./uploadProfile');
 let fetchAllUsers = require('./userdata');
-
+let addfriend = require('./friendshipstatus');
 module.exports = (app) => {
     app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -15,4 +15,6 @@ app.use('/api', [fileLimit,jsonLimit, uploadImage]);
 app.use('/api', createAccount.router);
 app.use('/api', loginUser.router);
 app.use('/api', iceServer);
+app.use('/api', addfriend);
+
 }

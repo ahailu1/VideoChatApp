@@ -7,7 +7,7 @@ const ListBar = (props) => {
     
     let [tabSelect, setActive] = useState('one');
 
-    let tabLink = (classname, href, name, iconname) => {
+    let tabLink = (classname, href = null, name, iconname) => {
         return(
         
         <ListGroup.Item action href = {href} className = {`${styles.container__listitem} ${tabSelect === classname && styles.one} ${props.arrow && styles.toggleagain}`} onClick = {() => {setActive(classname)}}>
@@ -24,9 +24,10 @@ return (
     <ListGroup className = {`${styles.container__list} ${!props.arrow && styles.toggled}`}>
     {tabLink('one', '#link1', 'Home', 'home')}
       {tabLink('two', '#link2', 'Friends', 'user')}
-      {tabLink('three', '#link3', 'alex')}
-      {tabLink('four', '#link4', 'alex')}
+      {tabLink('three', '#link3', 'Notifications', 'bell')}
+      {tabLink('four', '#search', 'Search', 'search-plus')}
       {tabLink('five', '#link5', 'alex')}
+
       </ListGroup>
       </>
 )

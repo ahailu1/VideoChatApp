@@ -6,7 +6,7 @@ import axios from 'axios';
 const Profilepicture = (props) => {
 
 
-  let [imageUrl, setImage] = useState('/test123--profilepicture.jpg');
+  let [imageUrl, setImage] = useState('/images/test123--profilepicture.jpg');
 
 
 let fileSelector = () =>{
@@ -29,7 +29,7 @@ let handleChange = (e) => {
     let bytesOnly = sendFile.split(',')[1];
     console.log(bytesOnly);
     let config = {
-      url: `http://localhost:5000/dashboard/uploadprofile/${username}`,
+      url: `http://localhost:5000/api/dashboard/uploadprofile/${username}`,
       method: 'PUT',
       data : {
         username: username,
@@ -41,7 +41,6 @@ let handleChange = (e) => {
       let path = el.data.path;
       let newPath = path.split('videoChatApp');
       console.log(path);
-      //setImage(path);
 
     }).catch(err => {
       console.log(err);

@@ -3,6 +3,8 @@ import {Row,Nav, Col, Container,ListGroup, Collapse, Tab} from 'react-bootstrap'
 import VideoUi from './videodesign/myvideo';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Profilepicture from './dashboard/profilepicture';
+import Userbar from './rightsidebar/userbar';
+import Searchbar from './searchbar/search';
 import styles from './videochat.module.scss';
 import Logout from './dashboard/logout';
 import ListBar from './dashboard/listgroup';
@@ -10,8 +12,8 @@ const Initvideo = (props) => {
 
 useEffect(() => {
     console.log(props);
-    let {username, token, authenticated} = props.userdata;
-    console.log(username);
+    let {username, token, authenticated, user_id} = props.userdata;
+    console.log(user_id);
 });
   let [arrow, setArrow] = useState(true);
 
@@ -21,14 +23,17 @@ let toggleSidebar = () => {
 
 
 
-return( <div className = {styles.container__document}>
+return(
+   <div className = {styles.container__document}>
     <Tab.Container defaultActiveKey="#link1">
  <Row className = {styles.container__row}>
     
     <Col lg = {arrow ? 2 : 1} className = {styles.container__first}>
     
     <Col sm = {2} xs = {4} lg = {12} className = {styles.container__image}>
-    <Profilepicture userdata = {props.userdata}/>   
+              {arrow ? <Profilepicture userdata = {props.userdata}/>   
+    :  null
+      }
     </Col> 
 
     <Col lg = {12} className = {`${styles.container__icon} ${!arrow && styles.toggled}`} onClick = {toggleSidebar}>
@@ -44,27 +49,38 @@ return( <div className = {styles.container__document}>
     <Col lg = {12} className = {styles.container__columnaz}>
     <ListBar arrow = {arrow}/>
     </Col>
-
-
-    
-    <Logout lg = {12} handleLogout = {props.handleLogout}/>
+    <Logout lg = {12} handleLogout = {props.handleLogout} arrow = {arrow}/>
 
 
     </Col>
-    <Col className = {styles.container__column__tabcontent}>
+    <Col className = {styles.container__column__tabcontent} lg = {10}>
     <Tab.Content className = {styles.container__tabcontent}>
         <Tab.Pane eventKey="#link1" className = {styles.container__tabpane}>
-            <VideoUi userdata = {props.userdata}/>
+         <Row>
+          <Col lg = {9} className = {styles.container__column__ui}>
+          <VideoUi userdata = {props.userdata}/>
+          </Col>
+        <Col lg = {3} className = {styles.container__column__userbar}>
+  <Userbar/>
+        </Col>
+        </Row>
+        
         </Tab.Pane>
         <Tab.Pane eventKey="#link2">
         </Tab.Pane>
+
         <Tab.Pane eventKey="#link3">
         </Tab.Pane>
+
         <Tab.Pane eventKey="#link">
         </Tab.Pane>
-        <Tab.Pane eventKey="#link2">
+
+        <Tab.Pane eventKey="#search" className = {styles.container__tabpane__search}>
+          <Col className = {styles.container__tabpane__column__search} lg = {12}>
+          <Searchbar userdata = {props.userdata} />
+          </Col>
         </Tab.Pane>
-      </Tab.Content>
+        </Tab.Content>
     </Col>
     </Row>
     </Tab.Container>

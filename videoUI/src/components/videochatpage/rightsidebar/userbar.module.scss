@@ -1,0 +1,18 @@
+@use '../../globalSass/app' as *;
+
+.test{
+    width: 20%;
+}
+
+.container{
+    &__listgroup{
+        display: flex !important;
+        flex-direction: row !important;
+    }
+    &__listitem{
+        background-color: lighten($secondary-color, 25%) !important;
+        border: solid $primary-color !important;
+        color: lighten($third-color, 95%) !important;
+
+    }
+}

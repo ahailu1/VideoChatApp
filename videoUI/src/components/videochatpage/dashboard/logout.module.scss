@@ -1,14 +1,83 @@
 @use '../../globalSass/app' as *;
 
-.dropdown{
-    &__container{
-        width: 100% !important;
-        display:flex !important;
-        flex-grow: 1;
-        background-color: $third-color !important;
-    &__toggle{
-        border: solid orange;
-        width: 100%;
+    .container{
+        &__button{
+            display: flex;
+            padding: 0 !important;
+            border: none;
+            margin: 0.5rem 0 0 0 !important;
+            justify-content: flex-start !important;
+            align-self: flex-start;
+        }
+        &__logout{
+            visibility: hidden;
+            transition: all ease-in-out 0.5s;
+            opacity: 0;
+            display: flex;
+        &.toggled{
+            opacity: 1;
+            display: flex;
+            visibility: visible;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 !important;
+            margin: 0 !important;
+            transition: all ease-in-out 0.5s;
+        }
+        }
     }
+
+    .logout{
+        &__button{
+            display: flex !important;
+            background-color: lighten($third-color, 45%)!important;
+            width: 100%;
+            border: none !important;
+            color: $third-color !important;
+            align-items: center;
+            justify-content: flex-start !important;
+        
+        }
+        &__icon{
+            padding: 0 !important;
+            font-size: 1rem;
+            margin: 0 0.5rem 0 1rem !important;
+        &.toggled{
+            font-size: 1.25rem;
+        }
+        
+        }
+        &__icon:nth-child(2){
+            font-size: 0.5rem;
+            margin: 0rem 0 0 0.5rem !important;
+        }
+        &__text{
+            margin: 0.5rem 0 0 0.5rem !important;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: none;
+            width: 3rem;
+            justify-content: center;
+            box-shadow: 0 0 2px 0 lighten($third-color, 5%);
+            padding: 0.45rem;
+            border-radius: 0.25rem;
+            background-color: darken($primary-color, 10%);
+            color: $third-color;
+            cursor: pointer;
+            &.toggled{
+                display: none;
+            }
+        &:nth-child(1):hover{
+            background-color: darken(red, 10%);
+            border: none;
+            color: $primary-color;
+        }
+        &:nth-child(2):hover{
+            background-color: lighten($secondary-color, 10%);
+            border: none;
+        }
+        }
     }
-}

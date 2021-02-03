@@ -6,17 +6,14 @@ router.post('/login', async (req, res) => {
     console.log('heeazr');
     let {username, password} = req.body;
     try {
-    let confirmPassword = await loginUser(username, password);
-    console.log(confirmPassword + 'faaa');
+    let {user_id, authenticated} = await loginUser(username, password);
     let token = await createToken(username);
     //confirm token
-    if(confirmPassword){
+    if(authenticated){
         res.status(200).send({
-    token});
+    token, user_id: user_id});
     } else {
-        console.log('wrong credentialss')
         res.status(422).send({error: 'wrong credentials'});
-
     }
     } catch (err) {
         res.status(422).send({error: 'couldnt login'});

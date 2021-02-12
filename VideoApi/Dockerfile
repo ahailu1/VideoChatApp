@@ -1,14 +1,12 @@
 FROM node:latest
 
-RUN mkdir -p /var/www
+RUN mkdir -p /var/www/api
 
-WORKDIR /var/www/
+WORKDIR /var/www/api
 
-COPY package*.json ./var/www/
+COPY package*.json ./var/www/api
 
 RUN npm install
-
-
 
 COPY . .
 

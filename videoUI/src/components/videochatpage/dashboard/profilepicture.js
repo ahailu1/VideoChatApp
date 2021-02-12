@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Form,Image, Row, Col, InputGroup, FormControl, Button,Container, Tab, Nav} from 'react-bootstrap';
+import {Image} from 'react-bootstrap';
 import styles from './profilepicture.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';

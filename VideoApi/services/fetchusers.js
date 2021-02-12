@@ -1,8 +1,8 @@
 let {dbMethods} = require('../models/getfriends');
 
-let fetchAllUsers = async () => {
+let fetchAllUsers = async (user_id) => {
     try{
-        let allUsers = await dbMethods.getAllUsers();
+        let allUsers = await dbMethods.getAllUsers(user_id);
         console.log(allUsers);
         return allUsers;
     } catch (err) {

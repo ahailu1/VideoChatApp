@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Row,Nav, Col, Container,ListGroup, Collapse, Tab} from 'react-bootstrap';
 import VideoUi from './videodesign/myvideo';
+import Bio from '../videochatpage/dashboard/bio';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Profilepicture from './dashboard/profilepicture';
 import Userbar from './rightsidebar/userbar';
@@ -8,6 +9,7 @@ import Searchbar from './searchbar/search';
 import styles from './videochat.module.scss';
 import Logout from './dashboard/logout';
 import ListBar from './dashboard/listgroup';
+import RequestNotification from './notifications/Requestnotification';
 const Initvideo = (props) => {
 
 useEffect(() => {
@@ -25,13 +27,18 @@ let toggleSidebar = () => {
 
 return(
    <div className = {styles.container__document}>
-    <Tab.Container defaultActiveKey="#link1">
+    <Tab.Container defaultActiveKey="#link3">
  <Row className = {styles.container__row}>
     
     <Col lg = {arrow ? 2 : 1} className = {styles.container__first}>
     
+    
     <Col sm = {2} xs = {4} lg = {12} className = {styles.container__image}>
-              {arrow ? <Profilepicture userdata = {props.userdata}/>   
+              {arrow ? 
+              <>
+              <Profilepicture userdata = {props.userdata}/>  
+              <Bio userdata = {props.userdata} />  
+              </>
     :  null
       }
     </Col> 
@@ -55,6 +62,7 @@ return(
     </Col>
     <Col className = {styles.container__column__tabcontent} lg = {10}>
     <Tab.Content className = {styles.container__tabcontent}>
+        
         <Tab.Pane eventKey="#link1" className = {styles.container__tabpane}>
          <Row>
           <Col lg = {9} className = {styles.container__column__ui}>
@@ -64,12 +72,15 @@ return(
   <Userbar/>
         </Col>
         </Row>
+        </Tab.Pane>
+        
+        <Tab.Pane eventKey="#link2">
         
         </Tab.Pane>
-        <Tab.Pane eventKey="#link2">
-        </Tab.Pane>
 
-        <Tab.Pane eventKey="#link3">
+        <Tab.Pane eventKey="#link3" className = {styles.container__tabpane__notifications}>
+          <RequestNotification userdata = {props.userdata} />
+        
         </Tab.Pane>
 
         <Tab.Pane eventKey="#link">

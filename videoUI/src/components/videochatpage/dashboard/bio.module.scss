@@ -1,0 +1,51 @@
+@use '../../globalSass/app' as *;
+
+.bio{
+    resize: none;
+    height: 6rem;
+    color: lighten($third-color, 20%);
+    font-size: 0.75rem;
+    border: none;
+    width: 100%;
+    font-weight: 400;
+    padding: 0.5rem;
+    margin: 1rem 0 0.25rem 0;
+    background-color: lighten($third-color, 1%);
+
+    &:active, &:target, &:focus {
+        outline: solid $fourth-color 1px;
+           border: none;
+    }
+    &.toggled{
+        color: whitesmoke;
+    }
+&__button{
+    background-color: $third-color !important;
+    border: solid $fourth-color 1px !important;
+    margin: 0.25rem 1rem 0 0;
+&:hover{
+    background-color: $fourth-color !important;
+    color: $third-color;
+    font-weight: 600;
+    border: solid $fourth-color;
+}
+&:focus-visible, &:visited, &:focus, &:target, &:active{
+    outline-offset: none !important;
+    outline: none !important;
+    border: solid $fourth-color 2px !important;
+}
+
+}
+
+
+}
+.container{
+    &__bio{
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+.characters{
+    font-size: 0.75rem;
+    color: white;
+}

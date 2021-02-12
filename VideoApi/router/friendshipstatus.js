@@ -12,5 +12,9 @@ router.post('/addfriend', async (req, res) => {
         throw new Error(err);
     }
 });
+router.put('/confirmrequest/', async (req, res) => {
+        let {user_id, friend_id, status_code} = req.body;
+        console.log([user_id, friend_id, status_code]);
+});
 
 module.exports = router;

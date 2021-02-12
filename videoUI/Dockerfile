@@ -1,12 +1,12 @@
 FROM node:latest
 
-RUN mkdir /var/www
+RUN mkdir -p /var/www/frontend/
 
-WORKDIR /var/www/
+WORKDIR /var/www/frontend/
 
-COPY . /var/www/
+COPY . /var/www/frontend/
 
-COPY package*.json /var/www/
+COPY package*.json /var/www/frontend/
 
 RUN npm install
 

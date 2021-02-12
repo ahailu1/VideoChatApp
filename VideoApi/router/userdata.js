@@ -1,10 +1,11 @@
 const { router, app } = require("../config/express.js");
 const {fetchAllUsers, getFriendRequests} = require("../services/fetchusers");
 
-router.get('/fetch/allusers', async (req, res, next) => {
+router.get('/fetch/allusers/:user_id', async (req, res, next) => {
     console.log('here activated')
+    let {user_id} = req.params;
     try {
-        let allUsers = await fetchAllUsers();
+        let allUsers = await fetchAllUsers(user_id);
         res.status(200).send({users: allUsers});
 
     } catch (err) {
@@ -18,7 +19,7 @@ router.get('/getrequests/:user_id', async (req, res) => {
     try{
         let requests = await getFriendRequests(user_id);
         console.log([requests, 'fucking phaggot']);
-        res.status(200).send({data: requests});
+        res.status(200).send(requests);
     } catch (err){
         res.status(422).send({err: 'couldnt fetch notifications'});
     }

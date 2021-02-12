@@ -1,3 +1,4 @@
+const { Query } = require("pg");
 const { pool, client } = require("./db/dbconfig");
 
 
@@ -31,10 +32,30 @@ let dbMethods = {
     return res;
   }
 dbMethods.insertUsers = async (username, password) => {
-    const text = "insert into register_user(username, password,creation_date) values ($1, $2, CURRENT_DATE) returning user_id"
-    const query = [username, password];
-    let res = await dbMethods.initQuery(text,query);
-    return res;
+  const text = "insert into register_user(username, password,creation_date) values ($1, $2, CURRENT_DATE) returning user_id"
+  const query = [username, password];
+
+  let client = await pool.connect();
+
+  try{
+    await client.query('begin');
+
+     let results = await client.query(text,query);
+     let values = results[0];
+      console.log(values);
+    const textTwo = 'insert into user_bio(user_id) values ($1)';
+    let queryTwo = [values];
+    await client.query(textTwo, queryTwo);
+    await client.query('COMMIT')
+    return results;
+
+  } catch (err) {
+    await client.query('ROLLBACK')
+
+    throw new Error(err);
+  } finally {
+    client.release();
+  }
 }
 
 module.exports = {

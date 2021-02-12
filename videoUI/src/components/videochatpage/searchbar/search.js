@@ -13,21 +13,6 @@ useEffect(() => {
 },[]);
 
 
-let UserProfile = (friend_id,friendname, callback) => {
-    return (
-        <Col className = {styles.container__userprofile} lg = {4}>
-               <div className = {styles.container__image}>
-            <img src = {`/images/${friendname}--profilepicture.jpg`} alt = "" className = {styles.images}/>
-            
-            <p className = {styles.container__text}>{props.friendname}</p>
-            </div>
-            <div className = {styles.container__username}>
-                <Button size = 'sm' bsPrefix = {styles.button} onClick = {() => {callback(friend_id)}}>Add</Button>
-            </div>
-        </Col>
-    )
-}
-
 let addFriend = async (friend_id) => {
     let {user_id} = props.userdata;
     console.log([user_id, 'this is m fucking idiot'])
@@ -100,9 +85,10 @@ let getAll = async () => {
     let {user_id} = props.userdata;
     console.log([user_id, 'is a fucking bitch']);
     try {
-    let users = await axios.get('http://localhost:5000/api/fetch/allusers');
+    let users = await axios.get(`http://localhost:5000/api/fetch/allusers/${user_id}`);
     let requests = await axios.get(`http://localhost:5000/api/getrequests/${user_id}`);
     console.log(requests.data);
+    console.log(users.data);
      let totalUsers = users.data.users;
      setAllUsers(totalUsers);   
      setFilteredUsers(totalUsers);   
@@ -110,6 +96,35 @@ let getAll = async () => {
 } catch (err) {
 
     }
+}
+let UserProfile = (friend_id,friendname,bio,date, callback) => {
+    let newDate = new Date(date).toLocaleDateString();
+    
+    return (
+        <Col className = {styles.container__userprofile} lg = {3}>
+               <Col className = {styles.container__image}>
+               <img src = {`/test123--profilepicture.jpg`} alt = "" className = {styles.images}/> 
+
+ { //<img src = {`/images/${friendname}--profilepicture.jpg`} alt = "" className = {styles.images}/>// } 
+          }         
+            </Col>
+
+            <Col lg = {12} className = {styles.container__text}>
+           {friendname}
+            </Col>
+            <Col lg = {12} className = {styles.container__bio}>  
+                { bio !== null && <><span className = {styles.profile__text}> Bio:</span> <span  className = {styles.profile__bio}> {bio}</span> </> }
+            </Col>
+            <Col lg = {12} className = {styles.container__date}>
+                <span className = {styles.profile__text}>Created</span>
+                <span className = {styles.profile__text}>{newDate}</span>
+            </Col>
+            
+            <Col className = {styles.container__button} lg = {12}>
+                <Button size = 'sm' bsPrefix = {styles.button} onClick = {() => {callback(friend_id)}}>Add</Button>
+            </Col>
+        </Col>
+    )
 }
 
 
@@ -122,7 +137,7 @@ let getAll = async () => {
     </Row>
   <Row className = {styles.container__row__profile} noGutters = {true}>
         {filteredUsers.map(el => {
-            return <UserProfile friendname = {el.username} friend_id = {el.user_id}/>;
+            return UserProfile(el.user_id, el.username,el.bio, el.creation_date, addFriend);
         })}
   </Row>
 </Container>

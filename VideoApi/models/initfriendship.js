@@ -25,6 +25,15 @@ dbMethods.addFriend = async (user_id, friend_id) => {
         client.release();
     }
 }
+dbMethods.updateFriendStatus = async (user_id, friend_id, statusCode) =>  {
+    try {
+        let query = 'update friendship_status set status_code = $1 where requester_id = $2 and recipient_id = $3'
+        let values = [user_id, friend_id, statusCode];
+        await dbMethods.initQuery(query, values);   
+        } catch (err) {
+        throw new Error(err);
+        }
+    }
 
 
 module.exports = {

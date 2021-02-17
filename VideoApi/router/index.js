@@ -8,6 +8,7 @@ let uploadImage = require('./uploadProfile');
 let fetchAllUsers = require('./userdata');
 let addfriend = require('./friendshipstatus');
 let setBio = require('./updateprofile');
+let getBio = require('./getprofile');
 module.exports = (app) => {
     app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,5 +19,6 @@ app.use('/api', loginUser.router);
 app.use('/api', iceServer);
 app.use('/api', addfriend);
 app.use('/api', setBio);
+app.use('/api', getBio);
 
 }

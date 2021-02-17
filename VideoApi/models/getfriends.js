@@ -25,6 +25,19 @@ dbMethods.getFriendRequests = async (user_id) => {
         throw new Error(err);
     }
 };
+dbMethods.getFollowers = async (user_id) => {
+    let query = "select * from (select count(recipient_id) as following, requester_id from friendship_status where requester_id = $1 and status_code = 100 group by requester_id) t1 right join (select count(t2.status_code) as followers, recipient_id from friendship_status t2 where t2.recipient_id = $2 and t2.status_code = 100 group by recipient_id)t2 on t2.recipient_id = t1.requester_id left join(select count(status_code) as friends,recipient_id from friendship_status t3 where status_code = 300 and (recipient_id = $3 or requester_id = $4) group by recipient_id) t3 on t3.recipient_id = t1.requester_id"
+    let values = [user_id, user_id, user_id, user_id];
+    try {
+        let res = await dbMethods.initQuery(query, values);
+            console.log(['trying to get followers/ users', res]);
+        return res;
+
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 
 
 

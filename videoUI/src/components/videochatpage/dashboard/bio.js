@@ -6,15 +6,32 @@ const Bio = (props) => {
     let[setValue, setBio] = useState('');
     let[characterLeft, setCharactersLeft] = useState(200);
     let[toggleBio, setToggle] = useState(false);
+    let[userBio, storeBio] = useState('');
+    let [disabled, setButton] = useState(true)
+
+    useEffect(() => {
+        getBio();
+
+    }, []);
 
     let getBio = async () => {
         let {user_id} = props.userdata;
         let bio = await axios.get(`http://localhost:5000/api/dashboard/getbio/${user_id}`);
-        let thisBio = bio.data;
+        let thisBio = bio.data[0].bio;
+        console.log(thisBio);
+        console.log(typeof thisBio)
+         if(thisBio === null || thisBio === "null"){
+            console.log(thisBio + 'phaggot')
+        }
+          else {
+            setBio(thisBio);
+            storeBio(thisBio);
+            setButton(true);
+         } 
     }
 
 
-    let submitBio = async (e) => {
+    let submitBio = (e) => {
         e.preventDefault();
         setToggle(false)
         let {user_id} = props.userdata;
@@ -25,31 +42,26 @@ const Bio = (props) => {
             bio: setValue 
         }
     }
-    console.log('about to set bio');
+    console.log(setValue)
     try {
-        let res = await axios(config);
+        let res = axios(config);
         console.log(res);
+        let userBio = setValue;
+        console.log('hello world')
+        storeBio(setValue);
+        setBio(setValue);
+        console.log([userBio, setValue, 'whats happening'])
         setToggle(false)
     } catch (err) {
+        console.log(' im trying')
+        console.log(err);
         throw new Error(err);
     }
-
-
-        let data = e.target.bio.value;
-        if(e.key === 'enter'){
-            data = data + '</bdffdsr>'
-        }
-        console.log(data);
-    }
+}
     let setVal = (e) => {
         let data = e.target.value;
         let left = 200 - data.length;
         setToggle(true);
-        if(e.key === 'enter'){
-            data = data + '</br>';
-            console.log(data);
-        }
-        
         if(left <= 0){
             let newVal = 'maximum characters reached'
             setCharactersLeft(newVal);
@@ -57,8 +69,13 @@ const Bio = (props) => {
             let message = `${left} characters left`
             setCharactersLeft(message);
         }
-        console.log(setValue)
+        setButton(false);
         setBio(data);
+    }
+
+    let cancelBio = () => {
+        setButton(true);
+        setBio(userBio);
     }
 
 
@@ -70,15 +87,15 @@ const Bio = (props) => {
      
      <Col>
      <form onSubmit = {submitBio}>
-        <textarea className = {`${styles.bio} ${toggleBio && styles.toggled}`} name = 'bio' onBlur = {() => setToggle(false)} spellCheck = 'false' placeholder = 'write something about yourself' onChange = {setVal} maxLength = {200} onKeyDown = {setVal}>
+        <textarea value = {setValue} className = {`${styles.bio} ${toggleBio && styles.toggled}`} name = 'bio' onBlur = {() => setToggle(false)} spellCheck = 'false' placeholder = 'write something about yourself' onChange = {setVal} maxLength = {200} onKeyDown = {setVal}>
 
      </textarea> 
-     </form>
-     <span className = {styles.characters}>{characterLeft} </span>
+     <span className = {styles.characters}>{toggleBio && characterLeft} </span>
         <span className = {styles.characters}></span>
 
-     <Button className = {styles.bio__button} size = 'sm' variant = 'dark' type = 'submit' disabled = {true}>Update</Button>
-     <Button className={styles.bio__button} size = 'sm' variant = 'dark' type = 'submit'>Cancel</Button>        
+     <Button className = {styles.bio__button} size = 'sm' variant = 'dark' type = 'submit' disabled = {disabled}>Update</Button>
+     <Button className={styles.bio__button} size = 'sm' variant = 'dark' onClick = {cancelBio}>Cancel</Button>        
+     </form>
      
      </Col>
 

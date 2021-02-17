@@ -1,101 +1,16 @@
 @use '../../globalSass/app' as * ;
 
-.images{
-max-width: 100%;
-height: 5rem;
-border-radius: 0.5rem;
-display: flex;
-}
-.button{
-    background-color: lighten($third-color, 1%);
-    color: $primary-color ;
-    border: none ;
-    box-shadow: 0 0 3px 0 $fourth-color;
-    margin: 0.25rem 0 0.25rem 0;
-    font-weight: 700;
-    padding: 0.15rem;
-    width: 5rem;
-    border-radius: 0.5rem;
-&:hover{
-    background-color: lighten($fourth-color, 0%) ;
-    color: lighten($third-color, 5%);
-}
-}
-.profile{
-    &__text{
-        font-size:0.75rem;
-        color: $primary-color;
-        margin: 0 0.5rem 0 0;
-    }
-    &__bio{
-        color: $fourth-color;
-        font-weight: 400;
-        font-size: 0.75rem;
-    }
-}
 
-.container{
-    &__userprofile{
-        padding: 2rem 1rem 2rem 1rem !important;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        margin: 1.5rem 1rem 2rem 1rem;
-        justify-content: space-between;
-        background-color: lighten($third-color, 10%);
-        border-radius: 0.5rem;
-        border: solid $fourth-color 2px;
-        box-shadow: 0px 0px 5px 0px darken($fourth-color, 5%);
-    &:nth-child(n-1){
-
-    }
-    }
-    &__date{
-        justify-content: center;
-        display: flex;
-        align-items: center;
-    }
-    &__image{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
-    &__button{
-        padding: 0.5rem 0 0.5rem 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        color: $primary-color;
-        font-size: 1rem;
-        margin: 0.5rem 0 0.5rem 0;
-    }
-    &__text{
-        margin: 0.5rem 0 0.5rem 0;
-        color: $primary-color;
-        font-size: 0.75rem;
-        display: flex;
-        justify-content: center;
-        text-transform: uppercase;
-        color: $primary-color;
-    }
-    &__bio{
-        display: flex;
-        justify-content: center !important;
-        margin: 0.5rem 0 0.5rem 0;
-
-    }
-}
 .container{
     &__row__search{
         z-index: 50 !important;
     }
     &__row__profile{
+        
         height: 100%;
         overflow-y: scroll;
         margin: 0 0 0rem 0;
-        padding-bottom:5rem;
+        padding:5rem 0 5rem 0;
         width: 100%;
     }
     &__friendslist{

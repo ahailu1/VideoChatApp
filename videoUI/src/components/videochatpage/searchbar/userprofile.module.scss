@@ -1,0 +1,136 @@
+@use '../../globalSass/app' as * ;
+.button{
+    background-color: lighten($third-color, 1%);
+    color: $primary-color ;
+    border: none ;
+    box-shadow: 0 0 3px 0 $fourth-color;
+    margin: 0.25rem 0 0.25rem 0;
+    font-weight: 700;
+    padding: 0.15rem;
+    width: 5rem;
+    border-radius: 0.5rem;
+&:hover{
+    background-color: lighten($fourth-color, 0%) ;
+    color: lighten($third-color, 5%);
+}
+}
+.icon{
+    margin: 0 0.5rem 0 0.5rem;
+    font-size: 1rem;
+}
+
+.listgroup{
+    &__item{
+        
+        padding: 0.35rem 1.25rem 0.35rem 1.25rem !important;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-radius: 0.5rem !important;
+        color: $fourth-color !important;
+        background-color: lighten($third-color, 5%) !important;
+    &:hover{
+        color: $third-color !important;
+        background-color: $fourth-color !important;
+
+    }
+    }
+}
+.images{
+    max-width: 100%;
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    display: flex;
+    margin-top: -3rem;
+    }
+.profile{
+    &__header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: lighten($third-color, 20%);
+        color: $fourth-color;
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        margin: 0.5rem;
+    }
+    &__text{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size:0.75rem;
+        color: $fourth-color;
+        margin: 0 0.5rem 0 0;
+    }
+    &__bio{
+        color: $fourth-color;
+        font-weight: 400;
+        font-size: 0.75rem;
+    }
+}
+.container{
+    &__followers{
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+.container{
+    &__listgroup{
+        display: flex !important;
+    }
+    &__userprofile{
+        display: flex;
+        flex-direction: column;
+        margin: 1.5rem 1rem 2rem 1rem;
+        justify-content: space-between;
+        background-color: lighten($third-color, 10%);
+        border-radius: 0.5rem;
+        padding: 0.5rem !important;
+        //border: solid $primary-color 2px;
+        box-shadow: 0px 0px 2px 0px lighten($third-color, 15%);
+    &:nth-child(n-1){
+
+    }
+    }
+    &__date{
+        justify-content: flex-start !important;
+        display: flex !important;
+        align-items: center;
+    }
+    &__image{
+        padding: 0.5rem 0 0.5rem 0;
+        //background-color:lighten($third-color, 15%);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__button{
+        padding: 0.5rem 0 0.5rem 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color: $primary-color;
+        font-size: 1rem;
+        margin: 0.5rem 0 0.5rem 0;
+    }
+    &__text{
+        margin: 0.5rem 0 0.5rem 0;
+        color: $primary-color;
+        font-size: 0.75rem;
+        display: flex;
+        justify-content: center;
+        text-transform: uppercase;
+        color: $primary-color;
+    }
+    &__bio{
+        display: flex;
+        align-items: center;
+        justify-content: center !important;
+        margin: 0.5rem 0 0.5rem 0;
+
+    }
+}

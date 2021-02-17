@@ -6,8 +6,6 @@ const client = redis.createClient(`redis://host.docker.internal:6379`);
 let connect = (io) => {
 
  io.on("connection", (socket) => {
-console.log(dbHost + 'is here');
-  console.log('right here socketio');
     socket.on('initsession', (data) => {
         console.log(data)
         console.log(data.recipient + ' is here');

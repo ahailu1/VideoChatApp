@@ -1,7 +1,7 @@
 let {dbMethods} = require('../models/getprofile');
 
 
-let getProfile = (user_id) => {
+let getBio = async (user_id) => {
 
 try{
     let res = await dbMethods.getBio(user_id);
@@ -14,5 +14,5 @@ try{
 }
 
 module.exports = {
-    getProfile
+    getBio
 }

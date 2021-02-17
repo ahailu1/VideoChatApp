@@ -2,7 +2,6 @@ let {dbMethods} = require('../models/createuser');
 let bcrypt = require('bcrypt');
 let checkUsers = async (username) => {
     try {
-        console.log('about to hit database');
     let getUsers = await dbMethods.getUsers(username);
         if(getUsers.length > 0){
             getUsers = true;

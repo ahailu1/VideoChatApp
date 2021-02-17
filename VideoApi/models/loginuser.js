@@ -7,7 +7,6 @@ const query = 'select password, user_id from register_user where username = $1';
 const values = [username];
 try{
     const res = await pool.query(query, values);
-    console.log(res.rows);
     return res.rows;
 } catch (err) {
     throw new Error(err);

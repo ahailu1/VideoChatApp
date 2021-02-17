@@ -3,7 +3,6 @@ let {dbMethods} = require('../models/getfriends');
 let fetchAllUsers = async (user_id) => {
     try{
         let allUsers = await dbMethods.getAllUsers(user_id);
-        console.log(allUsers);
         return allUsers;
     } catch (err) {
         throw new Error(err);
@@ -21,9 +20,19 @@ let getFriendRequests = async (user_id) => {
         
     }
 }
+let fetchFollowers = async (user_id) => {
+    try{
+          let followers = dbMethods.getFollowers(user_id);
+          return followers; 
+
+    } catch (err) {
+        throw new Error(err);
+    }
+}
 
 module.exports = {
     fetchAllUsers,
-    getFriendRequests
+    getFriendRequests,
+    fetchFollowers
 
 };

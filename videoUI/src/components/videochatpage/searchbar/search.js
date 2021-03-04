@@ -4,33 +4,16 @@ import styles from './searchbar.module.scss';
 import {Container, Row, Col,ListGroup, Image, Button} from 'react-bootstrap';
 import axios from 'axios';
 import Profile from './userprofile';
-
-const Searchbar = (props) => {
+import RenderButton from '../utilities/addbutton';
+const Searchbar = ({myFollowers,myFollowing,userdata, dispatch}) => {
 
 let [allUsers, setAllUsers] = useState([]);
 let [inputValue, setInputValue] = useState(false);
 let [filteredUsers, setFilteredUsers] = useState([]);
-useEffect(async () => {
-    await getAll();
-},[]);
 
-let addFriend = async (friend_id) => {
-    let {user_id} = props.userdata;
-    console.log([user_id, 'this is m fucking idiot'])
-    let config ={
-        method: 'post',
-        url: 'http://localhost:5000/api/addfriend',
-        data: {
-            user_id: user_id,
-            friend_id: friend_id,
-        }
-    }
-    try {
-        let info = await axios(config);
-    } catch (err) {
-        // set error
-    }
-}
+useEffect(async () => {
+    await getAll(userdata);
+},[myFollowers, myFollowing]);
 
 let setSearchBar = () => {
    return (
@@ -63,7 +46,6 @@ let getInputValue = (e) => {
     } else {
         setInputValue(true);
         let users = allUsers.filter(el => {
-            console.log(el);
             if(el.username.includes(value)){
                 return el.username
             }
@@ -71,13 +53,12 @@ let getInputValue = (e) => {
         setFilteredUsers(users)
     }
 }
-let getAll = async () => {
-    let {user_id} = props.userdata;
+let getAll = async (userdata) => {
+    let {user_id} = userdata;
     try {
     let users = await axios.get(`http://localhost:5000/api/fetch/allusers/${user_id}`);
     //let requests = await axios.get(`http://localhost:5000/api/getrequests/${user_id}`);
      let totalUsers = users.data.users;
-     console.log(totalUsers);
      setAllUsers(totalUsers);   
      setFilteredUsers(totalUsers);   
 } catch (err) {
@@ -86,17 +67,28 @@ let getAll = async () => {
 }
     return (
 <>
-<Container className = {styles.container__searchbar} fluid>
-    <Row className = {styles.container__row__search}>
+    <Row className = {styles.container__row__search} noGutters = {true}>
         {setSearchBar()}
     </Row>
   <Row className = {styles.container__row__profile} noGutters = {true}>
         {filteredUsers.map(el => {
             let date = new Date(el.creation_date).toLocaleDateString();
-            return <Profile user_id = {el.user_id} bio = {el.bio} date = {date} username = {el.username} addFriend = {addFriend} />
-        })}
+            if(el.user_id === userdata.user_id){
+            } else if (myFollowing.includes(el.user_id) && myFollowers.includes(el.user_id)){
+                return <Profile user_id = {el.user_id} bio = {el.bio} date = {date} username = {el.username} render = {(props) => {
+                    return <RenderButton user_id = {el.user_id} username = {el.username} loading = {true} userdata = {userdata} callback = {dispatch} callbackData = 'unfollow'  /> }}/>   
+            } else if(myFollowers.includes(el.user_id) && !myFollowing.includes(el.user_id)){
+                return <Profile user_id = {el.user_id} bio = {el.bio} date = {date} username = {el.username} render = {(props) => {
+                    return <RenderButton user_id = {el.user_id} username = {el.username} text = 'Follow Back' callback = {dispatch} callbackData = {'follow'} loading = {null} userdata = {userdata}  /> }}/>   
+            } else if( myFollowing.includes(el.user_id) && !myFollowers.includes(el.user_id)) {
+                return <Profile user_id = {el.user_id} bio = {el.bio} date = {date} username = {el.username} render = {(props) => {
+                    return <RenderButton user_id = {el.user_id} username = {el.username} loading = {true} userdata = {userdata} callback = {dispatch} callbackData = {'unfollow'}   /> }}/>   
+            } else {
+                return <Profile user_id = {el.user_id} bio = {el.bio} date = {date} username = {el.username} render = {(props) => {
+                    return <RenderButton user_id = {el.user_id} username = {el.username} loading = {null} userdata = {userdata} callback = {dispatch} callbackData = {'follow'} /> }} />
+                }
+                })}
   </Row>
-</Container>
 </>
     )
 }

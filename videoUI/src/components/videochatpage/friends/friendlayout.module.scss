@@ -1,0 +1,20 @@
+@use '../../globalSass/app' as *;
+
+.container{
+background-color: $third-color;
+&__tabs{
+    padding: 0rem 0 0rem 0;
+    //border: solid red !important;
+}
+&__header{
+    padding: 1rem 0 1rem 0;
+}
+}
+
+h1{
+    text-transform: capitalize;
+    color: $primary-color;
+}
+
+.row{
+}

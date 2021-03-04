@@ -1,0 +1,102 @@
+@use '../../globalSass/app' as *;
+
+.mycolumn{
+    //border-radius: 0.25rem 0.25rem 0 0;
+    background-color: lighten($third-color, 4%);
+    //box-shadow:0px 0px 3px 0px  lighten($third-color, 5%);
+    height: auto;
+    display: flex;
+    padding: 0.5rem 0 0.5rem 0;
+    border-radius: 0.25rem;
+    margin: 0.15rem;
+    align-items: center;
+    //border-bottom: solid lighten($primary-color,5%);
+    //border-width: 2rem;
+    //box-shadow: 0 0 3px 0 $third-color;
+    //background-color: lighten($third-color, 1%)!important;
+    //width: 80%;
+    box-sizing: border-box;
+    &:hover{
+        transition: all ease-in-out 0.15s;
+        border: solid $fourth-color 2px;
+        border-radius: 0.25rem;
+        //box-shadow: 0 0 35px 0 $third-color;
+        background-color: lighten($third-color, 10%);
+    }
+}
+.testingaa{
+}
+.container{
+    &__dropdown{
+        color: $third-color !important;
+        font-weight: 700 !important;
+        background-color: $fourth-color !important;
+        font-size: 0.75rem !important;
+        margin: -0.35rem 1rem 0 0.75rem;
+    &:hover, &:active, &:target, &:focus{
+        color: $fourth-color !important;
+        border: $third-color !important;
+        background-color: $third-color !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    }
+}
+.friends{
+    &__heading{
+        padding: 0.35rem 0.75rem 0.35rem 0.75rem;
+        border-radius: 0.35rem;
+        font-size: 1rem;
+        color: $third-color;
+        font-weight: 600;
+        background-color: lighten($fourth-color, 3%);
+    }
+    &__count{
+        cursor: pointer;
+        margin: 0 0.5rem 0 1rem;
+        color: $fourth-color;
+        &:hover{
+            text-decoration: underline;
+
+        }
+    &:hover ~ .container__username{
+        visibility: visible;
+    }
+    
+    }
+}
+.notification{
+    &__image{
+        height: 6rem;
+        clip-path: circle(40%);
+        max-width: 100%;
+    }
+    &__text{
+        color: $primary-color;
+    }
+}
+.columnaz{
+    justify-content: space-between;
+    display: flex;
+    margin: 0.5rem 0 0.5rem 0;
+}
+
+
+
+.request{
+    &__text{
+    color: $primary-color;
+      font-weight: 600;
+    }
+    &__header{
+        font-size: 1rem;  
+        color: $fourth-color;
+    }
+    &__date{
+        color: $fourth-color;
+        font-size: 0.75rem;
+        margin: 0.5rem 0 0 0;
+        font-weight: 400;
+    }
+}

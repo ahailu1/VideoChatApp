@@ -25,6 +25,18 @@ dbMethods.addFriend = async (user_id, friend_id) => {
         client.release();
     }
 }
+dbMethods.deleteFriend = async (user_id, friend_id, statusCode) => {
+    let query = 'delete from friendship where requester_id = $1 and recipient_id = $2';
+    let data = [user_id, friend_id];
+    
+    try{
+        await dbMethods.initQuery(query, data);
+    } catch (err) {
+        throw new Error(err);
+    }
+    }
+
+
 dbMethods.updateFriendStatus = async (user_id, friend_id, statusCode) =>  {
     try {
         let query = 'update friendship_status set status_code = $1 where requester_id = $2 and recipient_id = $3'

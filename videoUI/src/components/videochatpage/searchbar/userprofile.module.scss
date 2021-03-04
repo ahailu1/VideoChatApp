@@ -1,48 +1,71 @@
 @use '../../globalSass/app' as * ;
-.button{
-    background-color: lighten($third-color, 1%);
-    color: $primary-color ;
-    border: none ;
-    box-shadow: 0 0 3px 0 $fourth-color;
-    margin: 0.25rem 0 0.25rem 0;
-    font-weight: 700;
-    padding: 0.15rem;
-    width: 5rem;
-    border-radius: 0.5rem;
-&:hover{
-    background-color: lighten($fourth-color, 0%) ;
-    color: lighten($third-color, 5%);
-}
-}
-.icon{
-    margin: 0 0.5rem 0 0.5rem;
-    font-size: 1rem;
+
+.container{
+&__username{
+    width: 100%;
+    padding: 0 0.75rem 0 0.75rem;
+    display: flex;
+    margin: 0.25rem 0 0 0;
+    font-size: 1.2rem;
+    justify-content: center;
 }
 
-.listgroup{
-    &__item{
+&__userprofile{
+background-color: #272727;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%233b3b3b' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%23272727'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
+background-color: lighten($third-color, 5%);
+margin: 1rem;
+        padding: 1.5rem 1rem 1.5rem 1rem !important;
+        //border: solid $primary-color 2px;
+        box-shadow: 0px 0px 2px 0px lighten($third-color, 15%);
+    }
+    &__date{
+        justify-content: flex-start !important;
+        display: flex !important;
+        line-height: 2rem;
+        margin: 0.5rem 0 0.5rem 0 !important;
+        border-bottom:solid $fourth-color 0.5px;    
+        align-items: center;
+    }
+    &__image{
+        line-height: 2rem;
+        margin: 0.25rem 0 0.25rem 0;
+        border-bottom:solid $fourth-color 0.5px;    
+        padding: 0.5rem 0 0.5rem 0;
+        //background-color:lighten($third-color, 15%);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__text{
+
+        margin: 0.5rem 0 0.5rem 0;
+        font-size: 0.75rem;
+        display: flex;
+        justify-content: center;
+        text-transform: uppercase;
+        color: $primary-color;
         
-        padding: 0.35rem 1.25rem 0.35rem 1.25rem !important;
+    }
+    &__bio{
+        
         display: flex;
         align-items: center;
-        justify-content: space-around;
-        border-radius: 0.5rem !important;
-        color: $fourth-color !important;
-        background-color: lighten($third-color, 5%) !important;
-    &:hover{
-        color: $third-color !important;
-        background-color: $fourth-color !important;
+        justify-content: flex-start !important;
+        margin: 0.5rem 0 0.5rem 0;
 
     }
-    }
 }
+
 .images{
     max-width: 100%;
     height: 5rem;
     width: 5rem;
     border-radius: 50%;
     display: flex;
-    margin-top: -3rem;
+    //margin-top: -3rem;
     }
 .profile{
     &__header{
@@ -52,9 +75,17 @@
         background-color: lighten($third-color, 20%);
         color: $fourth-color;
         font-size: 0.85rem;
-        padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+        padding: 0.5rem 1rem 0.5rem 1rem;
         border-radius: 0.5rem;
-        margin: 0.5rem;
+        margin: 0.5rem 0.5rem 0.5rem 0;
+   &.followers{
+       background-color: lighten($fourth-color, 5%);
+       color: $third-color;
+       font-weight: 600;
+   }
+   &.username{
+    background-color: $third-color;
+}
     }
     &__text{
         display: flex;
@@ -62,75 +93,26 @@
         align-items: center;
         font-size:0.75rem;
         color: $fourth-color;
-        margin: 0 0.5rem 0 0;
+        //margin: 0 0.5rem 0 0;
+    &.followers{
+        margin: 0 1.5rem 0 0.25rem;
+    }
+    &.username{
+        font-size: 1.15rem;
+    }
+    
     }
     &__bio{
         color: $fourth-color;
         font-weight: 400;
         font-size: 0.75rem;
+        padding: 0.5rem 1rem 0.5rem 1rem;
     }
 }
 .container{
     &__followers{
+        width: 100%;
         display: flex;
-        justify-content: space-around;
-    }
-}
-
-.container{
-    &__listgroup{
-        display: flex !important;
-    }
-    &__userprofile{
-        display: flex;
-        flex-direction: column;
-        margin: 1.5rem 1rem 2rem 1rem;
-        justify-content: space-between;
-        background-color: lighten($third-color, 10%);
-        border-radius: 0.5rem;
-        padding: 0.5rem !important;
-        //border: solid $primary-color 2px;
-        box-shadow: 0px 0px 2px 0px lighten($third-color, 15%);
-    &:nth-child(n-1){
-
-    }
-    }
-    &__date{
-        justify-content: flex-start !important;
-        display: flex !important;
-        align-items: center;
-    }
-    &__image{
-        padding: 0.5rem 0 0.5rem 0;
-        //background-color:lighten($third-color, 15%);
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
-    &__button{
-        padding: 0.5rem 0 0.5rem 0;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        color: $primary-color;
-        font-size: 1rem;
-        margin: 0.5rem 0 0.5rem 0;
-    }
-    &__text{
-        margin: 0.5rem 0 0.5rem 0;
-        color: $primary-color;
-        font-size: 0.75rem;
-        display: flex;
-        justify-content: center;
-        text-transform: uppercase;
-        color: $primary-color;
-    }
-    &__bio{
-        display: flex;
-        align-items: center;
-        justify-content: center !important;
-        margin: 0.5rem 0 0.5rem 0;
-
+        justify-content: flex-start;
     }
 }

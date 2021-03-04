@@ -20,10 +20,37 @@ let getFriendRequests = async (user_id) => {
         
     }
 }
-let fetchFollowers = async (user_id) => {
+let fetchFriendCount = async (user_id) => {
     try{
-          let followers = dbMethods.getFollowers(user_id);
+          let followers = await dbMethods.getFriendCount(user_id);
           return followers; 
+
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+let fetchFriendsList = async (user_id) => {
+    try{
+        let friendsList = await dbMethods.getFriendsList(user_id);
+        return friendsList;
+    } catch (err) {
+        console.log(err + 'is dumb fucking asshole');
+        throw new Error(err);
+    }
+}
+let fetchFriendsId = async (user_id) => {
+    try{
+        let friendsList = await dbMethods.getFriendsId(user_id);
+        return friendsList;
+
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+let fetchFriendInfo = async (user_id) => {
+    try{
+        let friendsList = await dbMethods.getFriendInfo(user_id);
+        return friendsList;
 
     } catch (err) {
         throw new Error(err);
@@ -33,6 +60,8 @@ let fetchFollowers = async (user_id) => {
 module.exports = {
     fetchAllUsers,
     getFriendRequests,
-    fetchFollowers
-
+    fetchFriendCount,
+    fetchFriendsList,
+    fetchFriendsId,
+    fetchFriendInfo
 };

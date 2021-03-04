@@ -39,7 +39,7 @@ dbMethods.insertUsers = async (username, password) => {
 
   try{
     await client.query('begin');
-
+      
      let results = await client.query(text,query);
      let values = results[0];
     const textTwo = 'insert into user_bio(user_id) values ($1)';

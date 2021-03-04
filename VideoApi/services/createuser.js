@@ -23,7 +23,6 @@ let insertUsers = async (username, password, confirmPassword) => {
     let userPassword = password;
     let passwordTest = userPassword.length >= 6 ? userPassword : false;
     let checkExistance = await checkUsers(username);
-    console.log(checkExistance);
     if(!regexTestUsername){
         errors.error = "invalid username";
         errors.authenticated = false;

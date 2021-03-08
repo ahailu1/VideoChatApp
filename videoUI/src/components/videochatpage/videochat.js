@@ -34,7 +34,8 @@ let modifyState = (myFriendsList, action) => {
         followers: myFriendsList.followers
       }
     case 'initFriendsList' : 
-    console.log('its working moron')
+    console.log('its working moron');
+    console.log(process.env.REACT_APP_SITE_URL + 'IM A PHAGGOT');
     return {
       followers: action.followers,
       following: action.following
@@ -63,7 +64,7 @@ let toggleSidebar = () => {
 
 let fetchFriendsList = async ({user_id}) => {
     try {
-        let {data} = await axios.get(`http://localhost:5000/api/friendsId/${user_id}`);
+        let {data} = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendsId/${user_id}`);
         let following  = [];
         let followers  = [];
         console.log(data);

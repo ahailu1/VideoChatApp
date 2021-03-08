@@ -19,7 +19,7 @@ const Profile = (props) => {
     }, [])
     
     let getFollowers = async() => {
-        let res = await axios.get(`http://localhost:5000/api/friendcount/${props.user_id}`);
+        let res = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendcount/${props.user_id}`);
         let data = res.data;
         if(data.length === 0){
           let following = 0;

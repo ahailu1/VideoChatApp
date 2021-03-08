@@ -29,7 +29,7 @@ let handleChange = (e) => {
     let bytesOnly = sendFile.split(',')[1];
     console.log(bytesOnly);
     let config = {
-      url: `http://localhost:5000/api/dashboard/uploadprofile/${username}`,
+      url: `${process.env.REACT_APP_SITE_URL}/api/dashboard/uploadprofile/${username}`,
       method: 'PUT',
       data : {
         username: username,

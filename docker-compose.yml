@@ -22,7 +22,7 @@ services:
     backend:
         build: ./VideoApi
         ports: 
-            - "5000:5000"
+            - "5001:5001"
         volumes: 
             - ./VideoApi:/var/www/api
         environment:

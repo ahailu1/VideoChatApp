@@ -10,8 +10,6 @@ COPY package*.json /var/www/frontend/
 
 RUN npm install
 
-EXPOSE 3000
-
 CMD [ "npm", "start"]
 
 

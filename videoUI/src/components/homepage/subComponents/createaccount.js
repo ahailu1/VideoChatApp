@@ -30,7 +30,7 @@ let handleCreateAccount = async (e) => {
     let confirmPassword = e.target.confirmPassword.value;
     let config = {
         method: 'post',
-        url : 'http://localhost:5000/api/createaccount',
+        url :`${process.env.REACT_APP_SITE_URL}/api/createaccount`,
         data: {
             username,
             password,
@@ -64,7 +64,7 @@ let handleLogin = async (e) => {
     let password = e.target.password.value;
     let config = {
         method: 'post',
-        url : 'http://localhost:5000/api/login',
+        url : `${process.env.REACT_APP_SITE_URL}/api/login`,
         data: {
             username,
             password,

@@ -33,7 +33,7 @@ let DisplayProfile = ({userdata,user_id,bio,myFollowers, myFollowing,friendsList
 
     let fetchFriendsList = async (user_id) => {
             try{
-                let friendsList = await axios.get(`http://localhost:5000/api/friendslist/${user_id}`);
+                let friendsList = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendslist/${user_id}`);
                 let sortList = friendsList.data;    
                 console.log(friendsList)
                 if(sortList.length > 0){

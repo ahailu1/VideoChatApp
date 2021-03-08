@@ -20,7 +20,7 @@ const FriendLayout = ({userdata,myFollowers, myFollowing,dispatch, ...props}) =>
     let followers = [];
     try{
       console.log('trying phaggot')
-      let {data} = await axios.get(`http://localhost:5000/api/friendinfo/${user_id}`);
+      let {data} = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendinfo/${user_id}`);
       console.log(data);
       setAllFriends(data);
     } catch (err) {

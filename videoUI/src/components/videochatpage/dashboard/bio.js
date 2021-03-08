@@ -16,7 +16,7 @@ const Bio = (props) => {
 
     let getBio = async () => {
         let {user_id} = props.userdata;
-        let bio = await axios.get(`http://localhost:5000/api/dashboard/getbio/${user_id}`);
+        let bio = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/dashboard/getbio/${user_id}`);
         let thisBio = bio.data[0].bio;
         console.log(thisBio);
         console.log(typeof thisBio)
@@ -36,7 +36,7 @@ const Bio = (props) => {
         setToggle(false)
         let {user_id} = props.userdata;
     let config = {
-        url: `http://localhost:5000/api/dashboard/setbio/${user_id}`,
+        url: `${process.env.REACT_APP_SITE_URL}/api/dashboard/setbio/${user_id}`,
         method: 'PUT',
         data : {
             bio: setValue 

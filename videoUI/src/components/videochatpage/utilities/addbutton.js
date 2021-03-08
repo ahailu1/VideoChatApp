@@ -24,7 +24,7 @@ const RenderButton = ({loading = null, user_id, userdata, text = null, callback 
         let restMethod = action === 'deletefriend' ? 'DELETE'  : 'POST'
         let config = {
             method: `${restMethod}`,
-            url: `http://localhost:5000/api/${action}`,
+            url: `${process.env.REACT_APP_SITE_URL}/api/${action}`,
             data: {
                 user_id: user_id,
                 friend_id: friend_id,

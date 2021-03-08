@@ -11,7 +11,7 @@ const RouterApp = (props) => {
     const [userData, setUserData] = useState({username: "", token: "", authenticated: false, user_id: ''});
 
     useEffect(() => {
-        console.log('its working asdasd');
+        console.log(process.env.REACT_APP_SITE_URL);
         let userdata = Cookies.get('userdata');
         if(userdata === 'undefined' || userdata === undefined){
             console.log(userdata);

@@ -18,3 +18,11 @@ h1{
 
 .row{
 }
+.column{
+    &__following{
+        margin: 0.15rem 0 0.15rem 0 !important;
+        display: flex !important;
+        padding: 0 !important;
+        //border: solid red !important;
+    }
+}

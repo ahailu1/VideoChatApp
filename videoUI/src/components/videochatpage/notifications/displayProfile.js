@@ -65,11 +65,11 @@ let DisplayNotification = ({username, date, bio}) => {
         <>
     <Col className = {styles.mycolumn} lg = {12} xl = {12}>
     
-    <Col className = {styles.container__image} lg = {2}>
+    <Col className = {styles.container__image} lg = {2} xl = {2}>
     <img src = '/test123--profilepicture.jpg' className = {styles.notification__image} alt = 'profile'/>
     </Col>
     
-    <Col lg = {5} xl = {{span: 5, offset: 1}}>
+    <Col lg = {6} xl = {{span: 6, offset: 1}} md = {7}>
 
         <div className = {styles.columnaz}>
          {displayList(theseFollowers, 'Followers')}
@@ -94,7 +94,7 @@ let DisplayNotification = ({username, date, bio}) => {
 
     </Col>
     
-    <Col lg = {{span: 2, offset: 2}}>
+    <Col lg = {3} xl = {3}>
     
     {props.render()}
 

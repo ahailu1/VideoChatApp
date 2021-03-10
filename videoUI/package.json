@@ -24,6 +24,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "sass": "^1.30.0",
+    "serve": "^11.3.2",
     "socket.io-client": "^3.0.4",
     "web-vitals": "^0.2.4"
   },

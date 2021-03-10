@@ -55,12 +55,14 @@ const RouterApp = (props) => {
           )
         } }>
             </Route>
-            <Route path = "/dashboard/:username" render = {(props) => {
+            <Route exact path = "/dashboard/:username" render = {(props) => {
                return  (isLogged ?
-                ( <Initvideo userdata = {userData} handleLogout = {handleLogout}/>
+                ( <Initvideo userdata = {userData} handleLogout = {handleLogout} tabKey = '#link3'/>
                     ) : (<Redirect to = {`/`} />)
                )
             }}/>
+            
+            
         </Switch>
         </Router>
     )

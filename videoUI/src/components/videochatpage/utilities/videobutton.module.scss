@@ -1,0 +1,40 @@
+@use '../../globalSass/app' as *;
+.icon{
+    &__video{
+        color: $fourth-color;
+        font-size: 2rem;
+        //padding: 2rem;
+    &:hover{
+        cursor: pointer;
+        color: darken($third-color, 25%);
+    }
+    }
+}
+
+.container{
+    &__column{
+        display: flex !important;
+        justify-content: center;
+        align-items: center !important;
+        //flex-grow: 1 !important;
+        //border: solid orange !important;
+        //padding: 0.5rem 0 0.5rem 0;
+        //flex-grow: 1 !important;
+        border-radius: 0.25rem;
+        background-color: lighten($third-color, 8%) !important;
+        //margin: 0.5rem !important;   
+    &:hover{
+        background-color: $primary-color !important;
+    }
+    }
+    &__icon{
+        border-radius: 50% !important;
+        height: 4rem;
+        width: 4rem;
+        display: flex;
+        //background-color: lighten($third-color, 5%);
+        align-items: center;
+        justify-content: center !important;
+        //border: solid green !important;
+    }
+}

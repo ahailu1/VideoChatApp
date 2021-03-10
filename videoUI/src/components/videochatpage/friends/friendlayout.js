@@ -5,8 +5,8 @@ import {Container, Row, Col, Image, Button, Tabs, Tab} from 'react-bootstrap';
 import axios from 'axios';
 import DisplayProfile from '../notifications/displayProfile';
 import RenderButton from '../utilities/addbutton';
-
-const FriendLayout = ({userdata,myFollowers, myFollowing,dispatch, ...props}) => {
+import VideoButton from '../utilities/videochatbutton';
+const FriendLayout = ({userdata,myFollowers, myFollowing,setActiveKey,dispatch, ...props}) => {
 
   useEffect(() => {
       fetchFriendsList();
@@ -19,6 +19,8 @@ const FriendLayout = ({userdata,myFollowers, myFollowing,dispatch, ...props}) =>
     let following = [];
     let followers = [];
     try{
+      console.log([userdata, 
+      ' gaaadfsfdadafso'])
       console.log('trying phaggot')
       let {data} = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendinfo/${user_id}`);
       console.log(data);
@@ -61,20 +63,24 @@ const FriendLayout = ({userdata,myFollowers, myFollowing,dispatch, ...props}) =>
 
   <Tab eventKey="profile" title="Following">
     <Row>
-      <Col lg = {10} xl = {{span: 10, offset: 0}}>
       {friendsList.length > 0 && friendsList.map(el => {
         if(el.following !== null){
-          return <DisplayProfile myFollowers = {myFollowers} myFollowing = {myFollowing} user_id = {el.following} username = {el.username} date = {el.creation_date} render = { () => {
+          return( <>
+                <Col lg = {10} xl = {{span: 10, offset: 0}}>
+
+           <DisplayProfile myFollowers = {myFollowers} myFollowing = {myFollowing} user_id = {el.following} username = {el.username} date = {el.creation_date} render = { () => {
             return <RenderButton userdata = {userdata} user_id = {el.following} callback = {dispatch} callbackData = 'unfollow' loading = {true} />}} friendsList = {true} />
-        }
+            </Col>
+
+            <Col xl = {2} className = {styles.column__following}>
+            <VideoButton setActiveKey = {setActiveKey}/>
+            </Col>
+          </>  
+          )
+          }
+
       })}     
-      
-      </Col>
- 
-
     </Row>
-
-
   </Tab>
   </Tabs>
   </Col>

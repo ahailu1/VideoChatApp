@@ -12,13 +12,14 @@ import styles from './videochat.module.scss';
 import Logout from './dashboard/logout';
 import ListBar from './dashboard/listgroup';
 import RequestNotification from './notifications/Requestnotification';
-const Initvideo = ({userdata,handleLogout, ...props}) => {
+const Initvideo = ({userdata,handleLogout,tabKey = '#link2', ...props}) => {
 
 useEffect(() => {
   console.log(props);
     fetchFriendsList(userdata);
 }, []);
 
+let [key, setKey] = useState('#link2')
 
 
 let modifyState = (myFriendsList, action) => {
@@ -84,9 +85,12 @@ let fetchFriendsList = async ({user_id}) => {
       console.log(err);
     }
 }
+let setActiveKey = (key) => {
+  setKey(key);
+}
 
 return(
-    <Tab.Container defaultActiveKey="#link3" className = {styles.container__alltabs}>
+    <Tab.Container className = {styles.container__alltabs} activeKey = {key}>
 
  <Row className = {styles.container__row} noGutters = {true}>
    {console.log(myFriendsList)}
@@ -112,13 +116,15 @@ return(
     </Col>
 
     <Col lg = {12} className = {styles.container__columnaz}>
-    <ListBar arrow = {arrow}/>
+    <ListBar arrow = {arrow} setActiveKey = {setActiveKey} key = {key}/>
     </Col>
     <Logout lg = {12} handleLogout = {handleLogout} arrow = {arrow}/>
     </Col>
 
     <Col className = {styles.container__column__tabcontent} lg = {10}>
+
     <Tab.Content className = {styles.container__tabcontent}>
+        
         <Tab.Pane eventKey="#link1" className = {styles.container__tabpane}>
          <Row noGutters = {true}>
           <Col lg = {9} className = {styles.container__column__ui}>
@@ -131,7 +137,7 @@ return(
         </Tab.Pane>
         
         <Tab.Pane eventKey="#link2" className = {styles.container__tabpane__friends}>
-        <FriendLayout userdata = {userdata} myFollowers = {myFriendsList.followers} myFollowing = {myFriendsList.following} dispatch = {dispatch}/>
+        <FriendLayout setActiveKey = {setActiveKey} userdata = {userdata} myFollowers = {myFriendsList.followers} myFollowing = {myFriendsList.following} dispatch = {dispatch}/>
         </Tab.Pane>
 
         <Tab.Pane eventKey="#link3" className = {styles.container__tabpane__notifications}>
@@ -140,7 +146,7 @@ return(
 
         <Tab.Pane eventKey="#link">
         </Tab.Pane>
-        <Tab.Pane eventKey="#search" className = {styles.container__tabpane__search}>
+        <Tab.Pane eventKey= {`#search`} className = {styles.container__tabpane__search}>
           <Searchbar userdata = {userdata} myFollowers = {myFriendsList.followers} myFollowing = {myFriendsList.following} dispatch = {dispatch} />
         </Tab.Pane>
         </Tab.Content>

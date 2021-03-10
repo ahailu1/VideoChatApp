@@ -1,20 +1,22 @@
 import {ListGroup} from 'react-bootstrap';
 import styles from './listgroup.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
-const ListBar = (props) => {
+const ListBar = ({key,setActiveKey,...props}) => {
     
-    let [tabSelect, setActive] = useState('one');
+    let [tabSelect, setActive] = useState('two');
+    useEffect(() => {
+      setActive(key);
+    })
+
 
     let tabLink = (classname, href = null, name, iconname) => {
         return(
-        
-        <ListGroup.Item action href = {href} className = {`${styles.container__listitem} ${tabSelect === classname && styles.one} ${props.arrow && styles.toggleagain}`} onClick = {() => {setActive(classname)}}>
-                
-                <FontAwesomeIcon icon = {iconname} className = {`${styles.icon} ${tabSelect === classname && styles.toggled}`}/>
-                {props.arrow ? name : ''}
-              </ListGroup.Item>
+        <ListGroup.Item action href = {href} className = {`${styles.container__listitem} ${key === name && styles.one} ${props.arrow && styles.toggleagain}`} onClick = {() => {setActiveKey(href)}}>
+        <FontAwesomeIcon icon = {iconname} className = {`${styles.icon} ${key === name && styles.toggled}`}/>
+        {props.arrow ? name : ''}
+        </ListGroup.Item>
         )
       }
 

@@ -7,7 +7,7 @@ import SetIcon from './toggleicon';
 import styles from './myvideo.module.scss';
 const VideoUi = (props) => {
 
-   let [socket, initSocket] = useState(io('http://localhost:5000'));
+   let [socket, initSocket] = useState(io(`http://${process.env.REACT_APP_SITE_URL}`));
    let [inputVal, setInput] = useState('');
    let [iceServers, setServers] = useState([]);
    let [countdown, setTimer] = useState(15);
@@ -25,9 +25,7 @@ let fetchData = async () => {
     await initIceServers();
     await initMediaDevice();
     await peerAnswer();
-    testSocket();
     timer(10);
-
 }
 
 let makeOffer = async (username, recipient, peerConnection) => {
@@ -85,15 +83,6 @@ const handleRequest = async (e)=> {
             remoteStream.addTrack(event.track, remoteStream);
         });
     }
-    let testSocket = () => {
-        console.log(socket);
-        socket.on('testing', (data) => {
-            console.log('its owrking');
-            alert('its working');
-        })
-    }
-
-
     let initIceServers = async () => {
         let {username} = props.userdata;
         let config = {

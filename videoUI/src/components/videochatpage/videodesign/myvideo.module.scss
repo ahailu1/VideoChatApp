@@ -2,9 +2,11 @@
 .container{
 &__videopage{
     margin: 0 !important;
-    padding: 0!important;
-    position: relative;
+    padding: 0.5rem 0.5rem 0 0.5rem !important;
+    //position: relative;
+    height: 100%;
     box-sizing: border-box;
+    //border: solid yellow;
 }
 
 
@@ -14,11 +16,32 @@
         display: flex;
         box-shadow: 0 0 1px 0 whitesmoke;
         flex-direction: column;
-        height: 100%;
+        //height: 100%;
+        &__wrapper{
+            padding: 0.5rem;
+            display: flex !important;
+            background-color: lighten($third-color, 5%);
+            border-radius: 0.55rem;
+            box-shadow: 0 0 3px 0 solid $third-color;
+            //margin: 0.05rem;
+        }
     &__count{
         display: flex;
         align-items: center;
         position: relative;
+    }
+    &__video{
+        padding: 2.5rem 0 0 0;
+        //border: solid red !important;
+    }
+    &__sidebar{
+        //border: solid red !important;
+        border-radius: 0.75rem;
+        //margin: 0 0.3rem 0 0rem;
+        padding: 0.5rem;
+        box-shadow: 0 0 3px 0 solid $third-color;
+        background-color: darken($third-color, 5%);
+        //border-left: solid whitesmoke;
     }
     }
     &__count{
@@ -34,6 +57,8 @@
 
 
     &__icon{
+        border-radius: 0.5rem;
+        background-color: lighten($third-color, 25%);
         justify-content: flex-start;
         display: flex;
         padding: 1rem 1rem 0.75rem 0.75rem;
@@ -44,4 +69,23 @@
     text-transform: capitalize;
     font-size: 3rem;
     color: white;
+}
+
+#myvid{
+
+    border: solid green;
+&:hover{
+    border: solid orange;
+}}
+
+.vid{
+    //height: 25rem;
+    border: none;
+    pointer-events: none;
+    border-radius: 0.5rem;
+    outline: none;
+&:active, &:target, &:visited{
+    outline: none;
+    border: none;   
+}
 }

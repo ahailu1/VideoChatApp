@@ -4,15 +4,55 @@
     width: 20%;
 }
 
+.icon{
+    font-size: 2rem;
+    //outline: solid red;
+    color: $fourth-color;
+}
+
 .container{
+    &__alltabs{
+        border-radius: 0.5rem;
+        background-color: orange !important;
+        border: solid red !important;
+    }
     &__listgroup{
         display: flex !important;
         flex-direction: row !important;
     }
     &__listitem{
-        background-color: lighten($secondary-color, 25%) !important;
-        border: solid $primary-color !important;
+        background-color: transparent !important;
+        cursor: pointer;
+        //box-shadow: 0 0 3px 0 $third-color;
+        //border-radius: 0.55rem !important;
         color: lighten($third-color, 95%) !important;
+        margin: 0.25rem;
+        position: relative;
+        &::after{
+            bottom: 0;
+            left:0;
+            display: flex;
+            content: '';
+            width: 0px;
+            height: 3px;
+            position: absolute;
+        }
+&.toggled{
+    transition: all ease-in-out 0.5s;
+    //border-bottom: solid $primary-color 3px !important;
+    background-color: lighten($third-color, 5%) !important;
+    //border: solid red !important;
+&::after{
+    bottom: 0;
+    width: 100%;
+    transition: all ease-in-out 0.5s;
+    left:0;
+    display: flex;
+    content: '';
+    background-color: $primary-color;
+    position: absolute;
 
+}
+}
     }
 }

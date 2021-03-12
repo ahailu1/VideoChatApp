@@ -29,9 +29,7 @@
     }
     &__row{
     }
-  &__alltabs{
-      border: solid green !important; 
-  }
+
 
     &__first{
         height: 100vh;
@@ -61,6 +59,12 @@
         height: 100vh;
         overflow-y: scroll;
         background-color: lighten($third-color, 0%);
+    }
+    &__videochat{
+        height: 100vh;
+        overflow-y: scroll;
+        background-color: lighten($third-color, 0%);
+
     }
 }
 

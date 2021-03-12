@@ -6,7 +6,7 @@ import axios from 'axios';
 import DisplayProfile from '../notifications/displayProfile';
 import RenderButton from '../utilities/addbutton';
 import VideoButton from '../utilities/videochatbutton';
-const FriendLayout = ({userdata,myFollowers, myFollowing,setActiveKey,dispatch, ...props}) => {
+const FriendLayout = ({userdata,myFollowers, myFollowing,setActiveKey,initVideoChat,dispatch, ...props}) => {
 
   useEffect(() => {
       fetchFriendsList();
@@ -64,16 +64,18 @@ const FriendLayout = ({userdata,myFollowers, myFollowing,setActiveKey,dispatch, 
   <Tab eventKey="profile" title="Following">
     <Row>
       {friendsList.length > 0 && friendsList.map(el => {
-        if(el.following !== null){
+        let date = new Date(el.creation_date).toLocaleDateString();
+        console.log(date);
+          if(el.following !== null){
           return( <>
                 <Col lg = {10} xl = {{span: 10, offset: 0}}>
-
-           <DisplayProfile myFollowers = {myFollowers} myFollowing = {myFollowing} user_id = {el.following} username = {el.username} date = {el.creation_date} render = { () => {
+            {console.log(el)}
+          
+           <DisplayProfile myFollowers = {myFollowers} myFollowing = {myFollowing} user_id = {el.following} username = {el.username} date = {date} render = { () => {
             return <RenderButton userdata = {userdata} user_id = {el.following} callback = {dispatch} callbackData = 'unfollow' loading = {true} />}} friendsList = {true} />
             </Col>
-
-            <Col xl = {2} className = {styles.column__following}>
-            <VideoButton setActiveKey = {setActiveKey}/>
+            <Col xl = {2} className = {styles.column__following}>T
+            <VideoButton initVideoChat = {initVideoChat} setActiveKey = {setActiveKey} username = {el.username} user_id = {el.following} bio = {el.bio} date = {date}/>
             </Col>
           </>  
           )

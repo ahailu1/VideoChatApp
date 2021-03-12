@@ -1,0 +1,39 @@
+@use '../../globalSass/app.scss' as *;
+.bio{
+    &__text{
+        color:$primary-color;
+        font-weight: 300;
+        //ont-family: 'serif';
+    }
+    &__header{
+        box-shadow: 0 0 3px 0 $third-color;
+        color: $primary-color;
+        font-weight: 600;
+        text-align: center;
+        background-color: lighten($third-color, 5%);
+        padding: 0.5rem;
+        border-radius: 0.45rem;
+        width: auto;
+        margin: 0.5rem 0.5rem 0 0;
+    }
+    &__image{
+        height: auto;
+        width: 10rem;
+        border: none !important;
+        outline: none !important;
+    }
+}
+.container{
+    &__image{
+        margin: 0.75rem 0 0.75rem 0;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    &__username{
+        align-items: center;
+        display: flex !important;
+        //padding: 0.5rem 0 0.5rem 0;
+        //justify-content: space-between;
+    }
+}

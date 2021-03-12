@@ -1,11 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styles from './icon.module.scss';
-
-
 let SetIcon = (props) => {
-
-
-
 let Videoicon = () => {
     // change state of props
     return (

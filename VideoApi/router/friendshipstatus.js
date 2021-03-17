@@ -3,7 +3,6 @@ const {initFriendship} = require('../services/setFriendStatus');
 router.post('/addfriend', async (req, res) => {
 
     let {user_id, friend_id} = req.body;
-    console.log([user_id,friend_id,'phaggot']);
     try {
         await initFriendship.addFriend(user_id, friend_id);
         res.status(200).send({data: 'friend added'});
@@ -15,7 +14,6 @@ router.post('/addfriend', async (req, res) => {
 
 router.delete('/deletefriend', async (req, res) => {
     let {user_id, friend_id} = req.body;
-    console.log([user_id, friend_id, 'trying to delete'])
     try {
         await initFriendship.deleteFriend(user_id, friend_id);
         res.status(200).send(true)
@@ -28,7 +26,6 @@ router.delete('/deletefriend', async (req, res) => {
 
 router.put('/confirmrequest/', async (req, res) => {
         let {user_id, friend_id, status_code} = req.body;
-        console.log([user_id, friend_id, status_code]);
 });
 
 module.exports = router;

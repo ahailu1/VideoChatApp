@@ -30,7 +30,6 @@ const Profile = (props) => {
           }
         } else {
           let {followers, following} = data[0];
-          console.log([followers,following, ' testing data']);
           return {
             followers,
             following

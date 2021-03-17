@@ -20,7 +20,7 @@ return (
 </Col>
 <Col xl = {12}>
 <p className = {styles.bio__header}>Bio</p>
-<p className = {styles.bio__text}>hello world this is the users bio and i am designing it</p>
+<p className = {styles.bio__text}>{bio}</p>
 <p className = {styles.bio__header}>Creation Date</p>
 <p className = {styles.bio__text}>{date}</p>
 </Col>

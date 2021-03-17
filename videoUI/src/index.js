@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import RouteApp from './components/router';
-
 import './components/icons/iconLibrary';
 import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(

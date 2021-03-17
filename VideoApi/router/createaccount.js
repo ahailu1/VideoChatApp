@@ -5,10 +5,8 @@ router.post("/createaccount", async (req,res) => {
   const { username, password, confirmPassword } = req.body;
   try {
     let item = await insertUsers(username,password,confirmPassword);
-    console.log('here phaggots');
 
     let {authenticated, user_id} = item;
-    console.log([authenticated, user_id, 'phaggot']);
     if(authenticated === true){
       let token = await createToken(username);
       res.status(200).send({ token: token, user_id: user_id });

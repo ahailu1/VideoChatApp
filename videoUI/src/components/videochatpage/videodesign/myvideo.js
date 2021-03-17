@@ -5,35 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import io from 'socket.io-client';
 import SetIcon from './toggleicon';
 import styles from './myvideo.module.scss';
-const VideoUi = ({userInfo,userData, ...props}) => {
-
-   let [socket, initSocket] = useState(io(`http://${process.env.REACT_APP_SITE_URL}`));
+const VideoUi = ({userInfo,userdata,myFollowers, ...props}) => {
    let [countdown, setTimer] = useState(15);
    let [thisStream, setStream] = useState('');
    let [thisMic, toggleMic] = useState(true);
    let [thisVideo, toggleVideo] = useState(true);
-
+    let [onlineUsers, setAsOnline] = useState([]);
 
     useEffect(() => {
-
         fetchData();
     }, []);
 
-    //emit event to socket
 
-    socket.on('afdafdsafd', () => {
-        socket.emit('')
-    });
-    socket.on('isOnline', (data) => {
-
-    });
-    socket.on('isOffline', () => {
-        console.log('is')
-    })
-
-let fetchData = async () => {
+    let fetchData = async () => {
     await initMediaDevice();
 }
+
     let initMediaDevice = async () => {
             try {
                 let devices = await navigator.mediaDevices.enumerateDevices();
@@ -50,10 +37,7 @@ let fetchData = async () => {
                 setStream(item);
                 let edit = item.getAudioTracks()[0];
                 let videoTracks = item.getVideoTracks();
-               
-                console.log(videoTracks);
                 await edit.applyConstraints(deviceId);
-                console.log(edit);
                 let vid = document.getElementById('myvid');
                 vid.srcObject = item;
                 vid.play();
@@ -62,6 +46,7 @@ let fetchData = async () => {
                 throw new Error(err);
             }
     }
+
     let toggleIcons = (iconname) => {
         if(iconname === 'video'){
             toggleVideo(!thisVideo);
@@ -80,15 +65,12 @@ let fetchData = async () => {
 
     }
 
-   
-    
-
     return (
         <Row className = {styles.container__videopage}>
 
             <Col xl = {9} className = {styles.container__column__wrapper}>
             <Col lg = {5} className = {styles.container__column__video}>
-    <video autoplay playsinline controls id = 'myvid' className = {styles.vid} width = "100%">
+    <video autoPlay playsInline controls id = 'myvid' className = {styles.vid} width = "100%">
     <source type = "video/mpg"/>
     </video>
 
@@ -102,13 +84,18 @@ let fetchData = async () => {
         <div className = {styles.container__count}>
             <p className = {styles.text}>{countdown}</p>
             <p className = {styles.text}>{userInfo}</p>
-
+     
         </div>
+        <div>
+                </div>
         </Col>
-        <Col lg = {3} className = {styles.container__column__video}>
-        <video autoplay playsinline controls="false" id = 'friendvid' width = "100%">
+        <Col lg = {4} className = {styles.container__column__video}>
+        <video autoPlay playsInline controls="false" id = 'friendvid' width = "100%">
     <source type = "video/mpg"/>
     </video>
+    {onlineUsers.length > 0 && onlineUsers.map(el => {
+            return <h1>{el}</h1>
+        })}
         </Col>
         </Col>
         <Col lg = {3} className = {styles.container__column__sidebar}>

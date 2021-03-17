@@ -31,13 +31,10 @@ router.get('/friendcount/:user_id', async (req, res) => {
 });
     router.get('/friendslist/:user_id', async (req, res) => {
             let {user_id} = req.params;
-            console.log([user_id, ' is a phaggot']);
         try {
             let friendsList = await fetchFriendsList(user_id);
-            console.log('its working phaggots oadisjadsjsdaoidasjoij');
             res.status(200).send(friendsList);
         } catch (err) {
-            console.log('fucking error pussyhole')
 
             res.status(422).send(err);
         }
@@ -48,7 +45,6 @@ router.get('/friendcount/:user_id', async (req, res) => {
             let myFriends = await fetchFriendsId(user_id);
             res.status(200).send(myFriends);
         } catch (err) {
-            console.log('fucking error pussyhole')
 
             res.status(422).send(err);
         }

@@ -28,12 +28,10 @@ let insertUsers = async (username, password, confirmPassword) => {
         errors.authenticated = false;
         return errors
     } else if(checkExistance === true){
-        console.log('hello world');
         errors.authenticated = false;
         errors.error = "username already exists"
         return errors;
     } else if (password !== confirmPassword){
-        console.log('sdfdfsfdsfdsdfs');
         errors.authenticated = false;
         errors.error = "passwords dont match";
         return errors;
@@ -52,7 +50,6 @@ let insertUsers = async (username, password, confirmPassword) => {
         }
         return initAcc
         } catch(err) {
-            console.log('some error');
             errors.authenticated = false
             errors.error = 'network error';    
             return errors;

@@ -9,17 +9,14 @@ const RequestNotification =  ({userdata, myFollowers, myFollowing, dispatch}) =>
 
     useEffect (() => {
         fetchRequests(userdata);
-
     }, []);
 
 
     let [getFriendRequests, setFriendRequests] = useState([]);
 
 let fetchRequests = async ({user_id}) => {
-    console.log([user_id, 'is tring to test moron']);
     let friendRequests = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/getrequests/${user_id}`);
     let friends = friendRequests.data;
-    console.log(friends);
     setFriendRequests(friends);
 }
 

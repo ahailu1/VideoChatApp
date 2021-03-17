@@ -4,12 +4,9 @@ let loginUser = async (username, password) => {
   
     try {
     let getPassword = await dbMethods.loginUser(username);
-    console.log([typeof getPassword[0], getPassword[0]]);
-    console.log(getPassword);
     let userPassword = typeof getPassword[0] === 'undefined' ? 'no user' : getPassword[0].password;
 
     let comparePassword = await bcrypt.compare(password, userPassword);
-    console.log([comparePassword, 'phaggot']);
         if(comparePassword){
             let data = {
                 authenticated: true,

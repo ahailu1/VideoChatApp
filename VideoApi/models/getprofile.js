@@ -8,7 +8,6 @@ dbMethods.getBio = async (user_id) => {
     
     try{
         let res = await dbMethods.initQuery(query, data);
-        console.log('trying u fuckingp haggot')
         return res;
     } catch (err) {
         throw new Error(err);

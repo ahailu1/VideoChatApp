@@ -3,7 +3,6 @@ let {loginUser} = require('../services/loginUsers');
 const {createToken} = require('../services/generateToken');
 
 router.post('/login', async (req, res) => {
-    console.log('heeazr');
     let {username, password} = req.body;
     try {
     let {user_id, authenticated} = await loginUser(username, password);

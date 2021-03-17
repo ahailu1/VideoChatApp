@@ -20,7 +20,6 @@ const RenderButton = ({loading = null, user_id, userdata, text = null, callback 
         toggleSpinner(true);
 
         let {user_id} = userdata;
-        console.log([user_id, 'this is m fucking idiot'])
         let restMethod = action === 'deletefriend' ? 'DELETE'  : 'POST'
         let config = {
             method: `${restMethod}`,
@@ -31,10 +30,7 @@ const RenderButton = ({loading = null, user_id, userdata, text = null, callback 
             }
         }
         let setLoadingStatus = action === 'deletefriend' ? null : true;
-        console.log(setLoadingStatus);
         try {
-          console.log('about to try sdasaddasads');
-          console.log([callbackData, callback]);
             let info = await axios(config);
             toggleSpinner(false);
             setLoading(setLoadingStatus);

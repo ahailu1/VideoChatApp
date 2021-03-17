@@ -4,15 +4,21 @@ import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styles from './videobutton.module.scss';
 import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
+import VideoModal from '../utilities/modal';
 
-
-let VideoButton  = ({setActiveKey,initVideoChat,username, user_id, bio, date, ...props}) => {
+let VideoButton  = ({userdata, setActiveKey,initVideoChat,username, user_id, bio, date,socket, ...props}) => {
 //
     //username, user_id, bio, date
 let returnVidPage = () => {
+    let myrequest =  {
+        user_id : userdata.user_id,
+        isOnline: true,
+        username:userdata.username,
+        startVid: true
+    }
     setActiveKey('#link1');
-
     initVideoChat(username, user_id,bio,date);
+    socket.emit('initVideo', myrequest);
 }
 
 

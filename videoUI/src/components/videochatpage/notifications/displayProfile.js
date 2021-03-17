@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styles from './displayprofile.module.scss';
-import {Container, Row, Col, Image, Button, Dropdown, DropdownButton, ButtonGroup} from 'react-bootstrap';
+import {Row, Col, Image, Button, Dropdown, DropdownButton, ButtonGroup, Spinner} from 'react-bootstrap';
 import axios from 'axios';
 
-let DisplayProfile = ({userdata,user_id,bio,myFollowers, myFollowing,friendsList = false, ...props}) => {
+let DisplayProfile = ({userdata,user_id,bio,myFollowers, myFollowing,friendsList = false,onlineStatus, ...props}) => {
 
     //fetch followers and following of the user
         useEffect(async () => {
             await fetchFriendsList(user_id);
         }, [myFollowers,myFollowing]);
-
         let [theseFollowing, setFollowing] = useState([]);
         let [theseFollowers, setFollowers] = useState([]);
-
         let displayList = (followers, title) => {
             return (
 <Dropdown>
@@ -30,17 +28,13 @@ let DisplayProfile = ({userdata,user_id,bio,myFollowers, myFollowing,friendsList
             )
         }
 
-
     let fetchFriendsList = async (user_id) => {
             try{
                 let friendsList = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendslist/${user_id}`);
                 let sortList = friendsList.data;    
-                console.log(friendsList)
                 if(sortList.length > 0){
                     let followers = [];
                     let following = [];
-                    let followerCount = 0;
-                    let followingCount = 0;
                     sortList.map(el => {
                         
                         if(el.followers !== null){
@@ -66,7 +60,26 @@ let DisplayNotification = ({username, date, bio}) => {
     <Col className = {styles.mycolumn} lg = {12} xl = {12}>
     
     <Col className = {styles.container__image} lg = {2} xl = {2}>
+        
+
     <img src = '/test123--profilepicture.jpg' className = {styles.notification__image} alt = 'profile'/>
+    
+    <Col className= {styles.container__username}>
+        {username}
+        {
+            onlineStatus ?         <>
+            <Spinner size = 'sm' animation = 'grow' className = {`${styles.container__online} ${onlineStatus && styles.toggled}`}/>
+            <span className = {styles.status__online}>{onlineStatus ? 'online' : 'offline'}</span>
+            </>
+            : <>
+            <div className = {`${styles.container__online}`}>
+            <span className = {styles.status__online}>{onlineStatus ? 'online' : 'offline'}</span>
+
+            </div>
+            </>
+        }
+    </Col>
+
     </Col>
     
     <Col lg = {6} xl = {{span: 6, offset: 1}} md = {7}>
@@ -77,9 +90,11 @@ let DisplayNotification = ({username, date, bio}) => {
         </div>
        
     <Col lg = {12}>
-    <span className = {styles.request__header}>{username} </span> 
     {friendsList !== true &&
+    <>
+        <span className = {styles.request__header}>{username} </span> 
     <span className = {styles.request__text}>has followed you!</span>
+    </>
         }
     </Col>
 
@@ -88,23 +103,17 @@ let DisplayNotification = ({username, date, bio}) => {
     </Col>  
 
     <Col lg = {2}>
-
     {bio}
     </Col>
-
     </Col>
     
-    <Col lg = {3} xl = {3}>
-    
+    <Col lg = {3} xl = {3}>  
     {props.render()}
-
-
     </Col>
     </Col>  
     </>
     )  
-    }   
-
+    } 
     return (
         DisplayNotification(props)
     )

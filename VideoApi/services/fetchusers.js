@@ -34,7 +34,6 @@ let fetchFriendsList = async (user_id) => {
         let friendsList = await dbMethods.getFriendsList(user_id);
         return friendsList;
     } catch (err) {
-        console.log(err + 'is dumb fucking asshole');
         throw new Error(err);
     }
 }

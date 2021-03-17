@@ -4,7 +4,6 @@ const { pool } = require("./db/dbconfig");
 dbMethods.getAllUsers = async (user_id) => {
     let text = 'select username, register_user.user_id, creation_date, bio from register_user join user_profile on user_profile.user_id = register_user.user_id';
     let values = [];
-    console.log('right heere biich');
     try {
         let data = await dbMethods.initQuery(text,values);
         return data;
@@ -15,7 +14,6 @@ dbMethods.getAllUsers = async (user_id) => {
 }
 dbMethods.getFriendRequests = async (user_id) => {
     //get my friend requests
-    console.log(user_id + 'is a phaggot')
     let query = 'select requester_id,username,fs2.creation_date, bio from friendship_status fs2 join register_user on (requester_id = user_id and recipient_id = $1 ) join user_profile up on requester_id = up.user_id';
     let values = [user_id];
     try {
@@ -32,7 +30,6 @@ dbMethods.getFriendCount = async (user_id) => {
     let values = [user_id];
     try {
         let res = await dbMethods.initQuery(query, values);
-        console.log(res);
         return res;
     } catch (err) {
         throw new Error(err);

@@ -1,8 +1,61 @@
 @use '../../globalSass/app' as *;
 
+.svg{
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+}
+
 .modal{
-    border: solid red;
 &__body{
+}
+&__heading{
+    border-radius: 0.5rem;
+    margin: 0 2rem 0 0;
+    padding: 1rem;
+    font-size: 2rem;
+    //background-color: lighten($third-color, 5%);
+    color: $fourth-color;
+    font-weight: 700;
+    box-shadow: 0 0 3px 0 $third-color;
+}
+&__icon{
+    //border: solid orange;
+    margin: 0 2rem 0 0;
+    color: $fourth-color;
+    font-size: 3rem;
+}
+&__button{
+    background-color: $third-color !important;
+    outline: none;
+    color: $fourth-color !important;
+    border: solid $fourth-color !important;
+&:target, &:focus, &:active, &:visited{
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+&:hover{
+    background-color: $fourth-color !important;
+    color: $third-color !important;
+    font-weight: 700;
+    transition: all ease-in-out .3s;
+}
+}
+&__text{
+    padding: 0.75rem;
+    color: $primary-color;
+}
+
+&__username{
+    letter-spacing: 1px;
+    border-radius: 0.35rem;
+    padding: 0.5rem;
+    font-weight: 700;
+    margin: 0.5rem 0.35rem 0.95rem 0;
+    color: $fourth-color;
+    font-size: 0.75rem;
+    background-color: $third-color;
 }
 &__svg{
     border: solid orange;
@@ -11,22 +64,54 @@
     position: absolute; 
 }
 &__image{
-        height: auto;
-        width: 8rem;
-    
+    height: auto;
+    width: 85%;
 }
 }
 .container{
-    &__modal{
-        display: flex;
-        width: 100%;
-        height: 100%;
-        background-color: lighten($third-color, 5%);
-        position: relative;
-        //border: solid green;
+    &__headingcontent{
+        justify-content: space-between;
+        align-items: center !important;
+        display: flex !important;
     }
-    &__body{
-        height: 100%;
+    &__content{
+        z-index: 50;
+    }
+    &__row{
+
+        position: relative;
+        padding: 2rem;
+        background-color: lighten($third-color, 5%);
+        height: 45vh;
+        border-radius: 0 0 0.35rem 0.35rem;
+    }
+    &__modal{
         border: solid red;
+        background-color: lighten($third-color, 5%);
+        padding: 0.5rem;
+    }
+    &__heading{
+        border-radius: 0.35rem 0.35rem 0 0;
+        padding: 1rem;
+        background-color: $third-color;
+        //border: solid red;
+    }
+    &__image{
+        z-index: 500;
+    }
+    &__username{
+        display: flex;
+        justify-content: space-around;
+        margin: 0.5rem 1.2rem 0.5rem 0;
+    }
+
+    &__button{
+        z-index: 50;
+        margin: 2rem 0 0.5rem 0;
+        align-items: center;
+        display: flex !important;
+        justify-content: space-between;
+    }
+    &__message{
     }
 }

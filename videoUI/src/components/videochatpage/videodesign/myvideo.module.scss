@@ -45,8 +45,6 @@
     }
     }
     &__count{
-        height: 10rem;
-        width: 10rem;
         border-radius: 50%;
         background-color: lighten($third-color, 5%);
         position: absolute;
@@ -79,7 +77,6 @@
 }}
 
 .vid{
-    //height: 25rem;
     border: none;
     pointer-events: none;
     border-radius: 0.5rem;

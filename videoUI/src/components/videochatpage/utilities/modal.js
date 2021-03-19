@@ -1,46 +1,93 @@
-import React, {useState} from 'react';
-import {ListGroup,Button, Spinner,Dropdown, DropdownButton,Modal, Image } from 'react-bootstrap';
+import React, {useEffect, useState} from 'react';
+import {ListGroup,Button,Col, Spinner,Dropdown, DropdownButton,Modal,Row, Image } from 'react-bootstrap';
 import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styles from './modal.module.scss';
-const VideoModal = ({onHide,setActiveKey,username, ...props}) => {
+const VideoModal = ({setActiveKey,socket,userdata,setModal,onHide,setFriendInfo, ...props}) => {
 
-    let acceptButton = () => {
+    useEffect(() => {
+        setVid();
+    });
+    let [modalInfo, setModalInfo] = useState({});
+
+    let setVid = () => {
+        let {user_id} = userdata;
+        socket.on(`init_video_${user_id}`,(data) => {
+          let {recipient_id,sender_id, username} = data;
+            let friendInfo = {
+                user_id: sender_id,
+                username: username,
+                recipient_id: recipient_id
+            }
+            setModalInfo(friendInfo);
+            setModal(true);   
+        });
+      }
+    let acceptRequest = () => {
+        let {user_id, username, recipient_id} = modalInfo;
+        let data = {
+            sender_id: userdata.user_id,
+            recipient_id : user_id,
+        }
+        let profile = {
+            user_id,
+            username,
+            recipient_id
+        }
+        console.log([user_id, username, recipient_id, 'im a phaggot']);
         setActiveKey('#link1');
+        setFriendInfo(profile);
         onHide();
+        socket.emit('confirmRequest', data);
+    }
+    let declineButton = () => {
 
     }
 
 
     return (
-    <Modal {...props} size = 'lg' aria-labelledby="contained-modal-title-vcenter" className = {styles.modal} animation = {false}>
+    <Modal {...props} size = 'md' aria-labelledby="contained-modal-title-vcenter" className = {styles.modal} animation = {true}>
 
+<Row className = {styles.container__heading}>
 
-<div className = {styles.container__modal}>
+<Col className = {styles.container__headingcontent}>
+<p className = {styles.modal__heading}>Chat Request</p>
+<FontAwesomeIcon icon = 'video' className = {styles.modal__icon}/>
+</Col>
 
+</Row>
 
-<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" className = {styles.svg}>
-  <path fill="#272727" d="M44.5,-55C59.1,-50.7,73.3,-39.5,75.4,-26.1C77.5,-12.7,67.4,3,58.4,15.3C49.3,27.6,41.2,36.6,31.6,48C22.1,59.5,11,73.5,-2,76.2C-14.9,78.9,-29.9,70.3,-45,60.6C-60.1,50.9,-75.4,40.2,-81.1,25.6C-86.9,11.1,-83,-7.3,-73.7,-20.1C-64.3,-32.9,-49.4,-40.2,-36.1,-44.9C-22.9,-49.7,-11.5,-52.1,1.7,-54.5C15,-56.9,29.9,-59.3,44.5,-55Z" transform="translate(100 100)" />
-</svg>
+<Row className = {styles.container__row}>
 
+    <Col className = {styles.container__image} lg = {2} xl = {6}>
+    <Image className = {styles.modal__image} src = '/test123--profilepicture.jpg' rounded />
+    
+    <div className = {styles.container__username}>
+    <span className = {styles.modal__username}>{modalInfo.username} </span>
+    </div>
 
-<div>
-<Image className = {styles.modal__image} src = '/test123--profilepicture.jpg' />
+    </Col>
 
-</div>
+    <Col className = {styles.container__message} lg = {3} xl = {6}>
+   
+    <Col xl = {12} className = {styles.container__content}>
+    <p className = {styles.modal__text}>
+    <span className = {styles.modal__username}>{modalInfo.username} </span>
+    <span>has requested to video call you</span>
+    </p>
+    </Col>
 
+   <Col className = {styles.container__button} xl = {12}>
+   <Button onClick={acceptRequest} className = {styles.modal__button}>Accept</Button>
+   <Button onClick={false} className = {styles.modal__button}>Decline</Button>   
+   </Col>
+   <svg viewBox="50 50 410 400" xmlns="http://www.w3.org/2000/svg" width="100%" className= {styles.svg}>
+   <path id="blob" d="M432.5,322.5Q366,395,288.5,408.5Q211,422,152,374Q93,326,79,243.5Q65,161,134.5,104Q204,47,278,84Q352,121,425.5,185.5Q499,250,432.5,322.5Z" fill="#272727"></path>
+   </svg>
+   </Col>
+   </Row>
 
-
-
-
-<div>
-
-<Button onClick={acceptButton}>Close</Button>
-
-<Button onClick={onHide}>Close</Button>
-</div>
-</div>
-    </Modal>
+</Modal>
     )
 }
 

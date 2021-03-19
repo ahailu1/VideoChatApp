@@ -20,12 +20,9 @@ const Sidebar = ({userdata, dispatch, followers,following,handleLogout, ...props
     let [socket, initSocket] = useState(io(`${process.env.REACT_APP_SITE_URL}`));
     let [key, setKey] = useState('#link2');
     let [arrow, setArrow] = useState(true);
-    let [modalState, setModal] = useState(true);
+    let [modalState, setModal] = useState(false);
 
-    let [userInfo, setUserInfo] = useState({})
-    useEffect(() => {
-        setVid();
-    });
+    let [friendInfo, setFriendInfo] = useState({})
 
     let setActiveKey = (key) => {
         setKey(key);
@@ -37,36 +34,25 @@ const Sidebar = ({userdata, dispatch, followers,following,handleLogout, ...props
           setModal(true);
       }
 
-      let initVideoChat = (username, user_id, bio, date) => {
-        let userInfo = {
+      let initVideoChat = (username, user_id, bio, date, onlineStatus) => {
+        let friendInfo = {
           username,
           user_id,
           bio,
+          isOnline: onlineStatus,
           date
         }
         try{
-          setUserInfo(userInfo);
+          setFriendInfo(friendInfo);
         } catch(err) {
         }
       }
-      let setVid = () => {
-        socket.on('initVideo', data => {
-            let {user_id, username} = data;
-            let userInfo = {
-                user_id,
-                username
-            }
-            setUserInfo(userInfo);
-            setModal(true);   
-         console.log(modalState);
-        });
-      }
+      
 
     return (
-        <Tab.Container className = {styles.container__alltabs} activeKey = {key}>
-   
+        <Tab.Container className = {styles.container__alltabs} activeKey = {key}>   
         <Row className = {styles.container__row} noGutters = {true}>
-            <VideoModal show = {modalState} onHide = {() => setModal(false)} setActiveKey = {setActiveKey} username = {userInfo.username}/>
+        <VideoModal userdata = {userdata} setFriendInfo = {setFriendInfo} setModal = {setModal} socket = {socket} show = {modalState} onHide = {() => setModal(false)} setActiveKey = {setActiveKey}/>
            <Col lg = {arrow ? 2 : 1} className = {styles.container__first}>
            <Col sm = {2} xs = {4} lg = {12} className = {styles.container__image}>
              {    arrow ? <>
@@ -92,16 +78,15 @@ const Sidebar = ({userdata, dispatch, followers,following,handleLogout, ...props
            <Col className = {styles.container__column__tabcontent} lg = {10}>
            <Tab.Content className = {styles.container__tabcontent}>
                <Tab.Pane eventKey="#link1" className = {styles.container__tabpane__videochat}>
-                 <VideoUi socket = {socket} userdata = {userdata} myFollowers = {followers}
+                 <VideoUi friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers}
                  render = {() => {
-                   if(Object.keys(userInfo).length === 0) {
+                   if(Object.keys(friendInfo).length === 0) {
                      return <Userbar/>
                    } else {
-                     return <Userbar username = {userInfo.username} bio = {userInfo.bio} user_id = {userInfo.user_id} date = {userInfo.date} />
+                     return <Userbar isOnline = {friendInfo.isOnline} username = {friendInfo.username} bio = {friendInfo.bio} friend_id = {friendInfo.user_id} date = {friendInfo.date} />
                    }
                  }} />
                </Tab.Pane>
-       
                <Tab.Pane eventKey="#link2" className = {styles.container__tabpane__friends}>
                <FriendLayout socket = {socket} initVideoChat = {initVideoChat} setActiveKey = {setActiveKey} userdata = {userdata} myFollowers = {followers} myFollowing = {following} dispatch = {dispatch}/>
                </Tab.Pane>

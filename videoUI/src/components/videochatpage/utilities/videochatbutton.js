@@ -11,13 +11,14 @@ let VideoButton  = ({userdata, setActiveKey,initVideoChat,username, user_id, bio
     //username, user_id, bio, date
 let returnVidPage = () => {
     let myrequest =  {
-        user_id : userdata.user_id,
+        sender_id : userdata.user_id,
         isOnline: true,
+        recipient_id: user_id,
         username:userdata.username,
         startVid: true
     }
     setActiveKey('#link1');
-    initVideoChat(username, user_id,bio,date);
+    initVideoChat(username, user_id,bio,date, true);
     socket.emit('initVideo', myrequest);
 }
 

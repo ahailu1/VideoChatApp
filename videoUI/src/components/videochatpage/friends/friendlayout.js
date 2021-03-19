@@ -33,8 +33,6 @@ testOffline();
     let {user_id} = userdata;
     try{
       let {data} = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendinfo/${user_id}`);
-      console.log(data);
-      console.log(myFollowers)
       setAllFriends(data);
     } catch (err) {
       throw new Error(err)
@@ -96,7 +94,6 @@ socket.on('isOffline', (data) => {
     <Row>
 <Col xl = {{span: 9, offset: 0}} >
 {friendsList.length > 0 && friendsList.map(el => {
-  console.log([onlineUsers, myFollowing, myFollowers])
         if(el.followers !== null){
           return <DisplayProfile socket = {socket} onlineStatus = {onlineUsers.includes(el.followers) ? true : false} callback = {dispatch} user_id = {el.followers} myFollowing = {myFollowing} myFollowers = {myFollowers} friendsList = {true} username = {el.username} date = {el.creation_date} render = { () => {return null}} />
         } 

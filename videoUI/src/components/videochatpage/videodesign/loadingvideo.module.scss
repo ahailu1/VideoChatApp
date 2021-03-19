@@ -1,0 +1,24 @@
+@use '../../globalSass/app' as *;
+.container{
+    &__video{
+        //border: solid red;
+        height: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.4rem;
+        flex-direction: column;
+        background-color: $third-color !important;
+    }
+}
+.video{
+    &__text{
+        font-weight: 700;
+        font-size: 0.75rem;
+        color: $primary-color;
+    }
+    &__spinner{
+        color: $primary-color;
+    }
+}

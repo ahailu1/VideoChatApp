@@ -6,7 +6,7 @@
         //padding: 2rem;
     &:hover{
         cursor: pointer;
-        color: darken($third-color, 25%);
+        color: lighten($third-color, 5%);
     }
     }
 }
@@ -21,10 +21,10 @@
         //padding: 0.5rem 0 0.5rem 0;
         //flex-grow: 1 !important;
         border-radius: 0.25rem;
-        background-color: lighten($third-color, 8%) !important;
+        background-color: lighten($third-color, 5%) !important;
         //margin: 0.5rem !important;   
     &:hover{
-        background-color: $primary-color !important;
+        background-color: lighten($third-color, 25%) !important;
     }
     }
     &__icon{

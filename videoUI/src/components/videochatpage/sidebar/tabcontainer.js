@@ -15,7 +15,7 @@ import Logout from '../dashboard/logout';
 import ListBar from '../dashboard/listgroup';
 import RequestNotification from '../notifications/Requestnotification';
 
-const Sidebar = ({userdata, dispatch, followers,following,handleLogout, ...props}) => {
+const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogout, ...props}) => {
 
     let [socket, initSocket] = useState(io(`${process.env.REACT_APP_SITE_URL}`));
     let [key, setKey] = useState('#link2');
@@ -55,7 +55,8 @@ const Sidebar = ({userdata, dispatch, followers,following,handleLogout, ...props
         <VideoModal userdata = {userdata} setFriendInfo = {setFriendInfo} setModal = {setModal} socket = {socket} show = {modalState} onHide = {() => setModal(false)} setActiveKey = {setActiveKey}/>
            <Col lg = {arrow ? 2 : 1} className = {styles.container__first}>
            <Col sm = {2} xs = {4} lg = {12} className = {styles.container__image}>
-             {    arrow ? <>
+             {    
+             arrow ? <>
                      <Profilepicture userdata = {userdata}/>  
                      <Bio userdata = {userdata} />  
                      </>
@@ -71,24 +72,24 @@ const Sidebar = ({userdata, dispatch, followers,following,handleLogout, ...props
            </div>
            </Col>
            <Col lg = {12} className = {styles.container__columnaz}>
-           <ListBar arrow = {arrow} setActiveKey = {setActiveKey} key = {key}/>
+           <ListBar arrow = {arrow} setActiveKey = {setActiveKey} tabKey = {key}/>
            </Col>
            <Logout lg = {12} handleLogout = {handleLogout} arrow = {arrow}/>
            </Col>
            <Col className = {styles.container__column__tabcontent} lg = {10}>
            <Tab.Content className = {styles.container__tabcontent}>
                <Tab.Pane eventKey="#link1" className = {styles.container__tabpane__videochat}>
-                 <VideoUi friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers}
+                 <VideoUi friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers} hasAccepted = {friendInfo.hasAccepted}
                  render = {() => {
                    if(Object.keys(friendInfo).length === 0) {
                      return <Userbar/>
                    } else {
-                     return <Userbar isOnline = {friendInfo.isOnline} username = {friendInfo.username} bio = {friendInfo.bio} friend_id = {friendInfo.user_id} date = {friendInfo.date} />
+                     return <Userbar hasAccepted = {friendInfo.hasAccepted} isOnline = {friendInfo.isOnline} username = {friendInfo.username} bio = {friendInfo.bio} friend_id = {friendInfo.user_id} date = {friendInfo.date} />
                    }
                  }} />
                </Tab.Pane>
                <Tab.Pane eventKey="#link2" className = {styles.container__tabpane__friends}>
-               <FriendLayout socket = {socket} initVideoChat = {initVideoChat} setActiveKey = {setActiveKey} userdata = {userdata} myFollowers = {followers} myFollowing = {following} dispatch = {dispatch}/>
+               <FriendLayout followList = {followList} socket = {socket} initVideoChat = {initVideoChat} setActiveKey = {setActiveKey} userdata = {userdata} myFollowers = {followers} myFollowing = {following} dispatch = {dispatch}/>
                </Tab.Pane>
        
                <Tab.Pane eventKey="#link3" className = {styles.container__tabpane__notifications}>

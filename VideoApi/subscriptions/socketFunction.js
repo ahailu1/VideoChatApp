@@ -41,17 +41,17 @@ io.on('connection', (socket) => {
     });
     socket.on('initStream', data => {
                let {recipient_id} = data; 
-               console.log(recipient_id);
+               console.log(recipient_id + 'is your fucking reicpient');
                console.log(data);
                if(recipient_id !== undefined){
-                   if(data.offer){
+                   if(data.type === 'offer'){
                        console.log(data.offer + 'is an')
                     socket.broadcast.emit(`initStream_offer_${recipient_id}`, data);       
                    }
-                   if(data.answer){
+                   if(data.type === 'answer'){
                        socket.broadcast.emit(`initStream_answer_${recipient_id}`, data);
                    }
-               }
+               } 
     });
 });
 

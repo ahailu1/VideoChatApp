@@ -4,15 +4,24 @@ import Sidebar from './sidebar/tabcontainer';
 import fetchFriendsList from './helpers/initfriendslist';
 const Initvideo = ({userdata,handleLogout,tabKey = '#link2', ...props}) => {
 
+let [followList, setFollowList] = useState([]);
 let [loaded, setLoading] = useState(null);
-useEffect(() => {
-  try {
-    let {user_id} = userdata;
-    fetchFriendsList({user_id, dispatch, setLoading});
-  } catch (err) {
-
-  }
+useEffect( async () => {
+    try{
+       await initFriendsList();
+    } catch (err) {
+      
+    }
 }, []);
+
+let initFriendsList = async () => {
+  setLoading(false);
+  let {user_id} = userdata;
+  let allUsers = await fetchFriendsList({user_id, dispatch, setLoading});
+  setFollowList(allUsers);
+  setLoading(true);
+}
+
 let modifyState = (myFriendsList, action) => {
   switch(action.type){
     case 'follow' :
@@ -43,9 +52,10 @@ let [myFriendsList, dispatch] = useReducer(modifyState, friendsList);
 
   if(loaded){
 return(
-<Sidebar userdata = {userdata} followers = {myFriendsList.followers} following = {myFriendsList.following} dispatch = {dispatch} handleLogout = {handleLogout}/>
+<Sidebar followList = {followList} userdata = {userdata} followers = {myFriendsList.followers} following = {myFriendsList.following} dispatch = {dispatch} handleLogout = {handleLogout}/>
 )
-} else {
+}
+ else {
   return (
     <Spinner animation = 'border' />
   )

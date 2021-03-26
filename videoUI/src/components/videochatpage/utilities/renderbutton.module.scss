@@ -1,74 +1,85 @@
 @use '../../globalSass/app' as *;
-
-
 .icon{
     margin: 0 0.5rem 0 0.5rem;
     font-size: 1rem;
+    color: $fourth-color;
+&:hover{
+    color: $third-color;
+}
 }
 .container{
     &__listgroup{
+    border: solid red !important;
     }
-}
-.dropdown{
-    margin: 1rem 0 1rem 0 !important;
-    border: none !important;
-    border-radius: 0.45rem !important;
-    background-color: $fourth-color !important;
-&__toggle{
-    border: solid $primary-color 1px !important;
-    background-color: $fourth-color !important;
-    border-radius: 0.45rem !important;
-    color: $third-color !important;
-&:target, &:active, &:focus{
-    outline: none !important;
-    box-shadow: none !important;
-    border: none !important;
-}
-}
-&__menu{
-    //border: solid orange;
-    padding: 0 !important;
-    background-color: lighten($third-color, 15%) !important;
-    border-radius: 0.35rem !important;
-}
-&__item{
-    border: none !important;
-    outline: none !important;
-    padding: 0.35rem !important;
-    color: $fourth-color !important;
-    box-shadow: 0 0 3px 0 $third-color !important;
-    //border: solid $fourth-color !important;
-    border-radius: 0.35rem;
-
-    //background-color: orange !important;
-&:hover{
-    padding: 0.25rem !important;
-    background-color: $third-color !important;
-    color: $fourth-color !important;
-}
-}
-}
-
-.listgroup{
-    &__item{
-        width: 10rem !important;
-        padding: 0.35rem 1.25rem 0.35rem 1.25rem !important;
-        display: flex;
-        margin: 1rem 0 1rem 0 !important;
+    &__buttongroup{
+        display: flex !important;
         align-items: center;
-        justify-content: space-around;
-        border-radius: 0.45rem !important;
-        color: $fourth-color !important;
-        border: solid $fourth-color 2px !important;
-        background-color: lighten($third-color, 5%) !important;
+        border: none !important;
+        outline: none !important;
+        background-color: lighten($fourth-color, 5%) !important;
+        padding: 0 !important;
     &:hover{
+        background-color: lighten($third-color, 5%) !important;
+    }
+    }
+    &__toggle{
+        outline: none !important;
+        border: solid $fourth-color !important;
+        padding: 0.25rem !important;
+//        background-color: lighten($fourth-color, 5%) !important;
         color: $third-color !important;
-        background-color: $fourth-color !important;
+        border-radius: 0.45rem;
+        background-color: transparent !important;
+        &:focus, &:active, &:target{
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            }
+            &:hover > .container__toggle__text{
+                color: $third-color !important;
+            }
+            &:hover > .icon{
+                color: $third-color !important;
+            }
+            &:hover{
+            color: $third-color !important;
+            background-color: $fourth-color !important;
+            //border: solid orange !important;
+        }
+&__text{
+color: $fourth-color !important;
 
+}
     }
-    &:focus{
-        outline:none;
-        border: solid $fourth-color;
+    &__dropdown__item{
+
+        padding: 0.5rem;
+        &:hover{
+            border-radius: 0.35rem !important;
+            background-color: $third-color !important;
+            color: $fourth-color !important;
+        }
     }
-    }
+}
+.button{
+    background-color: transparent !important;
+    color: $third-color;
+    letter-spacing: 1px;
+    font-weight: 600 !important;
+    border-radius: 0.3rem !important;
+    text-transform: capitalize;
+    color: $fourth-color !important;
+    box-shadow: 0 0 1px 2px $fourth-color !important;
+    outline: none !important;
+    border: none !important;
+    //border: solid $fourth-color !important;
+&:focus{
+    box-shadow: none !important;
+    border: solid $third-color !important;
+    outline: none !important;
+}
+&:hover{
+    background-color: $fourth-color !important;
+    color: $third-color !important;
+}
 }

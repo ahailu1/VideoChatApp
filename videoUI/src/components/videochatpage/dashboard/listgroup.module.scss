@@ -5,27 +5,15 @@
 
 
 &__list{
-    margin: 0 0 0 0rem;
     display: flex;
+    
     justify-content: center;
-    width: 100%;
     //border: solid red !important;
-    &.toggled > a{
-        align-items: center;
-        //background-color: $fourth-color;
-        border: none;
-        padding-left:2rem;
-    }
+ 
     
     & > a{
         color: white;
         background-color: lighten($third-color, 10%);
-    &.one{
-        background-color: $primary-color !important;
-        color: $third-color;
-        border-radius: 0.35rem !important;
-        border: solid red !important;
-        box-shadow: 0 0 1px 0 $primary-color;
     }
         &:hover{
             border-radius: 0.45rem;
@@ -34,16 +22,33 @@
         border: none !important;
     }
     
+}
+&__listitem{
+
+    &:active, &:target, &:focus, &:visited{
+        outline: none !important;
+        border: none !important;
+    }
+&:hover{
+    background-color: lighten($fourth-color, 10%);
+}
+&:hover > .icon, &:hover > .icon__name{
+    color: $third-color;
+}
+    &.item{
+        background-color: lighten($fourth-color, 5%) !important;
+    &.item > .icon{
+        color: $third-color;
+    }
     }
 }
 }
 
-.icon{
+.icon, .icon__name{
     color:$primary-color;
+    font-weight: 600;
     margin: 0 1rem 0 0rem;
-
     &.toggled{
         color: $third-color;
     }
-
 }

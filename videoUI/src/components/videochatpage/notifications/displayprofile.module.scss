@@ -4,11 +4,10 @@
     background-color: lighten($third-color, 4%);
     height: auto;
     display: flex;
-    padding: 0.5rem 0 0.5rem 0;
-    border-radius: 0.25rem;
-    margin: 0.15rem;
+    padding: 0.75rem 0 0.5rem 0;
+    ///border-radius: 0.25rem;
+    //margin: 0.15rem;
     align-items: center;
-
     box-sizing: border-box;
     &:hover{
         transition: all ease-in-out 0.15s;
@@ -17,125 +16,90 @@
         background-color: lighten($third-color, 10%);
     }
 }
-.status{
-    &__online{
-        position: absolute;
-        top: -2rem;
-        //left: 0;
-        padding: 0.15rem;
-        text-transform: uppercase;
-        font-size: 0.65rem;
-        margin: 0 0 0.25rem 1rem;
-    }
+.mycolumn:nth-of-type(2){
+    border: solid red;
 }
-.testingaa{
-}
-.container{
-    &__dropdown{
-        color: $third-color !important;
-        font-weight: 700 !important;
-        background-color: $fourth-color !important;
-        font-size: 0.75rem !important;
-        margin: -0.35rem 1rem 0 0.75rem;
-    &:hover, &:active, &:target, &:focus{
-        color: $fourth-color !important;
-        border: $third-color !important;
-        background-color: $third-color !important;
-        border: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-    }
-  
-    }
-    &__username{
-        background-color: $third-color;
-        border-radius: 0.35rem;
-        color: $fourth-color;
-        font-size: 0.75rem;
-        padding: 0.25rem;
-        text-align: center;
-        position: relative;
-    }
-    &__online{
-        transition: all ease-in-out 1s !important;
-        position: absolute;
-        top: -0.5rem;
-        box-shadow: 0 0 3px 0 $primary-color;
-        border-radius: 50%;
-        right: -0.25rem;
-        background-color: red;
-        height: 1rem;
-        width: 1rem;
-    &.toggled{
-        background-color: #009719 !important;
-    }
-    }
-}
-.friends{
-    &__heading{
-        padding: 0.35rem 0.75rem 0.35rem 0.75rem;
-        border-radius: 0.35rem;
-        font-size: 1rem;
-        color: $third-color;
-        font-weight: 600;
-        background-color: lighten($fourth-color, 3%);
-    }
-    &__count{
-        cursor: pointer;
-        margin: 0 0.5rem 0 1rem;
-        color: $fourth-color;
-        &:hover{
-            text-decoration: underline;
 
-        }
-    &:hover ~ .container__username{
-        visibility: visible;
-    }
-    
-    }
-}
-.notification{
+.profile{
     &__image{
-        margin: 0.25rem 0 0.25rem 0;
-        height: auto;
+        //margin: 0.25rem 0 0.25rem 0;
         clip-path: circle(40%);
+        height: auto;
         max-width: 100%;
+    &__container{
+        position: relative;
+        border-radius: 50%;
+        //border: solid red !important;
+        //border: solid red;
     }
-    &__text{
-        color: $primary-color;
     }
-}
-.columnaz{
-    justify-content: space-between;
-    display: flex;
-    margin: 0.5rem 0 0.5rem 0;
-}
-
-.request{
-    &__status{
+    &__onlinestatus{
         position: absolute;
         top: 0;
-        color: green;
-        width: 1rem;
-        height: 1rem;
-        right: 0;
+        display: flex;
+        flex-direction: column-reverse;
+        right: 15%;
+        justify-content: flex-start;
+        align-items: flex-start;
+        background-color: #ff2a2a;
+        height: 0.75rem;
+        width: 0.75rem;
+        //display: flex;
+        border-radius: 50%;
+    &.toggled{
+        right: 12%;
+        //border: solid red;
+        background-color: transparent;
+        z-index: 1;
     }
-    &__text{
-    color: $primary-color;
-      font-weight: 600;
     }
-    &__header{
-        font-size: 1rem;  
-        color: $fourth-color;
-    }
-    &__date{
-        background-color: $third-color;
-        padding: 0.5rem;
-        border-radius: 0.25rem;
+    &__onlinetext{
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: capitalize;
 
+    &.toggled{
+        margin-top: -1rem;
         color: $fourth-color;
-        font-size: 0.65rem;
-        margin: 0.75rem 0 0 0;
+    }
+    }
+    &__username{
+        margin: 0 1rem 0 0rem;
+        color: $primary-color;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    &__heading{
+        color: lighten($primary-color, 10%);
         font-weight: 400;
+        font-size: 0.8rem;
+    }
+    &__count{
+        margin: 0;
+        color: $primary-color;
+        font-size: 1.15rem;
+        font-weight: 700;
     }
 }
+.container{
+    &__followstatus{
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+    }
+    &__username{
+        display: flex !important;
+        align-items: center;
+        padding: 0 1rem 0 0;
+        flex-direction: column;
+        justify-content: flex-start !important;
+        margin-right: 1rem;
+    }
+    &__information{
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+  
+}
+

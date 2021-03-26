@@ -15,12 +15,7 @@ const Userbar = ({username,bio,date,user_id, ...props}) => {
             <FontAwesomeIcon icon = {iconname} className = {styles.icon} />
         </ListGroup.Item>
         )
-    } 
-      let setActiveTab = () => {
-
-      }
-
-
+    }
     return (
             <>
             <TabContainer activeKey = {currentKey} className = {styles.container__alltabs}>

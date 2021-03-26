@@ -32,9 +32,9 @@ const VideoModal = ({setActiveKey,socket,userdata,setModal,onHide,setFriendInfo,
         let profile = {
             user_id,
             username,
-            recipient_id
+            recipient_id,
+            hasAccepted: true,
         }
-        console.log([user_id, username, recipient_id, 'im a phaggot']);
         setActiveKey('#link1');
         setFriendInfo(profile);
         onHide();

@@ -72,25 +72,35 @@ let getAll = async (userdata) => {
     </Row>
   <Row className = {styles.container__row__profile} noGutters = {true}>
         {filteredUsers.map(el => {
+            let type;
+            let action;
             let date = new Date(el.creation_date).toLocaleDateString();
-            if(el.user_id === userdata.user_id){
-            } else if (myFollowing.includes(el.user_id) && myFollowers.includes(el.user_id)){
-                return <Profile user_id = {el.user_id} bio = {el.bio} date = {date} username = {el.username} render = {(props) => {
-                    return <RenderButton user_id = {el.user_id} username = {el.username} loading = {true} userdata = {userdata} callback = {dispatch} callbackData = 'unfollow'  /> }}/>   
+            if(myFollowers.includes(el.user_id) && myFollowing.includes(el.user_id)){
+                type = 'following'
+                action = 'unfollow'
             } else if(myFollowers.includes(el.user_id) && !myFollowing.includes(el.user_id)){
-                return <Profile user_id = {el.user_id} bio = {el.bio} date = {date} username = {el.username} render = {(props) => {
-                    return <RenderButton user_id = {el.user_id} username = {el.username} text = 'Follow Back' callback = {dispatch} callbackData = {'follow'} loading = {null} userdata = {userdata}  /> }}/>   
-            } else if( myFollowing.includes(el.user_id) && !myFollowers.includes(el.user_id)) {
-                return <Profile user_id = {el.user_id} bio = {el.bio} date = {date} username = {el.username} render = {(props) => {
-                    return <RenderButton user_id = {el.user_id} username = {el.username} loading = {true} userdata = {userdata} callback = {dispatch} callbackData = {'unfollow'}   /> }}/>   
+                        type = 'follow back'
+                        action = 'follow'
+            } else if(!myFollowers.includes(el.user_id) && myFollowing.includes(el.user_id)){
+                type = 'following'
+                action = 'unfollow'
+            } else if (myFollowers.includes(el.user_id) && myFollowing.includes(el.user_id)){
+                type = 'following'
+                action = 'unfollow'
+            } else if(!myFollowers.includes(el.user_id) && !myFollowing.includes(el.user_id)){
+                type = 'follow'
+                action = 'follow'
             } else {
-                return <Profile user_id = {el.user_id} bio = {el.bio} date = {date} username = {el.username} render = {(props) => {
-                    return <RenderButton user_id = {el.user_id} username = {el.username} loading = {null} userdata = {userdata} callback = {dispatch} callbackData = {'follow'} /> }} />
-                }
-                })}
-  </Row>
+                action = 'unfollow'
+                type = 'follow'
+            }
+            return <Profile myFollowers = {myFollowers} myFollowing = {myFollowing} date = {el.creation_date} username = {el.username} user_id = {el.user_id} userdata = {userdata} render = {() => 
+                { return <RenderButton type = {type} userdata = {userdata} user_id = {el.user_id} callback = {dispatch} callbackData = {action} /> } } /> 
+
+            })}
+     </Row>
 </>
     )
-}
+        }
 
 export default Searchbar;

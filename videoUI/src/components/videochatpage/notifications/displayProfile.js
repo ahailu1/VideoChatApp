@@ -10,8 +10,12 @@ let DisplayProfile = ({userdata,user_id,bio,myFollowers, myFollowing,friendsList
         useEffect(async () => {
             await fetchFriendsList(user_id);
         }, [myFollowers,myFollowing]);
+
+
         let [theseFollowing, setFollowing] = useState([]);
         let [theseFollowers, setFollowers] = useState([]);
+        
+        
         let displayList = (followers, title) => {
             return (
 <Dropdown>
@@ -52,6 +56,7 @@ let DisplayProfile = ({userdata,user_id,bio,myFollowers, myFollowing,friendsList
                 console.log(err);
             }            
     }
+
 let DisplayNotification = ({username, date, bio}) => {
     let newDate = new Date(date);
     let thisDate = newDate.toLocaleDateString();
@@ -60,35 +65,46 @@ let DisplayNotification = ({username, date, bio}) => {
     <Col className = {styles.mycolumn} lg = {12} xl = {12}>
     
     <Col className = {styles.container__image} lg = {2} xl = {2}>
+    
+    <div className = {styles.profile__image__container}>
+
+    <img src = '/test123--profilepicture.jpg' className = {styles.profile__image} alt = 'profile'/>    
+    <div className = {`${styles.profile__onlinestatus} ${onlineStatus && styles.toggled}`}>
+       {onlineStatus === true ? 
+        <>
+        <Spinner animation = 'grow' variant = 'success' size = 'sm' className = {styles.spinner}/>
+        <span className = {`${styles.profile__onlinetext} ${onlineStatus && styles.toggled}`}>online</span>
+          </>
+           : 
+           <>
+           <span className = {styles.profile__onlinetext}></span>
+           <p className = {styles.profile__onlinetext}>offline</p>
+           </>
+           }
+    </div>
+    </div>
+    </Col>
+    <Col lg = {6} xl = {{span: 7, offset: 0}} md = {7} className = {styles.container__information}>
         
-
-    <img src = '/test123--profilepicture.jpg' className = {styles.notification__image} alt = 'profile'/>
+        <Col className = {styles.container__followstatus} lg = {12} xl = {12}>
     
-    <Col className= {styles.container__username}>
-        {username}
-        {
-            onlineStatus ?         <>
-            <Spinner size = 'sm' animation = 'grow' className = {`${styles.container__online} ${onlineStatus && styles.toggled}`}/>
-            <span className = {styles.status__online}>{onlineStatus ? 'online' : 'offline'}</span>
-            </>
-            : <>
-            <div className = {`${styles.container__online}`}>
-            <span className = {styles.status__online}>{onlineStatus ? 'online' : 'offline'}</span>
+        <Col xl = {2} className = {styles.container__username}>
+    <p className = {styles.profile__username}>{username}</p>        
+    <p className = {styles.profile__heading}></p>
+           </Col>
 
-            </div>
-            </>
-        }
+    <Col className = {styles.container__follow} lg = {4} xl = {5}>
+    <p className = {styles.profile__count}>{theseFollowers.length}</p>        
+    <p className = {styles.profile__heading}>Followers</p>
+    </Col>
+    
+    <Col className = {styles.container__follow} lg = {4} xl = {5}>
+    <p className = {styles.profile__count}>{theseFollowing.length}</p>        
+    <p className = {styles.profile__heading}>Following</p>
     </Col>
 
     </Col>
-    
-    <Col lg = {6} xl = {{span: 6, offset: 1}} md = {7}>
 
-        <div className = {styles.columnaz}>
-         {displayList(theseFollowers, 'Followers')}
-         {displayList(theseFollowing, 'Following')}
-        </div>
-       
     <Col lg = {12}>
     {friendsList !== true &&
     <>
@@ -98,16 +114,13 @@ let DisplayNotification = ({username, date, bio}) => {
         }
     </Col>
 
-    <Col lg = {12}>
-    <span className = {styles.request__date}>{thisDate}</span>
-    </Col>  
-
-    <Col lg = {2}>
+    <Col xl = {1} lg = {2}>
     {bio}
     </Col>
+
     </Col>
     
-    <Col lg = {3} xl = {3}>  
+    <Col className = {styles.column__testing} lg = {2} xl = {2}>  
     {props.render()}
     </Col>
     </Col>  

@@ -8,169 +8,92 @@
     display: flex;
 
 }
-.column__one{
-    display: flex;
-    box-shadow: 0 0 3px 0;
-    margin: 1rem 0 0 0em;
-    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
-    padding: 0 !important;
-}
-.error{
-    font-size: 0.75rem;
-    color: black;
-    font-weight: 700;
-}
-.testing{
-        //border-top: none;
-            z-index: 5;
-    border-radius: 0.5rem;
-}
-.input__group{
-}
-.form{
-    &__row{
-        width: 80%;
-    margin: 1.25em 0 1.25rem 0;
-    &.toggled{
-    }
-    }
-    &__column{
-        background-color: $primary-color;
-        position: relative;
-        width: 0%;
-        transition: all ease-in-out 0.5s;
-        align-items: center;
-        padding: 4rem 2rem 4rem 2rem;
-        position: relative;
+
+.column{
+    &__one{
+        padding: 0 !important; 
         display: flex;
-        justify-content: center;
-        z-index: 10;
-         border-radius: 0.5rem 0 0 0.5rem;
-        &::after{
-            background-color:$secondary-color;
-            content: '';
-            display: flex;    
-        position: absolute;
-        top: 0;
-        transition: all ease-in-out 0.5s;
-        left:0;
+        border-radius: 0.35rem;
+        box-shadow: 0 1px 3px 0 $third-color;
+        //border: solid lighten($third-color, 15%);
+    }
+}
+
+.container{
+    &__formheading{
+        border-radius: 0.35rem 0 0 0.35rem;
+        position: relative;
         height: 100%;
         width: 100%;
-        clip-path: circle(15.0% at 100% 50%);
-    }
-        &.toggled{
-            transition: all ease-in-out 0.5s;
-            width: 100%;
-            z-index: 1;
-            position: relative;
-            background-color: $secondary-color;
         &::after{
+            position: absolute;
+            top: 0;
+            left:0;
+            z-index: 1000;
+            width: 100%;
             content: '';
-            display: flex;    
-        position: absolute;
-        top: 0;
-        transition: all ease-in-out 0.5s;
-        left:0;
-        background-color: white;
-        width: 0%;
-        clip-path: none;
-        z-index: 0;
-
-
-        }
-        }
-        &__welcome{
-            padding: 4rem 2rem 4rem 2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 0rem 0.4rem 0.4rem 0;
-        background-color: $secondary-color;
-    &::after{
-        height: 100%;
-        width: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: flex;
-        content: '';
-    }
-    &.toggled{
-        position: relative;
-        width: 0%;
-        background-color: whitesmoke;
-        transition: all ease-in-out 1s;
-        z-index: 5;
-    &::after{
-        background-color:$secondary-color;
-        content: '';
-        display: flex;    
-    position: absolute;
-    top: 0;
-    transition: all ease-in-out 0.5s;
-    left:0;
-    height: 100%;
-    width: 100%;
-    //clip-path: polygon(0 17%, 0 57%, 17% 38%);
-    clip-path: circle(15.0% at 0 49%);
-
-}
-    
-    }
-    }
-    }
-}
-.form{
-&__createaccount{
-    display: none;
-    width: 0%;
-    transition: all ease-in-out 0.5s;
-&.toggled{
-    width: 100%;
-    transition: all ease-in-out 0.5s;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-}
-}
-&__input{
-&.toggled{
-    display: none;
-}
-}
-
-    &__login{
-        display: none;
-        &.toggled{
+            height: 100%;
             display: flex;
-            flex-direction: column;
         }
     }
-    &__heading{
-        color: white;
-        font-size: 2rem;
-        &.toggled{
-            //color: #343a40;
-        }
+    &__form{
+        padding: 10rem 0rem 10rem 1rem;
+        border-radius: 0rem 0.35rem 0.36rem 0rem;
+        z-index: -2;
+    }
+    &__section{
+        //border: solid orange !important;
+        z-index: 500;
+        border: solid $sixth-color 3px;
+        background-repeat: no-repeat;
+        border-radius: 0.35rem 0.35rem 0.35rem 0.35rem;
+        //box-shadow: 0 0 3px 0 $third-color;
+        background-image: url('../../images/finalform.svg');
+        background-size: contain;
+        position: relative;
+    &::after{
+        background-size: contain;
+height: 100%;
+z-index: -1;
+width: 100%;
+opacity: 0.15;
+        position: absolute;
+        top:0;
+        left:0;
+        content: '';
+        display: flex;
+    }
+    }
+}
+
+.form{
+    &__row{
+        width: 50%;
+        padding: 0.5rem 0 0.5rem 0;
     }
     &__paragraph{
-        font-size: 1rem;
-        color: white;
-    &.toggled{
-        //color: #343a40;
+        color: $sixth-color;
+    }
+    &__title{
+        color: $third-color;
+        font-size: 2.5rem;
+        font-weight: 600;
+    &.createaccount{
+        border-bottom: solid $fourth-color;
+        color: $sixth-color;
     }
     }
-    &__welcome{
-        &.toggled{
-            display: none;
-        }
-    &__login{
-    &.toggled{
-        display: none;
+    &__input{
+    &::after{
+
     }
     }
+    &__image{
+        position: absolute;
+        top:0;
+        left:0;
+        height: auto;
+        width: 40%;
     }
 
 }

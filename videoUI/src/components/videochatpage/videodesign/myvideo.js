@@ -26,22 +26,31 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted, ...props}) 
                     console.log(friend_id + 'is not defined mothafucka')
                     listenForOffer();
                 }
-                if(acceptedRequest === true){
-                    initStream();
+                if(myPeerConnection !== '' && thisStream !== ''){
+                    console.log('we connected');
+                    thisStream.getTracks().forEach(el => {
+                        myPeerConnection.addTrack(el, thisStream)
+                    });
+                }
+                if(acceptedRequest === true || hasAccepted === true){
+                    initStream(friend_id);
+                    testConnection();
+                    setRemoteStream();
                 }
     }, [friend_id]);
+        let testConnection = () => {
+            myPeerConnection.addEventListener('connectionstatechange', e => {
+            });
+        }
 
     let fetchRequest = () => {
         let {user_id} = userdata;
-        console.log('fetch request is working my dawg');
         socket.on(`confirm_request_with_${user_id}`, (data) => {
-            console.log('fetch request is working inside and outside this socket function');
             let {recipient_id, sender_id} = data;
             setRequest(true);
             setRecipientId(sender_id);
         });
     }
-
     let fetchData = async ({user_id}) => {
         let stream = await initMediaDevice();
       let {peerConnection, iceServers} = await getIceServers(user_id);
@@ -52,27 +61,25 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted, ...props}) 
         video.srcObject = stream;
         video.play();
 }
-
 let listenForOffer = () => {
     let {user_id} = userdata;
     socket.on(`initStream_offer_${user_id}`, async data => {
-    if(data.offer){
-                    console.log(data);
+    if(data.type === 'offer'){
                     myPeerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
                     let answer = await myPeerConnection.createAnswer();
                     await myPeerConnection.setLocalDescription(answer);
-                    let {recipient_id} = data.sender;
+                    let recipient_id = data.sender;
                     let info = {
                         sender: user_id,
-                        recipient: recipient_id,
+                        recipient_id: recipient_id,
                         answer: answer,
                         isOnline: true,
+                        type: 'answer',
                     }
                     socket.emit('initStream', info);
                 }
         });  
 }
-
         let setRemoteStream = () => {
             let remoteStream = new MediaStream();
             let remoteVid = document.getElementById('friendvid');
@@ -87,7 +94,8 @@ let listenForOffer = () => {
             toggleVideo(!thisVideo);
             thisStream.getVideoTracks().forEach(el => {
                 el.enabled = !thisVideo;
-            })
+            });
+            toggleVideo(!thisVideo);
         } else if (iconname === 'mic'){
             toggleMic(!thisMic);
             thisStream.getAudioTracks().forEach(el => {
@@ -97,10 +105,10 @@ let listenForOffer = () => {
         }
     }
 
-    let initStream = async () => {
+    let initStream = async (friend_id) => {
         let {user_id} = userdata;
         socket.on(`initStream_answer_${user_id}`, async (data) => {
-            if(data.answer){
+            if(data.type === 'answer'){
                 let remoteDescription = new RTCSessionDescription(data.answer);
                 await myPeerConnection.setLocalDescription(remoteDescription);
             }
@@ -109,8 +117,9 @@ let listenForOffer = () => {
         await myPeerConnection.setLocalDescription(myOffer);
         let info = {
             sender: user_id,
-            recipient: friend_id,
-            offer: myOffer
+            recipient_id: friend_id,
+            offer: myOffer,
+            type: 'offer'
         }
         socket.emit('initStream', info);
     }
@@ -119,11 +128,11 @@ let listenForOffer = () => {
         <Row className = {styles.container__videopage}>
 
             <Col xl = {9} className = {styles.container__column__wrapper}>
+
             <Col lg = {5} className = {styles.container__column__video}>
     <video autoPlay playsInline controls id = 'myvid' className = {styles.vid} width = "100%">
     <source type = "video/mpg"/>
     </video>
-
         <div className = {styles.container__icon}>
             <SetIcon icon = {thisVideo} iconName = 'video' callBack = { () => {toggleIcons('video') }}/>
             <SetIcon icon = {thisMic} iconName = 'microphone' callBack = { () => {toggleIcons('mic') }}/>
@@ -132,16 +141,20 @@ let listenForOffer = () => {
 
         <Col lg = {5} className = {styles.container__column__video}>
             {
-                acceptedRequest === true ?  <video autoPlay playsInline controls id = 'friendvid' className = {styles.vid} width = "100%">
+                acceptedRequest === true || hasAccepted === true ?
+                <video autoPlay playsInline controls id = 'friendvid' className = {styles.vid} width = "100%">
                 <source type = "video/mpg"/>
                 </video>
                 : <LoadVideo/>
             }
         </Col>
+
         </Col>
+        
         <Col lg = {3} className = {styles.container__column__sidebar}>
         {props.render()}
         </Col>
+        
         </Row>
     )
 }

@@ -1,14 +1,7 @@
 import {React, useState} from 'react';
 import styles from './userbio.module.scss';
-import {Tabs,TabContainer,Col, Nav, ListGroup, Tab, Image} from 'react-bootstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import Listbar from '../dashboard/listgroup';
-
-
+import {Col, Image} from 'react-bootstrap';
 let UserBio = ({username, bio, date, ...props}) => {
-
-
-
 return (
     <>
 <Col className = {styles.container__image}>

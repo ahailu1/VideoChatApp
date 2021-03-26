@@ -1,10 +1,9 @@
 import React,{useState, useEffect} from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styles from './userprofile.module.scss';
 import {Container, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 
-const Profile = (props) => {
+const Profile = ({...props}) => {
     
     let [myFollowers, setFollowers] = useState(0);
     let [myFollowing, setFollowing] = useState(0);
@@ -36,10 +35,10 @@ const Profile = (props) => {
           }
         }
       };
-      let ReturnProfile = React.memo(({username, bio, friendname,date, user_id, addFriend}) => {
-
+      let ReturnProfile = React.memo(({username, bio}) => {
         return (
-            <Col className = {styles.container__userprofile} lg = {3}>
+            <Col className = {styles.container__userprofile} lg = {{span: 3, offset:0}}>
+                   
                    <Col className = {styles.container__image} lg = {12}>
                    <img src = {`/test123--profilepicture.jpg`} alt = "" className = {styles.images}/> 
                    <div className = {styles.container__username}>
@@ -48,32 +47,33 @@ const Profile = (props) => {
                    </span>
                    </div>
                 </Col>
-                    <Col lg = {12}>
-                        <div className = {styles.container__followers}>
-                        <span className = {`${styles.profile__header} ${styles.followers}`}>Followers </span><span className = {`${styles.profile__text} ${styles.followers}`}>{myFollowers} </span>
-                    <span className = {`${styles.profile__header} ${styles.followers}`}>Following </span><span className = {`${styles.profile__text} ${styles.followers}`}> {myFollowing} </span>
-    
-                        </div>
-                    </Col>
-                <Col lg = {12} className = {styles.container__text}>
-                    <span className = {styles.profile__text}>{friendname}</span>
-                </Col>
                 
-                    { bio !== null
+                    <Col lg = {12} className = {styles.container__followers}>
+                          <Col>
+                          <span className = {`${styles.profile__text} ${styles.followers}`}>{myFollowers} </span>
+                        <span className = {`${styles.profile__header} ${styles.followers}`}>Followers </span>
+                        </Col>
+                        <Col>
+                        <span className = {`${styles.profile__text} ${styles.followers}`}> {myFollowing} </span>
+                    <span className = {`${styles.profile__header} ${styles.followers}`}>Following </span>
+                    </Col>                       
+                    </Col>
+                    { 
+                    bio !== null
                     
                     && <>
                                     <Col lg = {12} className = {styles.container__bio}>  
-                    <span className = {styles.profile__header}> Bio:</span> <span  className = {styles.profile__bio}> {bio}</span> 
+                                    <span  className = {styles.profile__bio}> {bio}</span> 
+                    <span className = {`${styles.profile__header} ${styles.bio}`}> Bio</span> 
                 </Col>
-                </> }
-                <Col lg = {12} className = {styles.container__date}>
-                    <span className = {styles.profile__header}>Created</span>
-                    <span className = {styles.profile__text}>{date}</span>
-                </Col>
-                
-                <Col className = {styles.container__button} lg = {12}>
+                </> 
+                }
+                  <Col className = {styles.container__button} lg = {12}>
                    {props.render()}
                 </Col>
+              
+                         
+          
             </Col>
         )}
       )
@@ -85,3 +85,9 @@ const Profile = (props) => {
 }
 
 export default Profile
+/*
+<Col lg = {12} className = {styles.container__date}>
+<span className = {styles.profile__header}>Created</span>
+<span className = {styles.profile__text}>{date}</span>
+</Col>   
+*/

@@ -3,11 +3,19 @@
 .container{
 background-color: $third-color;
 &__tabs{
+    //border: solid red !important;
     padding: 0rem 0 0rem 0;
     //border: solid red !important;
+    border-bottom: none !important;
+    //margin: 0rem 0 1rem 0;
 }
 &__header{
     padding: 1rem 0 1rem 0;
+}
+&__profile{
+&.toggled{
+    border: solid orange !important;
+}
 }
 }
 

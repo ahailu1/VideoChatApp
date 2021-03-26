@@ -1,28 +1,69 @@
 @use '../main.scss' as *;
+
+.columnaz{
+    margin: 0 !important;
+}
+.icon{
+    font-weight: 500;
+    font-size: 3rem;
+&__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    width: 5rem;
+    border: solid $third-color;
+    border-radius: 50%;
+&:hover{
+    border: lighten($third-color, 10%);
+    background-color: lighten($third-color, 10%);
+}
+}
+}
 .container{
-    &__landing{
-        display: flex;
-    background-color: $secondary-color;
-    //background-image: url('../../images/bg1.jpg');
-    background-size: cover;
-    padding: 3rem;
-    background-position: top 25%;
-    }
+   
+&__signup{
+}
+
 &__column{
+    margin: 0 !important;
+    padding: 0 !important;
+    background-image: url('../../images/Picture8.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative !important;
+    //border: solid green !important;
+}
+&__text{
 }
 }
 
 .text{
     &__header{
-        color: $primary-color;
+        padding: 0rem 0 1.5rem 1rem;
+        color: $third-color;
         font-size: 3rem;
         font-weight: 700;
-
+        position: relative;
+&::after{
+position: absolute;
+bottom: 0;
+left:25%;
+display: flex;
+content: '';
+background-color: $third-color;
+height: 5px;
+align-self: center;
+justify-content: center;
+width: 50%;
+}
+    
     }
     &__paragraph{
+        padding: 0 1rem 0 1rem;
         font-weight: 400;
-        color: $primary-color;
-        font-size: 1.5rem;
+        color: $third-color;
+        font-size: 1rem;
     }
     color: $primary-color;
     &__button{
@@ -32,32 +73,7 @@
         background-color: grey;
     }}
 }
-.columnaz{
-    margin: 3rem 0 0 1rem;
-    padding: 6rem 2rem 2rem 15rem !important;
-}
 
 .image{
-    perspective: 25rem;
-    animation: laughing ease-in-out 5s infinite;
-}
-@keyframes laughing {
-
-0%{
-transform: translate(-5rem, 5rem);
-}
-
-50%{
-
-    transform: translate(5rem, 3rem) perspective(25rem) rotate(30deg);
-
-}
-
-100%{
-    opacity: 1;
-    transform: translate(-5rem, 5rem);
-
-}
-
-
+width: 70%;
 }

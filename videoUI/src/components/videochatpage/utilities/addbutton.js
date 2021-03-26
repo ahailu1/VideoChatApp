@@ -1,17 +1,18 @@
 import React,{useState, useEffect} from 'react';
-import {ListGroup, Spinner,Dropdown, DropdownButton } from 'react-bootstrap';
+import {ListGroup, Spinner,Dropdown, DropdownButton,Button, ButtonGroup } from 'react-bootstrap';
 import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styles from './renderbutton.module.scss';
 import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
 
-const RenderButton = ({loading = null, user_id, userdata, text = null, callback = null, callbackData= null}) => {    
+const RenderButton = ({type, user_id, userdata,callback = null, callbackData= null}) => {    
     //let [followingBack, setFollowStatus] = useState(false);
     let [loaded, setLoading] = useState(null);
     let [activeSpinner, toggleSpinner] = useState(false);
+    let [followStatus, setFollowStatus] = useState('');
 
     useEffect(() => {
-        setLoading(loading);
+        //setLoading(loading);
     }, [])
 
 
@@ -31,87 +32,79 @@ const RenderButton = ({loading = null, user_id, userdata, text = null, callback 
         }
         let setLoadingStatus = action === 'deletefriend' ? null : true;
         try {
-            let info = await axios(config);
-            toggleSpinner(false);
+          toggleSpinner(true);
+          let info = await axios(config);
             setLoading(setLoadingStatus);
             if(callback !== null){
-              callback({type: callbackData, data: friend_id})
-
+              callback({type: callbackData, data: friend_id});
+              toggleSpinner(false);
+              if(action === 'deletefriend'){
+                setFollowStatus('follow');
+              } else {
+                setFollowStatus('following');
+              }
             } else {
+              toggleSpinner(false);
               return true
             }
         } catch (err) {
+          alert('eerrrpr');
             toggleSpinner(false);
             setLoading(false)
         }
     }
 
-   let followButton = (loaded, user_id,text = null, callback, callbackData) => { 
-    let component;
-      if(loaded){
-        component = 
-          <Dropdown className = {styles.dropdown}>
-            <Dropdown.Toggle className = {styles.dropdown__toggle}>
-             
-          {activeSpinner ? 
-            <>
-            <Spinner animation = "border"/> 
-                </>
-            : 
-            <>
-            <FontAwesomeIcon icon = 'check' className = {styles.icon}></FontAwesomeIcon>
-            {'following'}
-            </>
-            }
-            </Dropdown.Toggle>
+    let followButton = (type) => {
+      
+    let buttom = <Button size = 'sm' className = {styles.button} onClick = {() => {addFriend(user_id, callback, callbackData, 'addfriend') }}>
+    {activeSpinner ? <Spinner animation = 'border' size = 'sm'/> :   <FontAwesomeIcon icon = 'plus' className = {styles.icon}/>}
+    {type}
+    </Button>
 
-            <Dropdown.Menu className = {styles.dropdown__menu} >
+     let item =  <Dropdown>
+              <Dropdown.Toggle variant="success" className  = {styles.container__toggle}>
+                {activeSpinner ? <Spinner animation = 'border'/>
+                :                  <FontAwesomeIcon icon = 'check' className = {styles.icon}></FontAwesomeIcon>
 
-        <Dropdown.Item className = {styles.dropdown__item} onClick = {() => { addFriend(user_id,callback, callbackData, 'deletefriend')}}>
-          <FontAwesomeIcon icon = 'times-circle' className = {styles.icon}/>
-          Unfollow
-          </Dropdown.Item>
+                }
+                <span className = {styles.container__toggle__text}> Following</span>
+                
+              </Dropdown.Toggle>
 
+              <Dropdown.Menu className = {styles.container__buttongroup}>
+            <Dropdown.Item className = {styles.container__dropdown__item} href="#/action-1" onClick = {() => { addFriend(user_id,callback, callbackData, 'deletefriend')}}>
+            <FontAwesomeIcon icon = 'times-circle' className = {styles.icon}/>
+              Unfollow
+            </Dropdown.Item>
             </Dropdown.Menu>
-            
-          </Dropdown>
+            </Dropdown>
 
-                } 
-        
-        else if (loaded === null){
-         component =  
-          <ListGroup.Item action onClick = {() => {addFriend(user_id, callback, callbackData, 'addfriend')}} className = {styles.listgroup__item}>
-            {text == null ? "follow" : text }
-            {activeSpinner ? 
-            <>
-            <Spinner animation = "border"/> 
-                </>
-            :<FontAwesomeIcon icon = 'plus' className = {styles.icon}></FontAwesomeIcon>
+              if(type == 'follow' || type == 'follow back'){
+                return (
+                  buttom
+                )
+              } else {
+                return (
+                  item
+                )
+              }
             }
-         </ListGroup.Item>
-        } else {
-          component = <ListGroup.Item action onClick = {() => {addFriend(user_id, callback, callbackData, 'addfriend')}} className = {styles.listgroup__item}>
-            try again
-            {activeSpinner ? 
-            <>
-            <Spinner animation = "border"/><p>...</p> </> :        
-            <FontAwesomeIcon icon = 'redo' className = {styles.icon}></FontAwesomeIcon>
-            }
-         </ListGroup.Item>
-        }
-    return (
-    <>
-    <ListGroup horizontal className = {styles.container__listgroup}>
-      {component}
 
-    </ListGroup>
-    </>
+if(followStatus === 'follow'){
+  return (
+    followButton('follow')
     )
-   }
+} else if (followStatus === 'following'){
+  return (
+    followButton('following')
+    )
+} else {
+  return (
+    followButton(type)
+    )
+}
 
-    return (
-        followButton(loaded, user_id, text, callback, callbackData)
-    )
+    
   }
 
   export default RenderButton

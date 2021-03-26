@@ -34,23 +34,24 @@ return (
         </Col>
     </Row>
     <Row className = {styles.notification__list} noGutters = {true}>
-    <Col xl = {{span: 9, offset: 1}} className = {styles.container__list}>
-            {getFriendRequests.length > 0 && getFriendRequests.map(el => {
+    <Col xl = {{span: 8, offset: 1}} className = {styles.container__list}>
+            {
+            getFriendRequests.length > 0 && getFriendRequests.map(el => {
         if(myFollowers.includes(el.requester_id) && myFollowing.includes(el.requester_id)){
             return <DisplayProfile myFollowers = {myFollowers} myFollowing = {myFollowing} date = {el.creation_date} username = {el.username} user_id = {el.requester_id} userdata = {userdata} render = {() => {
-                return <RenderButton userdata = {userdata} user_id = {el.requester_id} callback = {dispatch} callbackData = 'unfollow' loading = {true} text = 'follow back' />
+                return <RenderButton userdata = {userdata} user_id = {el.requester_id} callback = {dispatch} callbackData = 'unfollow' loading = {true}/>
             }}/>  
         } else if (myFollowers.includes(el.requester_id) && !myFollowing.includes(el.requester_id)){
             return <DisplayProfile date = {el.creation_date} username = {el.username} user_id = {el.requester_id} userdata = {userdata} render = {() => {
-                return <RenderButton userdata = {userdata} user_id = {el.requester_id} loading = {null} callback = {dispatch} callbackData = 'follow' text = 'follow back' />
+                return <RenderButton userdata = {userdata} user_id = {el.requester_id} loading = {null} callback = {dispatch} callbackData = 'follow'/>
             }}/> 
         } else if (!myFollowers.includes(el.requester_id) && myFollowing.includes(el.requester_id)) {
                return null
         } else {
             return null
         }
-        
-    })}      
+    })
+    }      
         </Col>
     </Row>
   

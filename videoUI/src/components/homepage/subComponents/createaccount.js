@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Form, Row, Col, InputGroup, FormControl, Button,Container} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Cookies from 'js-cookie';
+import formpicture from '../../images/Picture11.svg';
 import axios from 'axios';
 //import '../../globalSass/app.scss';
 import styles from './createaccount.module.scss';
@@ -80,7 +81,6 @@ let handleLogin = async (e) => {
         console.log(props);
         handleError('couldnt login. Please re-enter your credentals and then try again');
     }
-
 }
 
 const WelcomeForm = () => {
@@ -96,10 +96,9 @@ const WelcomeForm = () => {
 const LoginForm = () => {
     return (
         <>
-<h1>{changeForm ? "Create Account" : "Login"}</h1>
 <p class = {`${styles.error} ${styles.error && styles.toggled}`}>{formError && formError}</p>
 
-<Form onSubmit = {changeForm ? handleCreateAccount : handleLogin}>
+<Form onSubmit = {changeForm ? handleCreateAccount : handleLogin} className = {`col align-self-center justify-content-start`}>
      <Form.Row className = {`${styles.form__row}`}>
 <InputGroup className = {`${styles.input__group}`}>
  
@@ -146,37 +145,18 @@ const LoginForm = () => {
    
     return(
     <>
-<Container className = {`${styles.testing}`} fluid>
-<Row className = {`${styles.row} ${!changeForm && styles.toggled}`}>
+<Col xl = {7} className = {`row justify-content-space-between ${styles.container__section}`}>
 
-<Col lg = {8} className = {styles.column__one}>
-
-    <Col className = {`${styles.form__column} ${!changeForm && styles.toggled}`} lg = {6}>
-        
-        <div className = {`${styles.form__createaccount} ${changeForm && styles.toggled}`}> 
-    <LoginForm/>
-    </div>
-    <div className = {`${styles.form__welcome__login} ${changeForm && styles.toggled}`}>
-        <WelcomeForm/>
-    </div>
+<Col className = {`Col align-self-center ${styles.container__form}`} xl = {8} lg = {5}>
+        <p className = {`${styles.form__title} ${styles.createaccount}`}>Create Account</p>
+        <p className = {styles.form__paragraph}>have an account? Login</p>
+        <LoginForm/>    
     </Col>
-    <Col className = {`${styles.form__column__welcome} ${!changeForm && styles.toggled}`} lg = {6} center = "lg">
-
-        <div className = {`${styles.form__login} ${!changeForm && styles.toggled}`}> 
-        <LoginForm className = {`${styles.form__login} ${styles.toggled}`}/>
-    </div>
-    <div className = {`${styles.form__welcome} ${!changeForm  && styles.toggled}`}>
-        <WelcomeForm/>
-    </div>
-    </Col>
-    </Col>
-<Col lg = {4}>
-    <h1>hello alex</h1>
+<Col className = {`col align-self-center ${styles.container__formheading}`} lg = {4} xl = {4}>
+    
 </Col>
-
-    </Row> 
-    </Container>
-    </>   
+    </Col>    
+        </>   
    ) 
 }
 export default CreateAccountForm;

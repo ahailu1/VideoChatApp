@@ -29,17 +29,24 @@ useEffect(() => {
 
   let displayFriendsList = (friendsList, followType) => {
  if(friendsList.length > 0){
-      return ( friendsList.map((el, index, arr) => {
+      return (friendsList.map((el, index, arr) => {
+        let action;
+        let type;
         let date = new Date(el.creation_date).toLocaleDateString();
           if(el[followType] !== null){
-            console.log(arr);
-
+            if(!(myFollowing.includes(el[followType]))){
+                type = 'follow back';
+                action = 'follow';
+            } else {
+              type = 'following';
+              action = 'unfollow';
+            }
           return ( 
           <>
-                <Col lg = {10} xl = {{span: 8, offset: 0}} className = {`${styles.container__profile} ${index === friendsList.lastIndexOf(el[followType]) && styles.toggled}`}>
+                <Col lg = {10} xl = {{span: 8, offset: 0}} className = {`${styles.container__profile}`}>
           
            <DisplayProfile onlineStatus = {onlineUsers.includes(el[followType]) ? true : false} myFollowers = {myFollowers} myFollowing = {myFollowing} user_id = {el[followType]} username = {el.username} date = {date} render = { () => {
-            return <RenderButton userdata = {userdata} user_id = {el[followType]} callback = {dispatch} callbackData = 'unfollow' loading = {true} />}} friendsList = {true} />
+            return <RenderButton type = {type} userdata = {userdata} user_id = {el[followType]} callback = {dispatch} callbackData = {action} />}} friendsList = {true} />
             </Col>
             <Col xl = {2} className = {styles.column__following}>
             <VideoButton socket = {socket} userdata = {userdata} initVideoChat = {initVideoChat} setActiveKey = {setActiveKey} username = {el.username} user_id = {el[followType]} bio = {el.bio} date = {date}/>

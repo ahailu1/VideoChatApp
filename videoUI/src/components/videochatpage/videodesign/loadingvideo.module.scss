@@ -16,6 +16,7 @@
     &__text{
         font-weight: 700;
         font-size: 0.75rem;
+        text-transform: capitalize;
         color: $primary-color;
     }
     &__spinner{

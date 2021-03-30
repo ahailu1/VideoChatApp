@@ -16,13 +16,8 @@
         display: flex !important;
         justify-content: center;
         align-items: center !important;
-        //flex-grow: 1 !important;
-        //border: solid orange !important;
-        //padding: 0.5rem 0 0.5rem 0;
-        //flex-grow: 1 !important;
         border-radius: 0.25rem;
         background-color: lighten($third-color, 5%) !important;
-        //margin: 0.5rem !important;   
     &:hover{
         background-color: lighten($third-color, 25%) !important;
     }

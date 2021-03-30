@@ -40,7 +40,8 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
           user_id,
           bio,
           isOnline: onlineStatus,
-          date
+          date,
+          requested:true
         }
         try{
           setFriendInfo(friendInfo);
@@ -79,7 +80,7 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
            <Col className = {styles.container__column__tabcontent} lg = {10}>
            <Tab.Content className = {styles.container__tabcontent}>
                <Tab.Pane eventKey="#link1" className = {styles.container__tabpane__videochat}>
-                 <VideoUi friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers} hasAccepted = {friendInfo.hasAccepted}
+                 <VideoUi friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers} requested = {friendInfo.requested} hasAccepted = {friendInfo.hasAccepted}
                  render = {() => {
                    if(Object.keys(friendInfo).length === 0) {
                      return <Userbar/>

@@ -12,7 +12,7 @@ const Userbar = ({username,bio,date,user_id, ...props}) => {
         
       return (
             <ListGroup.Item className = {`${styles.container__listitem} ${keyname === currentKey && styles.toggled}`} onClick = {() => {setCurrentKey(keyname)}}>
-            <FontAwesomeIcon icon = {iconname} className = {styles.icon} />
+            <FontAwesomeIcon icon = {iconname} className = {`${styles.icon} ${keyname === currentKey && styles.toggled}`} />
         </ListGroup.Item>
         )
     }

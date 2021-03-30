@@ -12,17 +12,18 @@ let CardTemplate = () => {
 
     return (
         <>
-        <div className = {styles.container__card}>
-        <div className = {styles.container__icon}>
+        <Col className = {`row align-items-center ${styles.container__card}`} xl = {12}>
+        
+        <Col className = {`row justify-content-center ${styles.container__icon}`} xl = {2}>
             <FontAwesomeIcon icon = {props.icon} className = {styles.icon}/>
-        </div>
-        <div className = {styles.container__title}>
-            <p className = {styles.title}>{props.title}</p>
-        </div>
-        <div className = {styles.container__paragraph}>
+        </Col>
+
+        <Col className = {`col justify-content-center  ${styles.container__paragraph}`} xl = {10}>
+        <p className = {styles.title}>{props.title}</p>
         <p className = {styles.paragraph}>{props.paragraph}</p>
-        </div>
-        </div>
+        </Col>
+        
+        </Col>
         </>
     )
 }

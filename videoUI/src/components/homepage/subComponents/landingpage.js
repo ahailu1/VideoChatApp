@@ -10,30 +10,31 @@ let Front = () => {
 
   return(
       <>
-        <Col xl = {5} lg = {4} md = {6} className = {`col align-self-center ${styles.columnaz}`} noGutters = {true}>
+        <Col xl = {5} lg = {4} md = {6} className = {`col align-self-center ${styles.columnaz}`}>
+                
                 <Col xl = {12} className = {styles.container__text}>
             <p className = {styles.text__header}>
               Welcome to Online Video Chatter
             </p>
             <p className = {styles.text__paragraph}>
-                welcome to my video chat site where you can video chat with friends and make phone calls to their browsers.
-                Just create a user name and password and you will be on your way.
+                Here you can have real-time high-definition video chat for personal use. No email registration or account verification required. Simply create an
+                account, search for and follow users, and then make a video-chat request.
             </p> 
                 </Col>
-
-
-                <Col xl = {12} className = {`row justify-content-center ${styles.container__signup}`}>
+                <Col xl = {12} className = {`row justify-content-center align-items-center ${styles.container__signup}`}>
                   <div className = {`${styles.icon__container}`}>
                   <FontAwesomeIcon icon = 'angle-double-down' className = {styles.icon}/>
                   </div>
-                  <span>get Started</span>
 
-                </Col>
-        
+                  <span className = {styles.icon__text}>get Started</span>
+                </Col>     
         </Col>  
-        <Col xl = {7} lg = {8} md = {6} className = {styles.container__column} noGutters = {true}>
-          <img src = {landingimage} alt = '' className = {styles.image}/> 
+
+
+        <Col xl = {7} lg = {8} md = {6} className = {` row justify-content-center ${styles.container__column}`}>
+          <img src = {landingimage} alt = '' className = {styles.image} />
         </Col> 
+
         </>
         )  
 }    

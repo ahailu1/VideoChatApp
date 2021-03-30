@@ -5,16 +5,17 @@
 }
 
 .icon{
-    font-size: 2rem;
+    font-size: 2.25rem;
     //outline: solid red;
+    color: lighten($third-color, 15%);
+&.toggled{
     color: $fourth-color;
+}
 }
 
 .container{
     &__alltabs{
         border-radius: 0.5rem;
-        background-color: orange !important;
-        border: solid red !important;
     }
     &__listgroup{
         display: flex !important;
@@ -40,7 +41,7 @@
 &.toggled{
     transition: all ease-in-out 0.5s;
     //border-bottom: solid $primary-color 3px !important;
-    background-color: lighten($third-color, 5%) !important;
+    //background-color: lighten($third-color, 5%) !important;
     //border: solid red !important;
 &::after{
     bottom: 0;
@@ -49,7 +50,7 @@
     left:0;
     display: flex;
     content: '';
-    background-color: $primary-color;
+    background-color: $fourth-color;
     position: absolute;
 
 }

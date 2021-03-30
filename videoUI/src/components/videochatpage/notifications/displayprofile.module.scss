@@ -4,7 +4,7 @@
     background-color: lighten($third-color, 4%);
     height: auto;
     display: flex;
-    padding: 0.75rem 0 0.5rem 0;
+    padding: 1.25rem 0 0.5rem 0;
     ///border-radius: 0.25rem;
     //margin: 0.15rem;
     align-items: center;
@@ -15,9 +15,6 @@
         border-radius: 0.25rem;
         background-color: lighten($third-color, 10%);
     }
-}
-.mycolumn:nth-of-type(2){
-    border: solid red;
 }
 
 .profile{
@@ -55,7 +52,8 @@
     }
     &__onlinetext{
         color: white;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
         font-weight: 600;
         text-transform: capitalize;
 
@@ -65,6 +63,9 @@
     }
     }
     &__username{
+        padding: 0.35rem;
+        border-radius: 0.30rem;
+        background-color: lighten($third-color, 15%);
         margin: 0 1rem 0 0rem;
         color: $primary-color;
         font-size: 0.75rem;

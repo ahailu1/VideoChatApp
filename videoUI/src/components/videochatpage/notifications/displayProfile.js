@@ -11,11 +11,9 @@ let DisplayProfile = ({userdata,user_id,bio,myFollowers, myFollowing,friendsList
             await fetchFriendsList(user_id);
         }, [myFollowers,myFollowing]);
 
-
-        let [theseFollowing, setFollowing] = useState([]);
-        let [theseFollowers, setFollowers] = useState([]);
-        
-        
+        let [theseFollowing, setFollowing] = useState();
+        let [theseFollowers, setFollowers] = useState();
+                
         let displayList = (followers, title) => {
             return (
 <Dropdown>
@@ -34,22 +32,20 @@ let DisplayProfile = ({userdata,user_id,bio,myFollowers, myFollowing,friendsList
 
     let fetchFriendsList = async (user_id) => {
             try{
+                let {data} = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendcount/${user_id}`);
+                console.log(data);
                 let friendsList = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendslist/${user_id}`);
                 let sortList = friendsList.data;    
-                if(sortList.length > 0){
-                    let followers = [];
-                    let following = [];
-                    sortList.map(el => {
-                        
-                        if(el.followers !== null){
-                        followers.push(el.username);
-                        }
-                        if(el.following !== null){
-                            following.push(el.username);
-                        }
-                    });
+                
+                if(data.length > 0){
+                    let {followers, following} = data[0];
+                    console.log(following + 'hello');
                     setFollowers(followers);
                     setFollowing(following);
+                } else {
+                    setFollowers(0);
+                    setFollowers(0);
+
                 }                
 
             } catch (err) {
@@ -94,12 +90,12 @@ let DisplayNotification = ({username, date, bio}) => {
            </Col>
 
     <Col className = {styles.container__follow} lg = {4} xl = {5}>
-    <p className = {styles.profile__count}>{theseFollowers.length}</p>        
+    <p className = {styles.profile__count}>{theseFollowers}</p>        
     <p className = {styles.profile__heading}>Followers</p>
     </Col>
     
     <Col className = {styles.container__follow} lg = {4} xl = {5}>
-    <p className = {styles.profile__count}>{theseFollowing.length}</p>        
+    <p className = {styles.profile__count}>{theseFollowing}</p>        
     <p className = {styles.profile__heading}>Following</p>
     </Col>
 

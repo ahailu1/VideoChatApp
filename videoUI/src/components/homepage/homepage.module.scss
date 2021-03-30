@@ -4,20 +4,45 @@
     }
 }
 
+.page{
+    &__heading{
+        color: $third-color;
+        font-size: 3.25rem;
+        font-weight: 700;
+        letter-spacing: 1.25px;
+    }
+    &__paragraph{
+        font-weight: 400;
+        letter-spacing: 1.25px;
+        color: $third-color;
+    }
+}
+
 .container{
     &__row{
-        min-height: 104vh;
         position: relative;
-        z-index: 5;
+        min-height: 100vh;
         background-color: lighten($fourth-color, 9%) !important;
         box-sizing: border-box;
 }
 &__forms{
-    background-color: lighten($fourth-color, 9%) !important;
+    padding: 5rem 0 10rem 0;
+    background-color: $sixth-color !important;
+    //background-color: lighten($fourth-color, 9%) !important;
     
 }
 &__features{
-    background-color: lighten($fourth-color, 9%) !important;
-
+    min-height: 40vh;
+    background-color: lighten($sixth-color, 0%) !important;
+    padding: 5rem;
 }
+&__divider{
+    display: flex;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+&__footer{
+    background-color: $third-color;
+}
+
 }

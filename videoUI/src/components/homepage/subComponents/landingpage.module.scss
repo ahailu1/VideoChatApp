@@ -1,7 +1,6 @@
 @use '../main.scss' as *;
 
 .columnaz{
-    margin: 0 !important;
 }
 .icon{
     font-weight: 500;
@@ -15,9 +14,14 @@
     border: solid $third-color;
     border-radius: 50%;
 &:hover{
+    cursor: pointer;
+    color: $sixth-color;
     border: lighten($third-color, 10%);
     background-color: lighten($third-color, 10%);
 }
+}
+&__text{
+    margin: 0 0 0 1rem;
 }
 }
 .container{
@@ -26,12 +30,13 @@
 }
 
 &__column{
-    margin: 0 !important;
-    padding: 0 !important;
     background-image: url('../../images/Picture8.svg');
     background-size: contain;
     background-repeat: no-repeat;
     position: relative !important;
+    padding: 0rem 5rem 5rem 5rem;
+    overflow-y: hidden;
+    background-position: right;
     //border: solid green !important;
 }
 &__text{
@@ -48,13 +53,11 @@
 &::after{
 position: absolute;
 bottom: 0;
-left:25%;
+left:5%;
 display: flex;
 content: '';
 background-color: $third-color;
 height: 5px;
-align-self: center;
-justify-content: center;
 width: 50%;
 }
     

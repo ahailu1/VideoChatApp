@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import {Form, Row, Col, InputGroup, FormControl, Button,Container} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Cookies from 'js-cookie';
-import formpicture from '../../images/Picture11.svg';
 import axios from 'axios';
 //import '../../globalSass/app.scss';
 import styles from './createaccount.module.scss';
 
- const CreateAccountForm  = (props) => {
+ const CreateAccountForm  = ({handleAuthentication}) => {
    
-const [changeForm,initChange] = useState(true);
+const [changeForm,initChange] = useState(false);
 const [formError, toggleError] = useState(false);
 
     let toggleForm = (e) => {
@@ -47,9 +46,8 @@ let handleCreateAccount = async (e) => {
         try{
             let response = await axios(config);
             let {token, user_id} = response.data;
-            console.log(['userid is a phaggot', user_id, token]);
             handleError('account successfully created');
-            props.handleAuthentication(username, token, true, user_id);
+            handleAuthentication(username, token, true, user_id);
         } catch (err) {
             let errorData = err.response.data;
             console.log(errorData);
@@ -72,33 +70,39 @@ let handleLogin = async (e) => {
         }
     }
     try {
+        console.log([username, password, 'hello world']);
         let response = await axios(config); 
+        console.log(response);
         let {token,user_id} = response.data;
         console.log([user_id, token, 'moron']);
-        props.handleAuthentication(username, token, true, user_id);
+        handleAuthentication(username, token, true, user_id);
 
     } catch (err) {
-        console.log(props);
         handleError('couldnt login. Please re-enter your credentals and then try again');
     }
 }
 
-const WelcomeForm = () => {
-    return (
-    <>
-    <h1 className = {`${styles.form__heading} ${!changeForm && styles.toggled}`}>Weclome to videostream</h1>
-    <p className = {`${styles.form__paragraph} ${!changeForm && styles.toggled}`}>Here you can have one on one video chats with any user.</p>
-    <Button type = "submit" variant = {`${!changeForm ? "light" : "light"}`} onClick = {toggleForm}>{`${!changeForm ? "Create Account" : "Login"}`}</Button>
-    </>
-    )
-}
 
 const LoginForm = () => {
+
+    let item = <Form.Row className = {`${styles.form__row}`}>
+    <InputGroup>
+    <InputGroup.Prepend>
+    <InputGroup.Text>
+        <FontAwesomeIcon icon = "key"/>   
+    </InputGroup.Text>
+    </InputGroup.Prepend>
+
+    <Form.Control className = {`${styles.form__input}`} id="confirmPassword" placeholder="Confirm password" type = 'password' minLength = {5} required = {!changeForm ? false : true} />
+       <br/>
+    </InputGroup>
+    </Form.Row>
+    
     return (
         <>
 <p class = {`${styles.error} ${styles.error && styles.toggled}`}>{formError && formError}</p>
 
-<Form onSubmit = {changeForm ? handleCreateAccount : handleLogin} className = {`col align-self-center justify-content-start`}>
+<Form onSubmit = {changeForm ? handleLogin : handleCreateAccount } className = {`col align-self-center ${styles.container__formset}`}>
      <Form.Row className = {`${styles.form__row}`}>
 <InputGroup className = {`${styles.input__group}`}>
  
@@ -107,7 +111,8 @@ const LoginForm = () => {
          <FontAwesomeIcon icon = "user"/>    
      </InputGroup.Text>
  </InputGroup.Prepend>
- <FormControl id="username" placeholder="Username" pattern = {"[a-zA-Z0-9-_]{5,24}"} title = "please enter a combination of only numbers, letters,dashes and underscores. Username must be a minimum of 7 characters" required ={true} minLength = {5} maxLength = {24} />
+
+ <FormControl className = {`${styles.form__input}`} id="username" placeholder="Username" pattern = {"[a-zA-Z0-9-_]{5,24}"} title = "please enter a combination of only numbers, letters,dashes and underscores. Username must be a minimum of 7 characters" required ={true} minLength = {5} maxLength = {24} />
 </InputGroup>
 
  </Form.Row>
@@ -119,24 +124,13 @@ const LoginForm = () => {
          <FontAwesomeIcon icon = "key"/>   
      </InputGroup.Text>
      </InputGroup.Prepend>
-     <Form.Control id="password" placeholder="Password" required = {true} />
+
+     <Form.Control className = {`${styles.form__input}`} id="password" placeholder="Password" type = 'password' required = {true} />
      </InputGroup>
      </Form.Row>
-     <Form.Row className = {`${styles.form__row}`}>
-     <InputGroup className = {`${styles.form__input} ${!changeForm && styles.toggled}`}>
-     <InputGroup.Prepend>
-     <InputGroup.Text>
-         <FontAwesomeIcon icon = "key"/>   
-     </InputGroup.Text>
-     </InputGroup.Prepend>
-
-     <Form.Control id="confirmPassword" placeholder="Confirm password" minLength = {5} required = {!changeForm ? false : true} />
-        <br/>
-     </InputGroup>
-     </Form.Row>
-
-     <Button type="submit" variant = "dark">Submit form</Button>
-
+        {!changeForm && item}
+     <Button type="submit" variant = "dark">{changeForm ? "Login" : 'Create Account'}</Button>
+ 
  </Form>
              </>
     )
@@ -145,16 +139,31 @@ const LoginForm = () => {
    
     return(
     <>
-<Col xl = {7} className = {`row justify-content-space-between ${styles.container__section}`}>
+<Col xl = {6} className = {`col align-self-center justify-content-start align-content-center ${styles.container__section}`}>
 
-<Col className = {`Col align-self-center ${styles.container__form}`} xl = {8} lg = {5}>
-        <p className = {`${styles.form__title} ${styles.createaccount}`}>Create Account</p>
-        <p className = {styles.form__paragraph}>have an account? Login</p>
-        <LoginForm/>    
+<Col className = {`Col align-self-center ${styles.container__form}`} xl = {12} lg = {5}>
+        <Col>
+        <p className = {`${styles.form__title} ${styles.createaccount}`}>{changeForm ? 'Login' : 'Create Account'}</p>
+        <p className = {styles.form__paragraph}>{changeForm ? 'Sign up Now' : 'Have An Account?'} <span className = {styles.form__textedit} onClick = {toggleForm}> {changeForm ? 'Register' : 'Login'}  </span></p>
+
+        
+        </Col>
+        
+        <Col className = {`row justify-content-center ${styles.rowaz}`} xl = {12}>
+
+       
+        <Col className = {`${styles.container__create} ${changeForm && styles.toggled}`} xl = {12}>
+        <LoginForm/>  
+            </Col>
+       
+        <Col className = {`${styles.container__login} ${changeForm && styles.toggled}`} xl = {12}>
+        <LoginForm className = {styles.testing} xl = {12}/>  
+        </Col>        
+        
+        </Col>
+
     </Col>
-<Col className = {`col align-self-center ${styles.container__formheading}`} lg = {4} xl = {4}>
-    
-</Col>
+
     </Col>    
         </>   
    ) 

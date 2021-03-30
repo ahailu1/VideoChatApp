@@ -6,6 +6,7 @@ router.post('/login', async (req, res) => {
     let {username, password} = req.body;
     try {
     let {user_id, authenticated} = await loginUser(username, password);
+    console.log('trying to login');
     let token = await createToken(username);
     //confirm token
     if(authenticated){

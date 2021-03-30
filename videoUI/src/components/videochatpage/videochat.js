@@ -6,6 +6,7 @@ const Initvideo = ({userdata,handleLogout,tabKey = '#link2', ...props}) => {
 
 let [followList, setFollowList] = useState([]);
 let [loaded, setLoading] = useState(null);
+
 useEffect( async () => {
     try{
        await initFriendsList();
@@ -44,10 +45,12 @@ let modifyState = (myFriendsList, action) => {
     }
   }
 }
+
 let friendsList = {
   following: [],
   followers: []
 }
+
 let [myFriendsList, dispatch] = useReducer(modifyState, friendsList);
 
   if(loaded){

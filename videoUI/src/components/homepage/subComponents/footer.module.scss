@@ -1,0 +1,39 @@
+@use '../main.scss' as * ;
+
+.icon{
+    color: $fourth-color;
+    font-size: 2rem;
+}
+
+.text{
+    &__paragraph{
+        color: $sixth-color;
+        font-size: 0.85rem;
+        font-weight: 400;
+    }
+    &__about{
+        padding: 1rem 2rem 2rem 2rem;
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: $sixth-color;
+    }
+    &__anchor{
+        
+    }
+
+}
+.container{
+    &__footer{
+        padding: 2rem;
+    }
+    &__about{
+        display: flex;
+        align-self: center;
+        text-align: left;
+    }
+    &__link{
+    }
+    &__row{
+        justify-content: center !important;
+    }
+}

@@ -4,22 +4,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './loadingvideo.module.scss';
 
 
-const LoadVideo = () => {
+const LoadVideo = ({initVideo = false}) => {
 
 
-    let loadingScreen = () => {
-       
+    let loadingScreen = (initVideo) => {
+       let item = <p className = {styles.video__text}>to start a video chat please go to your friendslist and then click on the video icon</p>
+    let startVid = (  <>
+            <p className = {styles.video__text}>Waiting for Response...</p>
+                        <Spinner animation = 'border' className = {styles.video__spinner}/>     
+                    </>           
+    );
+        
        return (
        <Col className = {styles.container__video} xl = {12}>
-       <p className = {styles.video__text}>Waiting for Response...</p>
-        <Spinner animation = 'border' className = {styles.video__spinner}/>                
+           {initVideo ? startVid : item}
         </Col>
        )    
 }
 
 
     return(
-            loadingScreen()
+            loadingScreen(initVideo)
     )
 }
 

@@ -6,7 +6,7 @@ import {initMediaDevice,getIceServers} from '../helpers/initVideo';
 import SetIcon from './toggleicon';
 import styles from './myvideo.module.scss';
 import LoadVideo from './loadingvideo';
-const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted, ...props}) => {
+const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted,requested, ...props}) => {
    let [countdown, setTimer] = useState(15);
    let [recipientId, setRecipientId] = useState('');
    let [thisStream, setStream] = useState('');
@@ -145,7 +145,7 @@ let listenForOffer = () => {
                 <video autoPlay playsInline controls id = 'friendvid' className = {styles.vid} width = "100%">
                 <source type = "video/mpg"/>
                 </video>
-                : <LoadVideo/>
+                : <LoadVideo initVideo = {requested}/>
             }
         </Col>
 

@@ -1,14 +1,5 @@
 @use '../main.scss' as * ;
 
-@mixin afterEffect {
-    position: absolute;
-    top: 0;
-    left:0;
-    content: "";
-    display: flex;
-
-}
-
 .column{
     &__one{
         padding: 0 !important; 
@@ -18,7 +9,9 @@
         //border: solid lighten($third-color, 15%);
     }
 }
-
+.rowaz{
+position: relative !important;
+}
 .container{
     &__formheading{
         border-radius: 0.35rem 0 0 0.35rem;
@@ -36,33 +29,67 @@
             display: flex;
         }
     }
+    &__formset{
+        position: relative;
+    }
     &__form{
-        padding: 10rem 0rem 10rem 1rem;
+        padding: 5rem 2rem 5rem 2rem;
         border-radius: 0rem 0.35rem 0.36rem 0rem;
-        z-index: -2;
+        z-index: 2;
     }
     &__section{
-        //border: solid orange !important;
-        z-index: 500;
-        border: solid $sixth-color 3px;
         background-repeat: no-repeat;
+        border: solid $sixth-color;
         border-radius: 0.35rem 0.35rem 0.35rem 0.35rem;
         //box-shadow: 0 0 3px 0 $third-color;
-        background-image: url('../../images/finalform.svg');
+        background-image: url('../../images/piccs.svg');
         background-size: contain;
-        position: relative;
-    &::after{
-        background-size: contain;
-height: 100%;
-z-index: -1;
-width: 100%;
-opacity: 0.15;
-        position: absolute;
-        top:0;
-        left:0;
-        content: '';
-        display: flex;
+        //position: relative;
     }
+    &__login{
+        top: 0;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-100%);
+        opacity: 0;
+        width: 0;
+        height: 0;
+        &.toggled{
+            transition: all ease-in-out 1s;
+            height: 100%;
+            width: 100%;
+        opacity: 1;
+        transform: translateX(0%);
+        visibility: visible !important;
+    }
+    }
+    &__create{
+        opacity: 1;
+        transform: translateX(0rem);
+        height: 100%;
+        visibility: visible;
+        transition-delay: 0.5s;
+        width: 100%;
+        transition: all ease-in-out 1s;
+    &.toggled{
+        top: 0;
+        position: absolute;
+        left: 0;
+        visibility: hidden;
+        transform: translateX(-100%);
+        opacity: 0;
+        transition: all ease-in 0.15s;
+        /*
+        height: 0;
+        width: 0px;
+        opacity: 0;
+        visibility: hidden !important;
+        transform: translateX(-100%);
+    */
+    }
+
     }
 }
 
@@ -75,16 +102,33 @@ opacity: 0.15;
         color: $sixth-color;
     }
     &__title{
-        color: $third-color;
-        font-size: 2.5rem;
-        font-weight: 600;
+        color: $sixth-color;
+        font-size: 2.75rem;
+        font-weight: 700;
     &.createaccount{
-        border-bottom: solid $fourth-color;
+        border-bottom: solid $sixth-color;
         color: $sixth-color;
     }
     }
+    &__textedit{
+        background-color: $sixth-color;
+        color: $third-color;
+        border-radius: 0.35rem;
+        padding: 0.5rem;
+    &:hover{
+        background-color: lighten($third-color, 25%);
+        cursor: pointer;
+        color: $third-color;
+    }
+    }
+
     &__input{
-    &::after{
+     &:focus{
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+        &::after{
 
     }
     }

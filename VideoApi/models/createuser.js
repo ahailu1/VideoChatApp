@@ -26,9 +26,10 @@ let dbMethods = {
     }
   }
   dbMethods.getUsers = async (username) => {
-    const text = "select $1 from videochat.public.register_user where username = $2";
-    const values = [username, username];
-    let res =  dbMethods.initQuery(text,values);
+    const text = "select $1 from videochat.public.register_user where username = $1";
+    const values = [username];
+    let res =  await dbMethods.initQuery(text,values);
+    console.log(res);
     return res;
   }
 dbMethods.insertUsers = async (username, password) => {
@@ -41,12 +42,13 @@ dbMethods.insertUsers = async (username, password) => {
     await client.query('begin');
       
      let results = await client.query(text,query);
-     let values = results[0];
-    const textTwo = 'insert into user_bio(user_id) values ($1)';
-    let queryTwo = [values];
+     let user_id = results.rows[0].user_id;
+     const textTwo = 'insert into user_profile(user_id) values ($1)';
+    let queryTwo = [user_id];
     await client.query(textTwo, queryTwo);
-    await client.query('COMMIT')
-    return results;
+    await client.query('COMMIT');
+
+    return {user_id};
 
   } catch (err) {
     await client.query('ROLLBACK')

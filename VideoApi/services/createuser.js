@@ -23,6 +23,7 @@ let insertUsers = async (username, password, confirmPassword) => {
     let userPassword = password;
     let passwordTest = userPassword.length >= 6 ? userPassword : false;
     let checkExistance = await checkUsers(username);
+    console.log(checkExistance + 'is the existence');
     if(!regexTestUsername){
         errors.error = "invalid username";
         errors.authenticated = false;
@@ -43,10 +44,12 @@ let insertUsers = async (username, password, confirmPassword) => {
         try {
 
             let password = await bcrypt.hash(userPassword, saltRounds);
-        let user_id = await dbMethods.insertUsers(username, password);
+        let {user_id} = await dbMethods.insertUsers(username, password);
+        console.log(user_id);
+        console.log('i tried');
         let initAcc = {
             authenticated: true,
-            user_id : user_id[0].user_id,
+            user_id : user_id,
         }
         return initAcc
         } catch(err) {

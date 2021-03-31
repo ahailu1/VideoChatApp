@@ -13,6 +13,7 @@ const RouterApp = (props) => {
     useEffect(() => {
         console.log(process.env.REACT_APP_SITE_URL);
         let userdata = Cookies.get('userdata');
+        console.log(userdata);
         if(userdata === 'undefined' || userdata === undefined){
             console.log(userdata);
                 authenticate(false);

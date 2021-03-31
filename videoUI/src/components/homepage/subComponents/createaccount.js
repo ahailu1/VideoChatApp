@@ -45,8 +45,10 @@ let handleCreateAccount = async (e) => {
     } else {
         try{
             let response = await axios(config);
+            console.log(response);
+            console.log('hello woasdsda create rld');
             let {token, user_id} = response.data;
-            handleError('account successfully created');
+            console.log([token, user_id, 'phaggot'])
             handleAuthentication(username, token, true, user_id);
         } catch (err) {
             let errorData = err.response.data;

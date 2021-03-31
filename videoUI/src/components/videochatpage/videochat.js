@@ -18,6 +18,7 @@ useEffect( async () => {
 let initFriendsList = async () => {
   setLoading(false);
   let {user_id} = userdata;
+  console.log(user_id);
   let allUsers = await fetchFriendsList({user_id, dispatch, setLoading});
   setFollowList(allUsers);
   setLoading(true);

@@ -8,7 +8,10 @@
     font-size: 2.25rem;
     //outline: solid red;
     color: lighten($third-color, 15%);
-&.toggled{
+    &:hover{
+        color: $sixth-color;
+    }
+    &.toggled{
     color: $fourth-color;
 }
 }

@@ -5,7 +5,7 @@ let initSocket = (server) => {
 
 let io = socketio(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: false,

@@ -71,7 +71,7 @@ let getAll = async (userdata) => {
         {setSearchBar()}
     </Row>
   <Row className = {styles.container__row__profile} noGutters = {true}>
-        {filteredUsers.map(el => {
+        { filteredUsers.map(el => {
             let type;
             let action;
             let date = new Date(el.creation_date).toLocaleDateString();
@@ -94,10 +94,11 @@ let getAll = async (userdata) => {
                 action = 'unfollow'
                 type = 'follow'
             }
-            return <Profile myFollowers = {myFollowers} myFollowing = {myFollowing} date = {el.creation_date} username = {el.username} user_id = {el.user_id} userdata = {userdata} render = {() => 
+            return <Profile myFollowers = {myFollowers} bio = {el.bio} myFollowing = {myFollowing} date = {el.creation_date} username = {el.username} user_id = {el.user_id} userdata = {userdata} render = {() => 
                 { return <RenderButton type = {type} userdata = {userdata} user_id = {el.user_id} callback = {dispatch} callbackData = {action} /> } } /> 
 
-            })}
+            })
+            }
      </Row>
 </>
     )

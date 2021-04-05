@@ -23,7 +23,11 @@ export let initMediaDevice = async () => {
 export let getIceServers = async (user_id) => {
    let {data} = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/iceservers/${user_id}`);
     let iceServers = data.iceServers;
-    let peerConnection = new RTCPeerConnection(iceServers);
+    console.log(iceServers);
+    let config = {
+        'iceServers': iceServers,
+    }
+    let peerConnection = new RTCPeerConnection(config);
     return {
         iceServers,
         peerConnection

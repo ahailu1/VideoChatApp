@@ -6,17 +6,18 @@ import {onlineStatus} from '../helpers/onlinestatus';
 import DisplayProfile from '../notifications/displayProfile';
 import RenderButton from '../utilities/addbutton';
 import VideoButton from '../utilities/videochatbutton';
-const FriendLayout = ({userdata,myFollowers,followList, myFollowing,setActiveKey,initVideoChat,dispatch,socket, ...props}) => {
-  useEffect(() => {
-    console.log(followList);
-  }, [myFollowers, myFollowing]);
-
+const FriendLayout = ({userdata,myFollowers,followList, myFollowing,setActiveKey,initVideoChat,dispatch,socket,setRefresh, refreshStatus, ...props}) => {
     let [friendsList, setAllFriends] = useState([]);
     let [onlineUsers, setAsOnline] = useState([]);
-
 useEffect(() => {
   onlineStatus(socket,userdata,myFollowers, setAsOnline);
 }, []);
+
+useEffect( async () => {
+  let {user_id} = userdata;
+  let {data} = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendinfo/${user_id}`);
+  setAllFriends(data);
+}, [myFollowers, myFollowing]);
 
     useEffect(() => {
       let {user_id} = userdata;
@@ -43,9 +44,8 @@ useEffect(() => {
             }
           return ( 
           <>
-                <Col lg = {10} xl = {{span: 8, offset: 0}} className = {`${styles.container__profile}`}>
-          
-           <DisplayProfile onlineStatus = {onlineUsers.includes(el[followType]) ? true : false} myFollowers = {myFollowers} myFollowing = {myFollowing} user_id = {el[followType]} username = {el.username} date = {date} render = { () => {
+         <Col lg = {10} xl = {{span: 8, offset: 0}} className = {`${styles.container__profile}`}>
+          <DisplayProfile onlineStatus = {onlineUsers.includes(el[followType]) ? true : false} myFollowers = {myFollowers} myFollowing = {myFollowing} user_id = {el[followType]} username = {el.username} date = {date} render = { () => {
             return <RenderButton type = {type} userdata = {userdata} user_id = {el[followType]} callback = {dispatch} callbackData = {action} />}} friendsList = {true} />
             </Col>
             <Col xl = {2} className = {styles.column__following}>
@@ -54,7 +54,8 @@ useEffect(() => {
           </>  
           )
           }
-      }))
+      })
+      )
     } 
   }
     return(
@@ -70,12 +71,12 @@ useEffect(() => {
         <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className = {styles.container__tabs} >
   <Tab eventKey="home" title="Followers">
     <Row>
-{displayFriendsList(followList, 'followers')}
+{displayFriendsList(friendsList, 'followers')}
     </Row>
   </Tab>
   <Tab eventKey="profile" title="Following">
     <Row>                      
-    {displayFriendsList(followList, 'following')}
+    {displayFriendsList(friendsList, 'following')}
     </Row>
   </Tab>
   </Tabs>

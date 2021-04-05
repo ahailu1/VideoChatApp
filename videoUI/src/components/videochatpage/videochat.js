@@ -6,9 +6,9 @@ const Initvideo = ({userdata,handleLogout,tabKey = '#link2', ...props}) => {
 
 let [followList, setFollowList] = useState([]);
 let [loaded, setLoading] = useState(null);
-
+let [refreshStatus, setRefresh] = useState(false);
 useEffect( async () => {
-    try{
+    try {
        await initFriendsList();
     } catch (err) {
       
@@ -20,6 +20,7 @@ let initFriendsList = async () => {
   let {user_id} = userdata;
   console.log(user_id);
   let allUsers = await fetchFriendsList({user_id, dispatch, setLoading});
+  console.log(allUsers);
   setFollowList(allUsers);
   setLoading(true);
 }
@@ -27,12 +28,14 @@ let initFriendsList = async () => {
 let modifyState = (myFriendsList, action) => {
   switch(action.type){
     case 'follow' :
+
       return {
         following: myFriendsList.following.concat(action.data),
         followers: myFriendsList.followers
       }
     case 'initFriendsList' : 
     return {
+      allFriends : action.allFriends,
       followers: action.followers,
       following: action.following
     }
@@ -49,14 +52,15 @@ let modifyState = (myFriendsList, action) => {
 
 let friendsList = {
   following: [],
-  followers: []
+  followers: [],
+  allFriends: [],
 }
 
 let [myFriendsList, dispatch] = useReducer(modifyState, friendsList);
 
   if(loaded){
 return(
-<Sidebar followList = {followList} userdata = {userdata} followers = {myFriendsList.followers} following = {myFriendsList.following} dispatch = {dispatch} handleLogout = {handleLogout}/>
+<Sidebar followList = {followList} setRefresh = {setRefresh} refreshStatus = {refreshStatus} userdata = {userdata} followers = {myFriendsList.followers} following = {myFriendsList.following} dispatch = {dispatch} handleLogout = {handleLogout}/>
 )
 }
  else {

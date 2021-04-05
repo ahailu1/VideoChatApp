@@ -15,7 +15,7 @@ import Logout from '../dashboard/logout';
 import ListBar from '../dashboard/listgroup';
 import RequestNotification from '../notifications/Requestnotification';
 
-const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogout, ...props}) => {
+const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogout,refreshStatus,setRefresh,  ...props}) => {
 
     let [socket, initSocket] = useState(io(`${process.env.REACT_APP_SITE_URL}`));
     let [key, setKey] = useState('#link2');
@@ -41,7 +41,7 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
           bio,
           isOnline: onlineStatus,
           date,
-          requested:true
+          hasRequested:true
         }
         try{
           setFriendInfo(friendInfo);
@@ -80,7 +80,7 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
            <Col className = {styles.container__column__tabcontent} lg = {10}>
            <Tab.Content className = {styles.container__tabcontent}>
                <Tab.Pane eventKey="#link1" className = {styles.container__tabpane__videochat}>
-                 <VideoUi friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers} requested = {friendInfo.requested} hasAccepted = {friendInfo.hasAccepted}
+                 <VideoUi friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers} hasRequested = {friendInfo.hasRequested} hasAccepted = {friendInfo.hasAccepted}
                  render = {() => {
                    if(Object.keys(friendInfo).length === 0) {
                      return <Userbar/>
@@ -90,7 +90,7 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
                  }} />
                </Tab.Pane>
                <Tab.Pane eventKey="#link2" className = {styles.container__tabpane__friends}>
-               <FriendLayout followList = {followList} socket = {socket} initVideoChat = {initVideoChat} setActiveKey = {setActiveKey} userdata = {userdata} myFollowers = {followers} myFollowing = {following} dispatch = {dispatch}/>
+               <FriendLayout refreshStatus = {refreshStatus} setRefresh = {setRefresh} followList = {followList} socket = {socket} initVideoChat = {initVideoChat} setActiveKey = {setActiveKey} userdata = {userdata} myFollowers = {followers} myFollowing = {following} dispatch = {dispatch}/>
                </Tab.Pane>
        
                <Tab.Pane eventKey="#link3" className = {styles.container__tabpane__notifications}>

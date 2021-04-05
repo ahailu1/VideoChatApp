@@ -25,6 +25,7 @@ let SectionOne = ({handleAuthentication}) => {
         paragraph: 'Search for users under the search section, follow them and then go to your friends list to make a request.',
         icon: 'comment'
     }
+  
 
     return (
         <Container fluid className = {styles.container__homepage} fluid>
@@ -41,7 +42,7 @@ let SectionOne = ({handleAuthentication}) => {
         </p>
 
         <AppFeatures {...appfeatures} />        
-            <AppFeatures {...appfeatures2} />          
+            <AppFeatures {...appfeatures2} activate = {true} />          
             <AppFeatures {...appfeatures3} />          
 
 
@@ -49,7 +50,7 @@ let SectionOne = ({handleAuthentication}) => {
         </Row>
        
       
-        <Row className = {styles.container__footer}>
+        <Row className = {`row align-items-center ${styles.container__footer}`} xl = {12}>
         <FooterPage />
 
         </Row>

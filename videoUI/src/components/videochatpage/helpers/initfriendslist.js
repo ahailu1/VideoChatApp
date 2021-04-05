@@ -23,7 +23,7 @@ let fetchFriendsList = ({user_id, dispatch,setLoading, ...props}) => {
           console.log(data);
           console.log([followers, following]);
           let allUsers = data;
-          dispatch({type: 'initFriendsList', followers:followers, following:following});
+          dispatch({type: 'initFriendsList', followers:followers, following:following, allFriends: allUsers});
           setLoading(true);
           return allUsers;
       } catch (err) {

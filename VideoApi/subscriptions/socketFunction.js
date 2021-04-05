@@ -19,6 +19,16 @@ io.on('connection', (socket) => {
         console.log('got the recipient it' + recipient_id);
         socket.broadcast.emit(`confirm_request_with_${recipient_id}`, data);
     });
+    socket.on('initIceCandidate', data => {
+        console.log(data);
+        let {recipient_id, iceCandidate} = data;
+        let iceInfo = {
+            recipient_id: recipient_id,
+            iceCandidate, 
+        }
+        console.log([recipient_id, iceCandidate, 'phaggotadsdas'])
+        socket.broadcast.emit(`iceCandidate_to_${recipient_id}`, iceInfo);
+    });
 
     socket.on('disconnect', (reason) => {
         console.log(socket.username + 'just disconnected')
@@ -54,6 +64,7 @@ io.on('connection', (socket) => {
                } 
     });
 });
+
 
 }
 

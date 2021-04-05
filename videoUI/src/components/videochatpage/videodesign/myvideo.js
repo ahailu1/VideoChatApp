@@ -6,15 +6,12 @@ import {initMediaDevice,getIceServers} from '../helpers/initVideo';
 import SetIcon from './toggleicon';
 import styles from './myvideo.module.scss';
 import LoadVideo from './loadingvideo';
-const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted,requested, ...props}) => {
-   let [countdown, setTimer] = useState(15);
+const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasRequested = false, ...props}) => {
    let [recipientId, setRecipientId] = useState('');
    let [thisStream, setStream] = useState('');
    let [myPeerConnection, setPeerConnection] = useState('');
     let [acceptedRequest, setRequest] = useState(false);
-   let [thisMic, toggleMic] = useState(true);
    let [iceServer, setServers] = useState([]);
-   let [thisVideo, toggleVideo] = useState(true);
 
     useEffect(() => {
         fetchData(userdata);
@@ -22,46 +19,96 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted,requested, .
     }, []);
 
     useEffect(() => {
-                if(friend_id !== undefined){
-                    console.log(friend_id + 'is not defined mothafucka')
-                    listenForOffer();
-                }
+
+    }, [thisStream])
+    //once accepted load ice servers;
+
+    useEffect(() => {
+        console.log([hasAccepted, myPeerConnection, 'phaggot', friend_id])
+        if(hasAccepted === true && myPeerConnection !== '' && thisStream !== ''){
+            console.log([friend_id, hasAccepted, 'blah testing']);
+            addIceCandidates();
+            listenForOffer();
+             initStream(friend_id);
+        }
+        //if i accept a video chat request
+    }, [hasAccepted]);
+
+    useEffect(() => {
+    // if my request is accepted
                 if(myPeerConnection !== '' && thisStream !== ''){
-                    console.log('we connected');
-                    thisStream.getTracks().forEach(el => {
-                        myPeerConnection.addTrack(el, thisStream)
-                    });
+                    console.log('about to add media');
+                    addIceCandidates();
+
                 }
-                if(acceptedRequest === true || hasAccepted === true){
-                    initStream(friend_id);
+                if(acceptedRequest === true){
+                    addIceCandidates();
+                    listenForOffer();
                     testConnection();
                     setRemoteStream();
                 }
-    }, [friend_id]);
+    }, [acceptedRequest]);
+
         let testConnection = () => {
             myPeerConnection.addEventListener('connectionstatechange', e => {
+                if(e.connectionState === 'connected'){
+                    alert('hello world phaggot');
+                }
             });
         }
 
     let fetchRequest = () => {
         let {user_id} = userdata;
-        socket.on(`confirm_request_with_${user_id}`, (data) => {
+        socket.on(`confirm_request_with_${user_id}`, async (data) => {
             let {recipient_id, sender_id} = data;
-            setRequest(true);
-            setRecipientId(sender_id);
+            //if request is not true, seti t to true and then listen
+            if(acceptedRequest !== true){
+                setRequest(true);
+                setRecipientId(sender_id);    
+            }
         });
+    }
+
+    let addIceCandidates = () => {
+        let {user_id} = userdata;
+        myPeerConnection.addEventListener('icecandidate', (e) => {
+            if(e.candidate){
+                let iceCandidates = {
+                    iceCandidate: e.candidate,
+                    recipient_id: friend_id,
+                }
+                console.log(e.candidate);
+                socket.emit('initIceCandidate', iceCandidates)
+            }  
+      });
+      socket.on(`iceCandidate_to_${user_id}`, async data => {
+        if(data.iceCandidate){
+            try{
+                console.log(['here like an idiot', data.iceCandidate]);
+                await myPeerConnection.addIceCandidate(data.iceCandidate);
+            } catch (err) {
+                console.log('error')
+            }
+        }
+      });
     }
     let fetchData = async ({user_id}) => {
         let stream = await initMediaDevice();
       let {peerConnection, iceServers} = await getIceServers(user_id);
+        stream.getTracks().forEach(el => { 
+            peerConnection.addTrack(el, stream);
+        });
         setPeerConnection(peerConnection);
         setServers(iceServers);
         setStream(stream);
+
+        // add media to peer connection
+        console.log(peerConnection);
         let video = document.getElementById('myvid');
         video.srcObject = stream;
         video.play();
 }
-let listenForOffer = () => {
+let listenForOffer = async () => {
     let {user_id} = userdata;
     socket.on(`initStream_offer_${user_id}`, async data => {
     if(data.type === 'offer'){
@@ -69,6 +116,7 @@ let listenForOffer = () => {
                     let answer = await myPeerConnection.createAnswer();
                     await myPeerConnection.setLocalDescription(answer);
                     let recipient_id = data.sender;
+                    console.log(recipient_id + ' just sent me a fucking offer');
                     let info = {
                         sender: user_id,
                         recipient_id: recipient_id,
@@ -89,28 +137,14 @@ let listenForOffer = () => {
             });
         }
 
-    let toggleIcons = (iconname) => {
-        if(iconname === 'video'){
-            toggleVideo(!thisVideo);
-            thisStream.getVideoTracks().forEach(el => {
-                el.enabled = !thisVideo;
-            });
-            toggleVideo(!thisVideo);
-        } else if (iconname === 'mic'){
-            toggleMic(!thisMic);
-            thisStream.getAudioTracks().forEach(el => {
-                el.enabled = !thisMic;
-            })
-        } else {
-        }
-    }
+   
 
     let initStream = async (friend_id) => {
         let {user_id} = userdata;
         socket.on(`initStream_answer_${user_id}`, async (data) => {
             if(data.type === 'answer'){
                 let remoteDescription = new RTCSessionDescription(data.answer);
-                await myPeerConnection.setLocalDescription(remoteDescription);
+                await myPeerConnection.setRemoteDescription(remoteDescription);
             }
         });
         let myOffer = await myPeerConnection.createOffer();
@@ -123,8 +157,7 @@ let listenForOffer = () => {
         }
         socket.emit('initStream', info);
     }
-
-    return (
+     return (
         <Row className = {styles.container__videopage}>
 
             <Col xl = {9} className = {styles.container__column__wrapper}>
@@ -134,8 +167,10 @@ let listenForOffer = () => {
     <source type = "video/mpg"/>
     </video>
         <div className = {styles.container__icon}>
-            <SetIcon icon = {thisVideo} iconName = 'video' callBack = { () => {toggleIcons('video') }}/>
-            <SetIcon icon = {thisMic} iconName = 'microphone' callBack = { () => {toggleIcons('mic') }}/>
+            <SetIcon stream = {thisStream} iconName = 'video'/>
+            <SetIcon stream = {thisStream}  iconName = 'microphone'/>
+            <SetIcon stream = {thisStream} iconName = 'phone'/>
+
         </div>
         </Col>
 
@@ -145,7 +180,7 @@ let listenForOffer = () => {
                 <video autoPlay playsInline controls id = 'friendvid' className = {styles.vid} width = "100%">
                 <source type = "video/mpg"/>
                 </video>
-                : <LoadVideo initVideo = {requested}/>
+                : <LoadVideo initVideo = {hasRequested}/>
             }
         </Col>
 

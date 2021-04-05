@@ -1,5 +1,32 @@
 @use '../../globalSass/app' as *;
 
+.icon{
+    &__phone{
+       &.toggled{
+           display: none;
+       } 
+    }
+    &__message{
+        display: none;
+
+        &.toggled{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+.button{
+    background-color: $sixth-color !important;
+    color: $third-color !important;
+    border: none !important;
+    outline: none !important;
+    font-weight: 700;
+&:hover{
+    background-color: $third-color !important;
+    color: $sixth-color !important;
+
+}
+}
 
 @mixin afterEffect {
     position: absolute;
@@ -19,7 +46,6 @@
 .video, .mic{
     color: red;
     &.toggled{
-        border: solid red;
         color: $third-color;
     }
 }
@@ -31,6 +57,24 @@
     display: flex;
     padding: 1rem 1rem 0.75rem 0.75rem;
     border: none;
+}
+&__button{
+    display: flex;
+    justify-content: space-between;
+}
+&__phone{
+    display: none;
+    flex-direction: column;
+&.toggled{
+display: flex;
+}
+}
+&__message{
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    color: whitesmoke;
 }
 &__iconfont{
 
@@ -59,7 +103,9 @@ background-color: $primary-color;
 }
 &.toggled::after{
     @include afterEffect;
-
+}
+&.togglephone{
+display: none;
 }
 }
 &__iconfont:nth-child(2){

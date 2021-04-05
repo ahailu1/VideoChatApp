@@ -94,7 +94,7 @@ let DisplayNotification = ({username, date, bio}) => {
     <p className = {styles.profile__heading}>Followers</p>
     </Col>
     
-    <Col className = {styles.container__follow} lg = {4} xl = {5}>
+    <Col className = {styles.container__follow} lg = {4} xl = {4}>
     <p className = {styles.profile__count}>{theseFollowing}</p>        
     <p className = {styles.profile__heading}>Following</p>
     </Col>
@@ -116,7 +116,7 @@ let DisplayNotification = ({username, date, bio}) => {
 
     </Col>
     
-    <Col className = {styles.column__testing} lg = {2} xl = {2}>  
+    <Col className = {styles.column__testing} lg = {2} xl = {3}>  
     {props.render()}
     </Col>
     </Col>  

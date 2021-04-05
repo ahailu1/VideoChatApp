@@ -6,21 +6,21 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 
-const AppFeatures = (props) => {
+const AppFeatures = ({activate = false, ...props}) => {
 
 let CardTemplate = () => {
 
     return (
         <>
-        <Col className = {`row align-items-center ${styles.container__card}`} xl = {12}>
+        <Col className = {`row align-items-center ${styles.container__card} ${activate && styles.toggled}`} xl = {12}>
         
         <Col className = {`row justify-content-center ${styles.container__icon}`} xl = {2}>
-            <FontAwesomeIcon icon = {props.icon} className = {styles.icon}/>
+            <FontAwesomeIcon icon = {props.icon} className = {`${styles.icon} ${activate && styles.toggled}`}/>
         </Col>
 
-        <Col className = {`col justify-content-center  ${styles.container__paragraph}`} xl = {10}>
-        <p className = {styles.title}>{props.title}</p>
-        <p className = {styles.paragraph}>{props.paragraph}</p>
+        <Col className = {`col justify-content-center  ${styles.container__paragraph} ${activate && styles.toggled}`} xl = {10}>
+        <p className = {`${styles.title} ${activate && styles.toggled}`}>{props.title}</p>
+        <p className = {`${styles.paragraph} ${activate && styles.toggled}`}>{props.paragraph}</p>
         </Col>
         
         </Col>
@@ -30,7 +30,7 @@ let CardTemplate = () => {
 
 return (
     <>
-    <CardTemplate/>    
+    {CardTemplate()}
     </>
 )
 

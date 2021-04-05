@@ -2,15 +2,14 @@
 .container{
     &__card{
         box-shadow: 0 0 3px 0 $sixth-color;
-        border-radius: 0.5rem;
+        border-radius: 0.55rem;
         //background-color: $third-color;
        z-index: 5;      
        margin: 0.5rem 0 0.5rem;
     
-       &:nth-child(1){
-        border: solid orange !important;
-        box-shadow: 0 0 3px 0 gray;
-    }
+       &.toggled{
+           background-color: $third-color;
+       }
 }
     &__icon{
     }
@@ -23,10 +22,14 @@
 }
 .title{
     margin: 0.75rem 0 0.75rem 0;
-font-size: 1.75rem;
+font-size: 1.5rem;
 font-weight: 700;
+text-transform: capitalize;
 //color: $sixth-color;
 color: $third-color;
+&.toggled{
+    color: $sixth-color;
+}
 }
 .paragraph{
     color: $third-color;
@@ -34,15 +37,20 @@ color: $third-color;
     //color: $sixth-color;
     text-align: left;
 font-size: 0.9rem;
+&.toggled{
+    color: $sixth-color;
+}
 }
 .icon{
     color: $third-color;
 
 //    color: $sixth-color;
-    font-size: 3rem;
+    font-size: 2.2rem;
     animation: iconbounce 4s ease-in-out infinite;
     transition: all ease-in-out 0.5s;
-
+    &.toggled{
+        color: $sixth-color;
+    }
 }
 @keyframes iconbounce {
     0% {

@@ -6,8 +6,8 @@ let {dbUser,
 
 const { Pool, Client } = require("pg");
 
-const pool = new Pool();
-const client = new Client();
+const pool = new Pool({database: dbName });
+const client = new Client({database: dbName });
 module.exports = {
   pool,
   client,

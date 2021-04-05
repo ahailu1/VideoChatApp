@@ -4,6 +4,5 @@
 /redis
 /nginx
 /package-lock.json
-docker-compose.yml
 package.json
 README.md

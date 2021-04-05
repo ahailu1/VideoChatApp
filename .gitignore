@@ -1,6 +1,9 @@
 /VideoApi/node_modules
 /videoUi/node_modules
 /node_modules
+/redis
+/nginx
+/package-lock.json
 docker-compose.yml
 package.json
 README.md

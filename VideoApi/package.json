@@ -1,0 +1,40 @@
+{
+  "name": "twitterapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm install && nodemon index.js",
+    "dockerinit": " docker container run --name videoapi_container --rm --interactive -p 5000:5000 -p 54532:5432 -v image_volume:/srv -v videoapi_volume:/var/www videoapi ",
+    "lint": "eslint --fix --ext .js,.jsx .",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.5.1",
+    "redis": "^3.0.2",
+    "socket.io": "^3.1.2",
+    "twilio": "^3.51.0",
+    "twilio-cli": "^2.13.0"
+  },
+  "devDependencies": {
+    "debug": "^4.3.1",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "index.js": "0.0.3",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.6",
+    "prettier": "2.2.1"
+  }
+}

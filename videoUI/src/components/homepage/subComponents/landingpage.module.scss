@@ -5,8 +5,10 @@
 .icon{
     font-weight: 500;
     font-size: 3rem;
+    color: $sixth-color;
 &__container{
     display: flex;
+    background-color: $third-color;
     justify-content: center;
     align-items: center;
     height: 5rem;
@@ -21,6 +23,12 @@
 }
 }
 &__text{
+    text-transform: capitalize;
+    font-weight: 700;
+    //background-color: $third-color;
+    color: $third-color;
+    //padding: 0.5rem;
+    border-radius: 0.5rem;
     margin: 0 0 0 1rem;
 }
 }
@@ -66,7 +74,7 @@ width: 50%;
         padding: 0 1rem 0 1rem;
         font-weight: 400;
         color: $third-color;
-        font-size: 1rem;
+        font-size: 1.05rem;
     }
     color: $primary-color;
     &__button{

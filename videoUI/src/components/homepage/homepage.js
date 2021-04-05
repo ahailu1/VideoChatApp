@@ -5,24 +5,23 @@ import {Col, Row, Container} from 'react-bootstrap';
 import styles from './homepage.module.scss';
 import FooterPage from './subComponents/footer';
 import LandingPage from './subComponents/landingpage';
-import formdesign from '../images/noemail.svg';
 import AppFeatures from './subComponents/appfeatures';
 let SectionOne = ({handleAuthentication}) => {
 
     let appfeatures = {
         title: 'video chat',
-        paragraph: 'video chat with complete stranger. Make fun of him for 30 seconds',
+        paragraph: 'Have high-definition video chat with minimal interruption and high-quality sound. Screen and microphone toggle available, allowing you to mute yourself or prevent video sharing. ',
         lg : 4,
         icon: 'video'
     }
     let appfeatures2 = {
-        title: 'Invite Friends',
+        title: 'Follow Friends',
         paragraph: 'Search for users under the search section, follow them and then go to your friends list to make a request.',
         icon: 'user-plus'
     }
     let appfeatures3 = {
-        title: 'Invite Friends',
-        paragraph: 'Search for users under the search section, follow them and then go to your friends list to make a request.',
+        title: 'Instant Messaging',
+        paragraph: 'Send instant messages.',
         icon: 'comment'
     }
   
@@ -37,8 +36,9 @@ let SectionOne = ({handleAuthentication}) => {
             <CreateAccountForm handleAuthentication = {handleAuthentication} />  
             <Col lg = {6} className = {`col`}>
         <h1 className = {styles.page__heading}>How it works</h1>
-        <p className = {styles.page__paragraph}>  lorsadldaks kjasdklsadjk lasjdkdsajl kajsdndsakjdsajk hasdkjdjsdakssda hjksadjkdsakjdahsks hjdaskjdasjhdajdsakjdsa
-            sdajkadshksdaj hasdkjhasjdk hsakjdhjaksdh kjsahdksajhd kjadhss
+        <p className = {styles.page__paragraph}> 
+        Real-time video chat with custom options to enhance the user experience.
+
         </p>
 
         <AppFeatures {...appfeatures} />        

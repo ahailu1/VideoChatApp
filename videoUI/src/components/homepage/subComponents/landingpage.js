@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Col, Row, Container, Button} from 'react-bootstrap';
 import styles from './landingpage.module.scss';
-import landingimage from '../../images/workaz.svg';
+import landingimage from '../../images/frontpg.svg';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import CreateAccountForm from './createaccount';
 const LandingPage = (props) => {

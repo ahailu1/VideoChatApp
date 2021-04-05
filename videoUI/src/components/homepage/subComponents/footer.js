@@ -46,7 +46,6 @@ const FooterPage = () => {
 
 
         <Col xl = {{span: 12, offset: 0}} className = {`row justify-content-center ${styles.container__about}`}>
-        <p>Welcome to my application</p>
     
         </Col>
 

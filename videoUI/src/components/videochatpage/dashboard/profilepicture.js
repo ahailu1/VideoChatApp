@@ -6,7 +6,7 @@ import axios from 'axios';
 const Profilepicture = (props) => {
 
 
-  let [imageUrl, setImage] = useState('/images/test123--profilepicture.jpg');
+  let [imageUrl, setImage] = useState('/public/test123--profilepicture.jpg');
 
 
 let fileSelector = () =>{
@@ -62,7 +62,7 @@ e.preventDefault();
 return (
 <>
 
-<Image src = {imageUrl !== "" ? imageUrl : "/logo192.png"} thumbnail className = {styles.imageaz} />
+<Image src = {imageUrl !== "" ? imageUrl : `${process.env.React_APP_SITE_IMAGE_URL}`} thumbnail className = {styles.imageaz} />
 <FontAwesomeIcon type = "submit" icon = "pencil-alt" className = {styles.icon} onClick = {handleFileSelect} />
 </>
 )

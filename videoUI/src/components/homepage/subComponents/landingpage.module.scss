@@ -1,6 +1,8 @@
 @use '../main.scss' as *;
 
 .columnaz{
+    @media(min-width:320px){
+    }
 }
 .icon{
     font-weight: 500;
@@ -23,6 +25,8 @@
 }
 }
 &__text{
+    @media(min-width: 320px){
+    }
     text-transform: capitalize;
     font-weight: 700;
     //background-color: $third-color;
@@ -38,45 +42,110 @@
 }
 
 &__column{
-    background-image: url('../../images/Picture8.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: relative !important;
-    padding: 0rem 5rem 5rem 5rem;
-    overflow-y: hidden;
-    background-position: right;
+    @media(min-width: 320px){
+        display: none;
+        background-image: none;
+    }
+    @media(min-width: 526px){
+        display: none;
+    }
+    @media(min-width: 768px){
+        background-position: top right;
+        display: flex;
+        background-image: url('../../images/Picture8.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: relative !important;
+        overflow-y: hidden;
+
+
+    }
     //border: solid green !important;
 }
 &__text{
+    @media(min-width: 320px){
+        border-radius: 0.5rem;
+        background-position: top;
+        align-items: flex-end;
+        padding: 5rem 0 5rem 0;
+    }
+    @media(min-width: 526px){
+        background-image: none;
+    }
 }
 }
 
 .text{
     &__header{
-        padding: 0rem 0 1.5rem 1rem;
-        color: $third-color;
-        font-size: 3rem;
-        font-weight: 700;
-        position: relative;
+        @media(min-width:320px) {
+            color: $sixth-color;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            padding: 0rem 0 1.5rem 1rem;
+        }
+        
+        @media(min-width: 576px){
+            color: $third-color;
+            text-align: left;
+            font-size: 2.75rem;
+            
+
+        }
+        @media(min-width: 992px){
+            color: $third-color;
+        }
+        @media(min-width: 1200px){
+            font-size: 3em;
+            color: $third-color;
+        }
 &::after{
-position: absolute;
+    @media(min-width:320px){
+        position: absolute;
 bottom: 0;
-left:5%;
+left:20%;
 display: flex;
 content: '';
-background-color: $third-color;
+background-color: $sixth-color;
+z-index: -5;
 height: 5px;
 width: 50%;
+    }
+
+    @media(min-width:576px){
+        background-color: $third-color;
+        left: 5%;
+    }
+
 }
-    
     }
     &__paragraph{
-        padding: 0 1rem 0 1rem;
-        font-weight: 400;
-        color: $third-color;
-        font-size: 1.05rem;
+        @media(min-width: 320px){
+            padding: 0 1rem 0 1rem;
+            font-weight: 300;
+            color: $sixth-color;
+            letter-spacing: 1px;
+            text-align: center;
+            font-size: 0.85rem;
+            }
+        @media(min-width: 526px){
+            font-size: 1.05rem;
+            text-align: left;
+            font-weight: 400;
+
+            color: $third-color;
+        }
+        @media(min-width: 768px){
+            font-size: 1.15rem;
+        }
+        @media(min-width: 992px){
+            font-size: 1.25rem;
+        }
+        @media(min-width: 1200px){
+            font-size: 1.25rem;
+        }
     }
-    color: $primary-color;
     &__button{
 
     &:hover{

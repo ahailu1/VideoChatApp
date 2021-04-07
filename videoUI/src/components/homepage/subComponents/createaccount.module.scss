@@ -38,11 +38,23 @@ position: relative !important;
         z-index: 2;
     }
     &__section{
-        background-repeat: no-repeat;
-        border-radius: 0.35rem 0.35rem 0.35rem 0.35rem;
-        //box-shadow: 0 0 3px 0 $third-color;
-        background-image: url('../../images/piccs.svg');
-        background-size: contain;
+        @media(min-width:320px){
+            background-color: $third-color;
+            border-radius: 0.75rem;
+            margin: 2rem 0 2rem 0;
+            background-image: none;
+        }
+        @media(min-width: 578px){
+            background-color: transparent;
+            background-repeat: no-repeat;
+            border-radius: 0.35rem 0.35rem 0.35rem 0.35rem;
+            //box-shadow: 0 0 3px 0 $third-color;
+            background-image: url('../../images/piccs.svg');
+            background-size: contain;
+            background-position: left;
+            position: relative;
+    
+        }
         //position: relative;
     }
     &__login{
@@ -94,16 +106,21 @@ position: relative !important;
 
 .form{
     &__row{
-        width: 50%;
         padding: 0.5rem 0 0.5rem 0;
     }
     &__paragraph{
         color: $sixth-color;
     }
     &__title{
-        color: $sixth-color;
-        font-size: 2.75rem;
-        font-weight: 700;
+        @media(min-width: 320px){
+            padding: 1.75rem;
+            color: $sixth-color;
+            font-size: 1.75rem;
+            font-weight: 700;    
+        }
+        @media(min-width:568px){
+            font-size: 2rem;
+        }
     &.createaccount{
         border-bottom: solid $sixth-color;
         color: $sixth-color;

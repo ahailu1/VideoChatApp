@@ -6,6 +6,7 @@
 
 .page{
     &__heading{
+        padding: 1rem;
         color: $third-color;
         font-size: 3.25rem;
         font-weight: 700;
@@ -20,26 +21,54 @@
 
 .container{
     &__row{
-        position: relative;
-        min-height: 100vh;
-        background-color: lighten($fourth-color, 9%) !important;
-        box-sizing: border-box;
-}
+        @media(min-width:320px){
+            background-color: $third-color !important;
+            border-radius: 0.5rem;
+            box-sizing: border-box;
+            position: relative;
+
+        }
+        @media(min-width:576px){
+            background-color: $sixth-color !important;
+        }
+        @media(min-width: 1024px){
+            min-height: 100vh;
+        }
+    }
+
+    &__introduction{
+        @media(min-width: 320px){
+            position: relative;
+            padding: 5rem 1rem 5rem 1rem;
+        }
+        @media(min-width: 578px){
+            min-height:unset;
+        } 
+        @media(min-width: 968px){
+
+        }
+    &::after{
+        border-radius: 0.75rem 0 0 0.75rem;
+        background-color: $third-color;
+        height: 100%;
+        background-position: left;
+        opacity: 0.15;
+        width: 115%;
+        right: 0;
+        display: flex;
+        content: '';
+        position: absolute;
+        top: 0;
+
+    }
+    }
+
 &__forms{
-    padding: 5rem 0 10rem 0;
+    min-height: 80vh;
+    background-color: lighten($sixth-color, 0%) !important;
+    padding: 8rem 0 8rem 0;
     background-color: $sixth-color !important;
     //background-color: lighten($fourth-color, 9%) !important;
-    
-}
-&__features{
-    min-height: 40vh;
-    background-color: lighten($sixth-color, 0%) !important;
-    padding: 5rem;
-}
-&__divider{
-    display: flex;
-    margin: 0 !important;
-    padding: 0 !important;
 }
 &__footer{
     padding: 0 !important;

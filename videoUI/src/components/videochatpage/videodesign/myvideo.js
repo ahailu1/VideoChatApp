@@ -37,11 +37,14 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
     useEffect(() => {
     // if my request is accepted
                 if(myPeerConnection !== '' && thisStream !== ''){
-                    console.log('about to add media');
                     addIceCandidates();
 
                 }
+                console.log(acceptedRequest + 'is the damn value');
+
                 if(acceptedRequest === true){
+                    console.log(acceptedRequest);
+                    console.log('right here idiot');
                     addIceCandidates();
                     listenForOffer();
                     testConnection();
@@ -59,12 +62,25 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
 
     let fetchRequest = () => {
         let {user_id} = userdata;
-        socket.on(`confirm_request_with_${user_id}`, async (data) => {
+        socket.on(`confirm_request_with_${user_id}`, (data) => {
             let {recipient_id, sender_id} = data;
             //if request is not true, seti t to true and then listen
             if(acceptedRequest !== true){
-                setRequest(true);
-                setRecipientId(sender_id);    
+                let data = {
+                    sender_id: recipient_id,
+                    recipient_id : sender_id,
+                }
+                console.log(acceptedRequest)
+                setRequest(prev => {
+                    console.log(prev);
+                    console.log(acceptedRequest)
+                    if(prev !== true){
+                        socket.emit('confirmRequest', data);
+                        return true;
+                    } else {
+                        return true;
+                    } 
+                });
             }
         });
     }
@@ -84,7 +100,6 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
       socket.on(`iceCandidate_to_${user_id}`, async data => {
         if(data.iceCandidate){
             try{
-                console.log(['here like an idiot', data.iceCandidate]);
                 await myPeerConnection.addIceCandidate(data.iceCandidate);
             } catch (err) {
                 console.log('error')
@@ -101,9 +116,6 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
         setPeerConnection(peerConnection);
         setServers(iceServers);
         setStream(stream);
-
-        // add media to peer connection
-        console.log(peerConnection);
         let video = document.getElementById('myvid');
         video.srcObject = stream;
         video.play();
@@ -116,7 +128,6 @@ let listenForOffer = async () => {
                     let answer = await myPeerConnection.createAnswer();
                     await myPeerConnection.setLocalDescription(answer);
                     let recipient_id = data.sender;
-                    console.log(recipient_id + ' just sent me a fucking offer');
                     let info = {
                         sender: user_id,
                         recipient_id: recipient_id,
@@ -124,6 +135,7 @@ let listenForOffer = async () => {
                         isOnline: true,
                         type: 'answer',
                     }
+                    
                     socket.emit('initStream', info);
                 }
         });  
@@ -135,6 +147,7 @@ let listenForOffer = async () => {
             myPeerConnection.addEventListener('track', async(e) => {
                 remoteStream.addTrack(e.track, remoteStream);
             });
+            remoteVid.play();
         }
 
    
@@ -145,7 +158,9 @@ let listenForOffer = async () => {
             if(data.type === 'answer'){
                 let remoteDescription = new RTCSessionDescription(data.answer);
                 await myPeerConnection.setRemoteDescription(remoteDescription);
+                console.log('got an answer ass hole');
             }
+
         });
         let myOffer = await myPeerConnection.createOffer();
         await myPeerConnection.setLocalDescription(myOffer);
@@ -174,7 +189,7 @@ let listenForOffer = async () => {
         </div>
         </Col>
 
-        <Col lg = {5} className = {styles.container__column__video}>
+        <Col lg = {{span: 5, offset: 1}} className = {styles.container__column__video}>
             {
                 acceptedRequest === true || hasAccepted === true ?
                 <video autoPlay playsInline controls id = 'friendvid' className = {styles.vid} width = "100%">

@@ -104,8 +104,11 @@ const LoginForm = () => {
         <>
 <p class = {`${styles.error} ${styles.error && styles.toggled}`}>{formError && formError}</p>
 
-<Form onSubmit = {changeForm ? handleLogin : handleCreateAccount } className = {`col align-self-center ${styles.container__formset}`}>
+<Form onSubmit = {changeForm ? handleLogin : handleCreateAccount } className = {`col ${styles.container__formset}`}>
+<Col sm = {12} xs = {12}>
      <Form.Row className = {`${styles.form__row}`}>
+
+         
 <InputGroup className = {`${styles.input__group}`}>
  
  <InputGroup.Prepend>
@@ -118,7 +121,8 @@ const LoginForm = () => {
 </InputGroup>
 
  </Form.Row>
-     
+ </Col>
+
      <Form.Row className = {`${styles.form__row}`}>
      <InputGroup className = {`${styles.input__group}`}>
      <InputGroup.Prepend>
@@ -132,7 +136,6 @@ const LoginForm = () => {
      </Form.Row>
         {!changeForm && item}
      <Button type="submit" variant = "dark">{changeForm ? "Login" : 'Create Account'}</Button>
- 
  </Form>
              </>
     )
@@ -140,15 +143,13 @@ const LoginForm = () => {
    
    
     return(
-    <>
-<Col xl = {6} className = {`col align-self-center justify-content-start align-content-center ${styles.container__section}`}>
 
-<Col className = {`Col align-self-center ${styles.container__form}`} xl = {12} lg = {5}>
+<Col xl = {4} lg = {5} md = {12} className = {`d-flex ${styles.container__section}`} sm = {12} xs = {12}>
+
+<Col className = {`Col align-self-center ${styles.container__form}`} xl = {12} lg = {12}>
         <Col>
         <p className = {`${styles.form__title} ${styles.createaccount}`}>{changeForm ? 'Login' : 'Create Account'}</p>
         <p className = {styles.form__paragraph}>{changeForm ? 'Sign up Now' : 'Have An Account?'} <span className = {styles.form__textedit} onClick = {toggleForm}> {changeForm ? 'Register' : 'Login'}  </span></p>
-
-        
         </Col>
         
         <Col className = {`row justify-content-center ${styles.rowaz}`} xl = {12}>
@@ -167,7 +168,6 @@ const LoginForm = () => {
     </Col>
 
     </Col>    
-        </>   
    ) 
 }
 export default CreateAccountForm;

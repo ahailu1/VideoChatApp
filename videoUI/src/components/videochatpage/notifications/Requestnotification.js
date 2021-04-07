@@ -5,6 +5,7 @@ import {Container, Row, Col, Image, Button} from 'react-bootstrap';
 import axios from 'axios';
 import DisplayProfile from './displayProfile';
 import RenderButton from '../utilities/addbutton';
+import bgImage from '../../images/Picture40.svg';
 const RequestNotification =  ({userdata, myFollowers, myFollowing, dispatch}) => {
 
     useEffect (() => {
@@ -25,7 +26,6 @@ return (
     <Row className = {styles.notification__row} noGutters = {true}>
         <Col xl =  {{span:12 , offset: 0}} className = {styles.notification__header}>
             <div className = {styles.notification__header__container}>
-
             <p className = {styles.page__header}>Notifications</p>
         <FontAwesomeIcon icon = 'cog' className = {styles.page__icon} />        
 
@@ -33,7 +33,7 @@ return (
 
         </Col>
     </Row>
-    <Row className = {styles.notification__list} noGutters = {true}>
+    <Row className = {styles.notification__list}>
     <Col xl = {{span: 8, offset: 1}} className = {styles.container__list}>
             {
             getFriendRequests.length > 0 && getFriendRequests.map(el => {

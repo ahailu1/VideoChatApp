@@ -10,9 +10,9 @@ let Front = () => {
 
   return(
       <>
-        <Col xl = {5} lg = {4} md = {6} className = {`col align-self-center ${styles.columnaz}`}>
+        <Col xl = {5} lg = {5} md = {6} sm = {12} className = {` flex-sm-column flex-xs-column flex-lg-column align-items-center align-self-center justify-content-center ${styles.columnaz}`}>
                 
-                <Col xl = {12} className = {styles.container__text}>
+                <Col xl = {12} sm = {12} className = {`d-flex flex-column justify-content-center align-items-center ${styles.container__text}`}>
             <p className = {styles.text__header}>
               Welcome to Online Video Chatter
             </p>
@@ -21,17 +21,18 @@ let Front = () => {
                 account, search for and follow users, and then make a video-chat request.
             </p> 
                 </Col>
-                <Col xl = {12} className = {`row justify-content-center align-items-center ${styles.container__signup}`}>
+
+                <Col xl = {12} sm = {12} className = {`d-flex flex-row justify-content-center align-items-center ${styles.container__signup}`}>
                   <div className = {`${styles.icon__container}`}>
                   <FontAwesomeIcon icon = 'angle-double-down' className = {styles.icon}/>
                   </div>
-
                   <span className = {styles.icon__text}>get Started</span>
-                </Col>     
+                </Col>   
+
         </Col>  
 
 
-        <Col xl = {7} lg = {8} md = {6} className = {` row justify-content-center ${styles.container__column}`}>
+        <Col xl = {7} lg = {7} md = {6} className = {` col justify-content-center align-items-center ${styles.container__column}`}>
           <img src = {landingimage} alt = '' className = {styles.image} />
         </Col> 
 

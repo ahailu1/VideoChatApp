@@ -29,7 +29,6 @@ return (
       {tabLink('two', '#link2', 'Friends', 'user')}
       {tabLink('three', '#link3', 'Notifications', 'bell')}
       {tabLink('four', '#search', 'Search', 'search-plus')}
-      {tabLink('five', '#link5', 'alex')}
       </ListGroup>
       </>
 )

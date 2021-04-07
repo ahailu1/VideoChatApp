@@ -77,7 +77,7 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
            </Col>
            <Logout lg = {12} handleLogout = {handleLogout} arrow = {arrow}/>
            </Col>
-           <Col className = {styles.container__column__tabcontent} lg = {10}>
+           <Col className = {`${styles.container__column__tabcontent}`} lg = {10}>
            <Tab.Content className = {styles.container__tabcontent}>
                <Tab.Pane eventKey="#link1" className = {styles.container__tabpane__videochat}>
                  <VideoUi friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers} hasRequested = {friendInfo.hasRequested} hasAccepted = {friendInfo.hasAccepted}

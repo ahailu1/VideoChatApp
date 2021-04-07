@@ -10,7 +10,6 @@ io.on('connection', (socket) => {
                 isOnline: true,
             }
             console.log(`${data.user_id} + 'is connected`);
-
             socket.broadcast.emit('onlineStatus', thisdata);
         }
     });

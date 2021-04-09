@@ -17,40 +17,22 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
         fetchData(userdata);
         fetchRequest();
     }, []);
-
-    useEffect(() => {
-            if(myPeerConnection !== ''){
-                //addIceCandidates();
-            }
-    }, [myPeerConnection])
-    //once accepted load ice servers;
-
     useEffect(() => {
         if(hasAccepted === true && myPeerConnection !== '' && thisStream !== ''){
-            console.log([friend_id, hasAccepted, 'blah testing']);
-            listenForOffer();
-             initStream(friend_id);
+            //if i accept video request, make an offer; 
+            initStream(friend_id);
+             addIceCandidates();
         }
         //if i accept a video chat request
-    }, [hasAccepted]);
+    }, [hasAccepted, myPeerConnection]);
     useEffect(() => {
     // if my request is accepted
-                if(acceptedRequest === true){
-                    console.log(acceptedRequest);
-                    console.log('right here idiot');
-                    addIceCandidates();
+                if(acceptedRequest === true && myPeerConnection !== ''){
                     listenForOffer();
-                    testConnection();
+                    addIceCandidates();
                     setRemoteStream();
                 }
-    }, [acceptedRequest]);
-        let testConnection = () => {
-            myPeerConnection.addEventListener('connectionstatechange', e => {
-                if(e.connectionState === 'connected'){
-                    alert('hello world phaggot');
-                }
-            });
-        }
+    }, [acceptedRequest, myPeerConnection]);
 
     let fetchRequest = () => {
         let {user_id} = userdata;
@@ -94,7 +76,7 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
             try{
                 await myPeerConnection.addIceCandidate(data.iceCandidate);
             } catch (err) {
-                console.log('error')
+                console.log(err)
             }
         }
       });
@@ -127,7 +109,6 @@ let listenForOffer = async () => {
                         isOnline: true,
                         type: 'answer',
                     }
-                    
                     socket.emit('initStream', info);
                 }
         });  
@@ -148,7 +129,6 @@ let listenForOffer = async () => {
             if(data.type === 'answer'){
                 let remoteDescription = new RTCSessionDescription(data.answer);
                 await myPeerConnection.setRemoteDescription(remoteDescription);
-                console.log('got an answer ass hole');
             }
 
         });

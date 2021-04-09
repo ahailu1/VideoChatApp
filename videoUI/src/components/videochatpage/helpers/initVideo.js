@@ -3,8 +3,9 @@ import axios from 'axios';
 export let initMediaDevice = async () => {
     try {
         let devices = await navigator.mediaDevices.enumerateDevices();
+        console.log(devices);
         let deviceId = devices[2].toJSON();
-        console.log(deviceId);
+        
         let constraints = {
             'video': true,
             'audio' : {

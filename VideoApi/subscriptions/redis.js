@@ -16,4 +16,4 @@ let connect = (io) => {
       });
     });
 }
-module.exports = connect
+module.exports = client

@@ -19,29 +19,22 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
     }, []);
 
     useEffect(() => {
-
-    }, [thisStream])
+            if(myPeerConnection !== ''){
+                //addIceCandidates();
+            }
+    }, [myPeerConnection])
     //once accepted load ice servers;
 
     useEffect(() => {
-        console.log([hasAccepted, myPeerConnection, 'phaggot', friend_id])
         if(hasAccepted === true && myPeerConnection !== '' && thisStream !== ''){
             console.log([friend_id, hasAccepted, 'blah testing']);
-            addIceCandidates();
             listenForOffer();
              initStream(friend_id);
         }
         //if i accept a video chat request
     }, [hasAccepted]);
-
     useEffect(() => {
     // if my request is accepted
-                if(myPeerConnection !== '' && thisStream !== ''){
-                    addIceCandidates();
-
-                }
-                console.log(acceptedRequest + 'is the damn value');
-
                 if(acceptedRequest === true){
                     console.log(acceptedRequest);
                     console.log('right here idiot');
@@ -51,7 +44,6 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
                     setRemoteStream();
                 }
     }, [acceptedRequest]);
-
         let testConnection = () => {
             myPeerConnection.addEventListener('connectionstatechange', e => {
                 if(e.connectionState === 'connected'){
@@ -149,8 +141,6 @@ let listenForOffer = async () => {
             });
             remoteVid.play();
         }
-
-   
 
     let initStream = async (friend_id) => {
         let {user_id} = userdata;

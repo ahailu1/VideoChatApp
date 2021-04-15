@@ -10,10 +10,22 @@
     align-items: center;
     box-sizing: border-box;
     &:hover{
-        transition: all ease-in-out 0.15s;
+        transition: all ease-in-out 0.05s;
         border: solid $fourth-color 2px;
         border-radius: 0.25rem;
         background-color: lighten($third-color, 10%);
+    }
+}
+.request{
+    &__header{
+        color: $sixth-color;
+        padding: 0.25rem;
+        font-size: 0.9rem;
+    }
+    &__text{
+        font-size: 0.75rem;
+        color: $fifth-color;
+
     }
 }
 
@@ -35,16 +47,16 @@
         top: 0;
         display: flex;
         flex-direction: column-reverse;
-        right: 15%;
+        right: 20%;
         justify-content: flex-start;
         align-items: flex-start;
-        background-color: #ff2a2a;
+        background-color: $sixth-color;
         height: 0.75rem;
         width: 0.75rem;
         //display: flex;
         border-radius: 50%;
     &.toggled{
-        right: 12%;
+        right: 20%;
         //border: solid red;
         background-color: transparent;
         z-index: 1;
@@ -66,7 +78,6 @@
         padding: 0.35rem;
         border-radius: 0.30rem;
         background-color: lighten($third-color, 15%);
-        margin: 0 1rem 0 0rem;
         color: $primary-color;
         font-size: 0.75rem;
         font-weight: 500;
@@ -84,22 +95,14 @@
     }
 }
 .container{
-    &__followstatus{
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-    }
     &__username{
         display: flex !important;
         align-items: center;
-        padding: 0 1rem 0 0;
+        padding: 0 0.51rem 0 0;
         flex-direction: column;
         justify-content: flex-start !important;
-        margin-right: 1rem;
     }
     &__information{
-        margin: 0 !important;
-        padding: 0 !important;
     }
   
 }

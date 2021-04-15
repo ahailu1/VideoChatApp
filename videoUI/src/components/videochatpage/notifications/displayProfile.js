@@ -58,9 +58,9 @@ let DisplayNotification = ({username, date, bio}) => {
     let thisDate = newDate.toLocaleDateString();
     return (
         <>
-    <Col className = {styles.mycolumn} lg = {12} xl = {12}>
+    <Col className = {styles.mycolumn} lg = {12} xl = {12} md = {12} sm = {12}>
     
-    <Col className = {styles.container__image} lg = {2} xl = {2}>
+    <Col className = {styles.container__image} lg = {2} xl = {2} md = {2} sm = {2} xs = {2}>
     
     <div className = {styles.profile__image__container}>
 
@@ -80,45 +80,40 @@ let DisplayNotification = ({username, date, bio}) => {
     </div>
     </div>
     </Col>
-    <Col lg = {6} xl = {{span: 7, offset: 0}} md = {7} className = {styles.container__information}>
+
+    <Col lg = {6} xl = {{span: 7, offset: 0}} md = {7} sm = {7} className = {`d-flex flex-direction-column align-items-center ${styles.container__information}`} xs = {6}>
         
-        <Col className = {styles.container__followstatus} lg = {12} xl = {12}>
-    
-        <Col xl = {2} className = {styles.container__username}>
+        <Col  className = {styles.container__username} xl = {3} lg = {3} md = {2} sm = {2}>
     <p className = {styles.profile__username}>{username}</p>        
     <p className = {styles.profile__heading}></p>
            </Col>
 
-    <Col className = {styles.container__follow} lg = {4} xl = {5}>
+    <Col className = {styles.container__follow}xl = {3} lg = {4} md = {5} sm = {4}>
     <p className = {styles.profile__count}>{theseFollowers}</p>        
     <p className = {styles.profile__heading}>Followers</p>
     </Col>
     
-    <Col className = {styles.container__follow} lg = {4} xl = {4}>
+    <Col className = {styles.container__follow} xl = {3} lg = {4} md = {5} sm = {4}>
     <p className = {styles.profile__count}>{theseFollowing}</p>        
     <p className = {styles.profile__heading}>Following</p>
     </Col>
 
-    </Col>
 
-    <Col lg = {12}>
-    {friendsList !== true &&
-    <>
+    {
+    friendsList !== true &&
+        <Col lg = {2} xl = {3} classNamae = {`d-flex flex-direction-row`}>
+
         <span className = {styles.request__header}>{username} </span> 
     <span className = {styles.request__text}>has followed you!</span>
-    </>
+    </Col>
         }
-    </Col>
-
-    <Col xl = {1} lg = {2}>
-    {bio}
-    </Col>
 
     </Col>
     
-    <Col className = {styles.column__testing} lg = {2} xl = {3}>  
+    <Col className = {styles.column__testing} lg = {3} xl = {3} md = {3} sm = {3} xs = {2}>  
     {props.render()}
     </Col>
+
     </Col>  
     </>
     )  

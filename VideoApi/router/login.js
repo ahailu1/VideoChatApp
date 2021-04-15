@@ -1,26 +1,25 @@
-let {router} = require('../config/express');
-let {loginUser} = require('../services/loginUsers');
-const {createToken} = require('../services/generateToken');
+const { router } = require("../config/express");
+const { loginUser } = require("../services/loginUsers");
+const { createToken } = require("../services/generateToken");
 
-router.post('/login', async (req, res) => {
-    let {username, password} = req.body;
-    try {
-    let {user_id, authenticated} = await loginUser(username, password);
-    console.log('trying to login');
-    let token = await createToken(username);
-    //confirm token
-    if(authenticated){
-        res.status(200).send({
-    token, user_id: user_id});
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const { user_id, authenticated } = await loginUser(username, password);
+    console.log("trying to login");
+    const token = await createToken(username);
+    // confirm token
+    if (authenticated) {
+      res.status(200).send({ token, user_id });
     } else {
-        res.status(422).send({error: 'wrong credentials'});
+      res.status(422).send({ error: "wrong credentials" });
     }
-    } catch (err) {
-        res.status(422).send({error: 'couldnt login'});
-        throw new Error(err);
-    }
+  } catch (err) {
+    res.status(422).send({ error: "couldnt login" });
+    throw new Error(err);
+  }
 });
 
 module.exports = {
-    router
-}
+  router,
+};

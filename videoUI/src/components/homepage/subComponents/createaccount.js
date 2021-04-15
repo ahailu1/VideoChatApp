@@ -87,7 +87,10 @@ let handleLogin = async (e) => {
 
 const LoginForm = () => {
 
-    let item = <Form.Row className = {`${styles.form__row}`}>
+    let item = 
+    
+    <Col xl = {12} md = {8} sm = {7}>
+    <Form.Row className = {`${styles.form__row}`}>
     <InputGroup>
     <InputGroup.Prepend>
     <InputGroup.Text>
@@ -98,14 +101,19 @@ const LoginForm = () => {
     <Form.Control className = {`${styles.form__input}`} id="confirmPassword" placeholder="Confirm password" type = 'password' minLength = {5} required = {!changeForm ? false : true} />
        <br/>
     </InputGroup>
-    </Form.Row>
+    </Form.Row>   
+    
+    </Col>
+ 
     
     return (
         <>
 <p class = {`${styles.error} ${styles.error && styles.toggled}`}>{formError && formError}</p>
 
 <Form onSubmit = {changeForm ? handleLogin : handleCreateAccount } className = {`col ${styles.container__formset}`}>
-<Col sm = {12} xs = {12}>
+
+
+<Col xl = {12} md = {8} sm = {7}>
      <Form.Row className = {`${styles.form__row}`}>
 
          
@@ -119,10 +127,9 @@ const LoginForm = () => {
 
  <FormControl className = {`${styles.form__input}`} id="username" placeholder="Username" pattern = {"[a-zA-Z0-9-_]{5,24}"} title = "please enter a combination of only numbers, letters,dashes and underscores. Username must be a minimum of 7 characters" required ={true} minLength = {5} maxLength = {24} />
 </InputGroup>
-
  </Form.Row>
  </Col>
-
+        <Col xl = {12} md = {8} sm = {7}>
      <Form.Row className = {`${styles.form__row}`}>
      <InputGroup className = {`${styles.input__group}`}>
      <InputGroup.Prepend>
@@ -133,7 +140,10 @@ const LoginForm = () => {
 
      <Form.Control className = {`${styles.form__input}`} id="password" placeholder="Password" type = 'password' required = {true} />
      </InputGroup>
-     </Form.Row>
+     </Form.Row>     
+        
+        </Col>
+   
         {!changeForm && item}
      <Button type="submit" variant = "dark">{changeForm ? "Login" : 'Create Account'}</Button>
  </Form>
@@ -144,9 +154,9 @@ const LoginForm = () => {
    
     return(
 
-<Col xl = {4} lg = {5} md = {12} className = {`d-flex ${styles.container__section}`} sm = {12} xs = {12}>
+<Col xl = {4} lg = {6} md = {12} className = {`d-flex ${styles.container__section}`} sm = {12} xs = {12}>
 
-<Col className = {`Col align-self-center ${styles.container__form}`} xl = {12} lg = {12}>
+<Col className = {`d-flex flex-column align-items-md-center justify-content-md-center ${styles.container__form}`} xl = {12} lg = {12} md = {6}>
         <Col>
         <p className = {`${styles.form__title} ${styles.createaccount}`}>{changeForm ? 'Login' : 'Create Account'}</p>
         <p className = {styles.form__paragraph}>{changeForm ? 'Sign up Now' : 'Have An Account?'} <span className = {styles.form__textedit} onClick = {toggleForm}> {changeForm ? 'Register' : 'Login'}  </span></p>

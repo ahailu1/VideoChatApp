@@ -1,65 +1,66 @@
-let {dbMethods} = require('../models/createuser');
-let bcrypt = require('bcrypt');
-let checkUsers = async (username) => {
-    try {
-    let getUsers = await dbMethods.getUsers(username);
-        if(getUsers.length > 0){
-            getUsers = true;
-        }
-            else {
-                getUsers = false
-            }
-            return getUsers;
-} catch (err) {
-    console.log('database error');
-    throw new Error(err);
-    }
-}
-let insertUsers = async (username, password, confirmPassword) => {
-    let errors = {};
-    let saltRounds = 10;
-    let regex = /^[a-zA-Z0-9-_]{7,}$/;
-    let regexTestUsername = regex.test(username);
-    let userPassword = password;
-    let passwordTest = userPassword.length >= 6 ? userPassword : false;
-    let checkExistance = await checkUsers(username);
-    console.log(checkExistance + 'is the existence');
-    if(!regexTestUsername){
-        errors.error = "invalid username";
-        errors.authenticated = false;
-        return errors
-    } else if(checkExistance === true){
-        errors.authenticated = false;
-        errors.error = "username already exists"
-        return errors;
-    } else if (password !== confirmPassword){
-        errors.authenticated = false;
-        errors.error = "passwords dont match";
-        return errors;
-    } else if (passwordTest === false) { 
-        errors.authenticated = false;
-        errors.error = 'password is too short';
-        return errors;
-    } else { 
-        try {
+const bcrypt = require("bcrypt");
+const { dbMethods } = require("../models/createuser");
 
-            let password = await bcrypt.hash(userPassword, saltRounds);
-        let {user_id} = await dbMethods.insertUsers(username, password);
-        console.log(user_id);
-        console.log('i tried');
-        let initAcc = {
-            authenticated: true,
-            user_id : user_id,
-        }
-        return initAcc
-        } catch(err) {
-            errors.authenticated = false
-            errors.error = 'network error';    
-            return errors;
-        }
+const checkUsers = async (username) => {
+  try {
+    let getUsers = await dbMethods.getUsers(username);
+    if (getUsers.length > 0) {
+      getUsers = true;
+    } else {
+      getUsers = false;
     }
-}
+    return getUsers;
+  } catch (err) {
+    console.log("database error");
+    throw new Error(err);
+  }
+};
+const insertUsers = async (username, password, confirmPassword) => {
+  const errors = {};
+  const saltRounds = 10;
+  const regex = /^[a-zA-Z0-9-_]{7,}$/;
+  const regexTestUsername = regex.test(username);
+  const userPassword = password;
+  const passwordTest = userPassword.length >= 6 ? userPassword : false;
+  const checkExistance = await checkUsers(username);
+  console.log(`${checkExistance}is the existence`);
+  if (!regexTestUsername) {
+    errors.error = "invalid username";
+    errors.authenticated = false;
+    return errors;
+  }
+  if (checkExistance === true) {
+    errors.authenticated = false;
+    errors.error = "username already exists";
+    return errors;
+  }
+  if (password !== confirmPassword) {
+    errors.authenticated = false;
+    errors.error = "passwords dont match";
+    return errors;
+  }
+  if (passwordTest === false) {
+    errors.authenticated = false;
+    errors.error = "password is too short";
+    return errors;
+  }
+  try {
+    const password = await bcrypt.hash(userPassword, saltRounds);
+    const { user_id } = await dbMethods.insertUsers(username, password);
+    console.log(user_id);
+    console.log("i tried");
+    const initAcc = {
+      authenticated: true,
+      user_id,
+    };
+    return initAcc;
+  } catch (err) {
+    errors.authenticated = false;
+    errors.error = "network error";
+    return errors;
+  }
+};
 
 module.exports = {
-    insertUsers,
-}
+  insertUsers,
+};

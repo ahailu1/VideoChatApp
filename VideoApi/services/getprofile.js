@@ -1,18 +1,14 @@
-let {dbMethods} = require('../models/getprofile');
+const { dbMethods } = require("../models/getprofile");
 
-
-let getBio = async (user_id) => {
-
-try{
-    let res = await dbMethods.getBio(user_id);
+const getBio = async (user_id) => {
+  try {
+    const res = await dbMethods.getBio(user_id);
     return res;
-
-} catch (err) {
+  } catch (err) {
     throw new Error(err);
-}
-
-}
+  }
+};
 
 module.exports = {
-    getBio
-}
+  getBio,
+};

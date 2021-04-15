@@ -4,25 +4,37 @@
 background-color: $third-color;
 &__tabs{
     //border: solid red !important;
-    padding: 0rem 0 0rem 0;
     //border: solid red !important;
     border-bottom: none !important;
     //margin: 0rem 0 1rem 0;
 }
 &__header{
-    padding: 1rem 0 1rem 0;
+    border-radius: 0.5rem !important;
+    background-color: lighten($third-color, 5%);
+    margin: 0.5rem 1rem 1rem 1rem !important;
 }
 &__profile{
     margin: 0.15rem 0 0.15rem 0 !important;
 &.toggled{
-    border: solid orange !important;
 }
 }
 }
-
-h1{
-    text-transform: capitalize;
-    color: $primary-color;
+.text{
+    &__header{
+        font-size: 2rem;
+        letter-spacing: 2px;
+        text-transform: capitalize;
+        margin: 0.5rem 0 0.5rem 0;
+        padding: 1rem 0 1rem 0;
+        font-weight: 800;
+        color: $fourth-color;
+    
+    }
+    &__icon {
+        margin: 0 0 0 0.5rem;
+        font-size: 2rem;
+        color: $fourth-color;
+    }
 }
 
 .row{

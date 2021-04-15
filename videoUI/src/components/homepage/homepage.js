@@ -34,9 +34,9 @@ let SectionOne = ({handleAuthentication}) => {
         <LandingPage/>
         </Row>
 
-        <Row className = {`flex-xs-column flex-sm-column flex-md-row-reverse flex-lg-row-reverse flex-xl-row-reverse justify-content-between ${styles.container__forms}`} xl = {12} xs = {12}>
+        <Row className = {`flex-xs-column flex-sm-column flex-md-row-reverse flex-lg-row-reverse flex-xl-row-reverse justify-content-xl-between align-items-md-center ${styles.container__forms}`} xl = {12} xs = {12}>
             
-        <Col xl = {6} lg = {6} className = {`flex-xs-column align-items-center justify-content-center align-self-center ${styles.container__introduction}`} md = {12} sm = {12} xs = {12}>
+        <Col xl = {6} lg = {6} className = {`d-flex flex-column align-items-center justify-content-center align-self-center ${styles.container__introduction}`} md = {12} sm = {12} xs = {12}>
         <h1 className = {styles.page__heading}>How it works</h1>
         <p className = {styles.page__paragraph}> 
         Real-time video chat with custom options to enhance the user experience.

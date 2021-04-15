@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styles from './icon.module.scss';
 import {Button, Col} from 'react-bootstrap';
-let SetIcon = ({stream,iconName, ...props}) => {
+let SetIcon = ({stream,iconName,initScreen, setRequest,setTerminate, toggleFriendInfo,socket,friend_id, userdata, ...props}) => {
     // change state of props
     let [myIcon, toggleIcon] = useState(false);
     
@@ -29,14 +29,31 @@ let SetIcon = ({stream,iconName, ...props}) => {
 
         }
         if(iconName === 'phone') {
+
            toggleIcon(!myIcon);
     }
     }
 
-let terminateStream = () => {
+let terminateStream = async () => {
     stream.getTracks().forEach(track => {
         track.stop();
     });
+    toggleIcon(!myIcon);
+        setRequest(false);
+        setTerminate(false);
+        await initScreen();
+        if(friend_id !== undefined){
+            let {user_id} = userdata;
+            let friendName = friend_id;
+            let data = {
+                sender_id: user_id,
+                recipient_id: friendName
+            }
+            socket.emit('terminateVideo', data);;
+
+        }
+        toggleFriendInfo();
+
 }
 let displayIcon = () => {
      let iconContainer = <div className = {`${styles.container__iconfont} ${myIcon && styles.toggled}`} onClick = {() => {toggleIcons(iconName)}}>

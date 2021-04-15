@@ -41,6 +41,13 @@ const VideoModal = ({setActiveKey,socket,userdata,setModal,onHide,setFriendInfo,
         socket.emit('confirmRequest', data);
     }
     let declineButton = () => {
+        let {user_id, username, recipient_id} = modalInfo;
+        let data = {
+            sender_id: userdata.user_id,
+            recipient_id : user_id,
+        }
+        onHide();
+        socket.emit('declineRequest', data);
 
     }
 
@@ -79,7 +86,7 @@ const VideoModal = ({setActiveKey,socket,userdata,setModal,onHide,setFriendInfo,
 
    <Col className = {styles.container__button} xl = {12}>
    <Button onClick={acceptRequest} className = {styles.modal__button}>Accept</Button>
-   <Button onClick={false} className = {styles.modal__button}>Decline</Button>   
+   <Button onClick={declineButton} className = {styles.modal__button}>Decline</Button>   
    </Col>
    <svg viewBox="50 50 410 400" xmlns="http://www.w3.org/2000/svg" width="100%" className= {styles.svg}>
    <path id="blob" d="M432.5,322.5Q366,395,288.5,408.5Q211,422,152,374Q93,326,79,243.5Q65,161,134.5,104Q204,47,278,84Q352,121,425.5,185.5Q499,250,432.5,322.5Z" fill="#272727"></path>

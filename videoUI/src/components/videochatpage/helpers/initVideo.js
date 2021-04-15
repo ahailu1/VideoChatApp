@@ -1,9 +1,12 @@
 import axios from 'axios';
 
-export let initMediaDevice = async () => {
+export let initMediaDevice = async (callback) => {
     try {
+        
         let devices = await navigator.mediaDevices.enumerateDevices();
-        console.log(devices);
+        
+        
+        
         let deviceId = devices[2].toJSON();
         
         let constraints = {
@@ -18,7 +21,7 @@ export let initMediaDevice = async () => {
         await edit.applyConstraints(deviceId);
         return item;
     } catch(err) {
-        throw new Error(err);
+        callback(true);
     }
 }
 export let getIceServers = async (user_id) => {

@@ -24,17 +24,15 @@ let fetchRequests = async ({user_id}) => {
 return (
     <Container fluid className = {styles.container}>
     <Row className = {styles.notification__row} noGutters = {true}>
-        <Col xl =  {{span:12 , offset: 0}} className = {styles.notification__header}>
+        <Col xl =  {{span:11 , offset: 0}} className = {styles.notification__header}>
             <div className = {styles.notification__header__container}>
             <p className = {styles.page__header}>Notifications</p>
         <FontAwesomeIcon icon = 'cog' className = {styles.page__icon} />        
-
             </div>
-
         </Col>
     </Row>
     <Row className = {styles.notification__list}>
-    <Col xl = {{span: 8, offset: 1}} className = {styles.container__list}>
+    <Col xl = {{span: 9, offset: 0}} className = {styles.container__list}>
             {
             getFriendRequests.length > 0 && getFriendRequests.map(el => {
         if(myFollowers.includes(el.requester_id) && myFollowing.includes(el.requester_id)){

@@ -38,7 +38,8 @@
     &__header{
         z-index: 50;
         //border: solid lighten($third-color,25%);
-        border-radius: 0.25rem 0.25rem 0 0;
+        border-radius: 0.5rem !important;
+        margin: 1rem;
         box-shadow: 0 0 3px 0 $third-color;
         background-color: lighten($third-color, 2%);
     &__container{
@@ -53,7 +54,7 @@
     font-size: 1.75rem;
     letter-spacing: 2px;
     text-transform: capitalize;
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 0rem 0 1.5rem 0;
     padding: 1rem 0 1rem 0;
     font-weight: 700;
     color: $fourth-color;

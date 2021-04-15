@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+
 const app = express();
 const cors = require("cors");
 
@@ -9,7 +10,7 @@ const { port } = require("./config.js");
 
 const initServer = () => {
   server.listen(port, (err) => {
-    console.log("server listening on port" + port);
+    console.log(`server listening on port${port}`);
   });
 };
 module.exports = {
@@ -19,5 +20,5 @@ module.exports = {
   express,
   cors,
   initServer,
-  bodyParser
+  bodyParser,
 };

@@ -6,25 +6,34 @@ import {initMediaDevice,getIceServers} from '../helpers/initVideo';
 import SetIcon from './toggleicon';
 import styles from './myvideo.module.scss';
 import LoadVideo from './loadingvideo';
-const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasRequested = false, ...props}) => {
+const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAccepted = false,hasRequested = false, ...props}) => {
    let [recipientId, setRecipientId] = useState('');
+   let [declineMessage, setDeclineRequest] = useState('');
    let [thisStream, setStream] = useState('');
    let [myPeerConnection, setPeerConnection] = useState('');
     let [acceptedRequest, setRequest] = useState(false);
    let [iceServer, setServers] = useState([]);
+   let [permissionError, setError] = useState(false);
+   let [terminateStatus, setTerminate] = useState(false);
 
-    useEffect(() => {
-        fetchData(userdata);
-        fetchRequest();
+    useEffect(async () => {
+        await initScreen();
     }, []);
+    useEffect (() => {
+
+    }, [permissionError]);
     useEffect(() => {
         if(hasAccepted === true && myPeerConnection !== '' && thisStream !== ''){
             //if i accept video request, make an offer; 
+            setDeclineRequest('');
             initStream(friend_id);
              addIceCandidates();
         }
         //if i accept a video chat request
     }, [hasAccepted, myPeerConnection]);
+
+
+
     useEffect(() => {
     // if my request is accepted
                 if(acceptedRequest === true && myPeerConnection !== ''){
@@ -33,6 +42,17 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
                     setRemoteStream();
                 }
     }, [acceptedRequest, myPeerConnection]);
+
+    let queryDevice = async () => {
+        
+        window.location.reload();
+    }
+    let initScreen = async () => {
+        await fetchData(userdata);
+         await fetchRequest();
+
+    }
+
 
     let fetchRequest = () => {
         let {user_id} = userdata;
@@ -57,8 +77,16 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
                 });
             }
         });
+        socket.on(`decline_request_with_${user_id}`, data => {
+                setDeclineRequest('User is busy');
+        });
+        socket.on(`terminate_video_with_${user_id}`, data => {             
+            setDeclineRequest('Video Chat Ended');
+                        setRequest(false);
+                        
+                    toggleFriendInfo({});
+                    });
     }
-
     let addIceCandidates = () => {
         let {user_id} = userdata;
         myPeerConnection.addEventListener('icecandidate', (e) => {
@@ -82,17 +110,23 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,hasAccepted = false,hasR
       });
     }
     let fetchData = async ({user_id}) => {
-        let stream = await initMediaDevice();
-      let {peerConnection, iceServers} = await getIceServers(user_id);
-        stream.getTracks().forEach(el => { 
-            peerConnection.addTrack(el, stream);
-        });
-        setPeerConnection(peerConnection);
-        setServers(iceServers);
-        setStream(stream);
-        let video = document.getElementById('myvid');
-        video.srcObject = stream;
-        video.play();
+
+        try{
+            let stream = await initMediaDevice(setError);
+            let {peerConnection, iceServers} = await getIceServers(user_id);
+              stream.getTracks().forEach(el => { 
+                  peerConnection.addTrack(el, stream);
+              });
+              setPeerConnection(peerConnection);
+              setServers(iceServers);
+              setStream(stream);
+              let video = document.getElementById('myvid');
+              video.srcObject = stream;
+              video.play();
+        } catch (err) {
+            setError(true);
+        }
+        
 }
 let listenForOffer = async () => {
     let {user_id} = userdata;
@@ -148,24 +182,31 @@ let listenForOffer = async () => {
             <Col xl = {9} className = {styles.container__column__wrapper}>
 
             <Col lg = {5} className = {styles.container__column__video}>
-    <video autoPlay playsInline controls id = 'myvid' className = {styles.vid} width = "100%">
+        <Col xl = {12} className = {`${styles.container__video} ${permissionError && styles.toggled}`}>
+        <video autoPlay playsInline controls id = 'myvid' className = {styles.vid} width = "100%">
     <source type = "video/mpg"/>
     </video>
-        <div className = {styles.container__icon}>
+        </Col>
+        <Col className = {`${styles.container__error} ${permissionError && styles.toggled} ${permissionError && 'd-flex flex-column justify-content-center align-items-center'}`}>
+            <p>There might have been a permission error. Please Click icon and allow for access to your device's video and/or microphone</p>
+        <FontAwesomeIcon icon = 'redo' className = {styles.icon} onClick = {queryDevice} />
+        </Col>
+
+
+        <Col className = {styles.container__icon}>
             <SetIcon stream = {thisStream} iconName = 'video'/>
             <SetIcon stream = {thisStream}  iconName = 'microphone'/>
-            <SetIcon stream = {thisStream} iconName = 'phone'/>
+            <SetIcon stream = {thisStream} userdata = {userdata} friend_id = {friend_id} socket = {socket} initScreen = {initScreen} iconName = 'phone' setRequest = {setRequest} toggleFriendInfo = {toggleFriendInfo} setTerminate = {setTerminate}/>
 
-        </div>
+        </Col>
         </Col>
 
         <Col lg = {{span: 5, offset: 1}} className = {styles.container__column__video}>
-            {
-                acceptedRequest === true || hasAccepted === true ?
+            { (acceptedRequest === true || hasAccepted === true) && declineMessage === '' ?
                 <video autoPlay playsInline controls id = 'friendvid' className = {styles.vid} width = "100%">
                 <source type = "video/mpg"/>
                 </video>
-                : <LoadVideo initVideo = {hasRequested}/>
+                : <LoadVideo initVideo = {hasRequested} requestMessage = {declineMessage}/>
             }
         </Col>
 

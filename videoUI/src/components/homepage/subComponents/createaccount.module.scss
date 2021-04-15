@@ -33,19 +33,21 @@ position: relative !important;
         position: relative;
     }
     &__form{
-        padding: 5rem 2rem 5rem 2rem;
+
         border-radius: 0rem 0.35rem 0.36rem 0rem;
         z-index: 2;
     }
     &__section{
         @media(min-width:320px){
+            padding: 5rem 2rem 5rem 2rem;
             background-color: $third-color;
             border-radius: 0.75rem;
-            margin: 2rem 0 2rem 0;
+            margin: 10rem 0 4rem 0;
             background-image: none;
         }
-        @media(min-width: 578px){
+        @media(min-width: 576px){
             background-color: transparent;
+            margin: 2rem 0 2rem 0;
             background-repeat: no-repeat;
             border-radius: 0.35rem 0.35rem 0.35rem 0.35rem;
             //box-shadow: 0 0 3px 0 $third-color;
@@ -53,7 +55,18 @@ position: relative !important;
             background-size: contain;
             background-position: left;
             position: relative;
-    
+
+        }
+        @media(min-width:768px){
+            padding: 2rem;
+
+        }
+        @media(min-width:992px){
+
+        }
+        @media(min-width: 1200px){
+            padding: 10rem 0 2rem 0;
+
         }
         //position: relative;
     }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './friendlayout.module.scss';
 import {Container, Row, Col, Image, Button, Tabs, Tab, Spinner} from 'react-bootstrap';
 import axios from 'axios';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {onlineStatus} from '../helpers/onlinestatus';
 import DisplayProfile from '../notifications/displayProfile';
 import RenderButton from '../utilities/addbutton';
@@ -44,11 +45,11 @@ useEffect( async () => {
             }
           return ( 
           <>
-         <Col lg = {10} xl = {{span: 8, offset: 0}} className = {`${styles.container__profile}`}>
+         <Col lg = {10} xl = {{span: 8, offset: 0}} className = {`${styles.container__profile}`} md = {10} sm = {10}>
           <DisplayProfile onlineStatus = {onlineUsers.includes(el[followType]) ? true : false} myFollowers = {myFollowers} myFollowing = {myFollowing} user_id = {el[followType]} username = {el.username} date = {date} render = { () => {
             return <RenderButton type = {type} userdata = {userdata} user_id = {el[followType]} callback = {dispatch} callbackData = {action} />}} friendsList = {true} />
             </Col>
-            <Col xl = {2} className = {styles.column__following}>
+            <Col xl = {2} className = {styles.column__following} lg = {2} md = {2} sm = {2}>
             <VideoButton socket = {socket} userdata = {userdata} initVideoChat = {initVideoChat} setActiveKey = {setActiveKey} username = {el.username} user_id = {el[followType]} bio = {el.bio} date = {date}/>
             </Col>
           </>  
@@ -61,12 +62,16 @@ useEffect( async () => {
     return(
         <Container className = {styles.container} fluid>
                <Row>
-          <Col xl = {{span: 10, offset: 1}} className = {styles.container__header}>
-          <h1>Friends</h1>
+          <Col xl = {{span: 11, offset: 0}} className = {styles.container__header}>
+          <div className = {` d-flex flex-direction-column align-items-center ${styles.notification__header__container}`}>
+            <p className = {styles.text__header}>Friends</p>
+        <FontAwesomeIcon icon = 'cog' className = {styles.text__icon} />        
+            </div>
           </Col>
       </Row>
       <Row className = {styles.row}>
-      <Col xl = {{span: 10, offset: 1}}>
+
+      <Col xl = {{span: 12, offset: 0}}>
             
         <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className = {styles.container__tabs} >
   <Tab eventKey="home" title="Followers">

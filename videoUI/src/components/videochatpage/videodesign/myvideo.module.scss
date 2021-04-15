@@ -1,4 +1,40 @@
 @use '../../globalSass/app' as *;
+
+.container{
+    &__video{
+        padding: 0 !important;
+        margin: 0 !important;
+
+            &.toggled{
+                display: none;
+            }
+    }
+    
+    &__error{
+        display: none;
+        
+    &.toggled{
+        border-radius: 0.35rem;
+        padding: 2.25rem 1rem 2.25rem 1rem !important;
+        background-color: $third-color !important;
+    & > p {
+        color: $primary-color;
+        font-size: 0.9rem;
+    }
+    }
+    }
+}
+.icon{
+    cursor: pointer;
+    font-size: 2.25rem;
+    color: $primary-color;
+&:hover{
+    font-size: 2.5rem;
+    transition: all ease-in-out 0.25s;
+    color: $sixth-color;
+}
+}
+
 .container{
 &__videopage{
     margin: 0 !important;

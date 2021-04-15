@@ -33,6 +33,9 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
       let toggleModal = () => {
           setModal(true);
       }
+      let toggleFriendInfo = () => {
+        setFriendInfo({});
+      }
 
       let initVideoChat = (username, user_id, bio, date, onlineStatus) => {
         let friendInfo = {
@@ -52,10 +55,10 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
 
     return (
         <Tab.Container className = {styles.container__alltabs} activeKey = {key}>   
-        <Row className = {styles.container__row} noGutters = {true}>
+        <Row className = {`flex-sm-column flex-md-column flex-xl-row align-items-md-start flex-lg-row ${styles.container__row}`} noGutters = {true}>
         <VideoModal userdata = {userdata} setFriendInfo = {setFriendInfo} setModal = {setModal} socket = {socket} show = {modalState} onHide = {() => setModal(false)} setActiveKey = {setActiveKey}/>
-           <Col lg = {arrow ? 2 : 1} className = {styles.container__first}>
-           <Col sm = {2} xs = {4} lg = {12} className = {styles.container__image}>
+           <Col lg = {arrow ? 2 : 1} className = {` flex-md-column align-self-md-start ${styles.container__first}`}>
+           <Col lg = {12} className = {styles.container__image}>
              {    
              arrow ? <>
                      <Profilepicture userdata = {userdata}/>  
@@ -77,10 +80,11 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
            </Col>
            <Logout lg = {12} handleLogout = {handleLogout} arrow = {arrow}/>
            </Col>
-           <Col className = {`${styles.container__column__tabcontent}`} lg = {10}>
+           
+           <Col className = {`${styles.container__column__tabcontent}`} xl = {arrow ? 10 : 11} lg = {arrow ? 10 : 11} md = {12}>
            <Tab.Content className = {styles.container__tabcontent}>
                <Tab.Pane eventKey="#link1" className = {styles.container__tabpane__videochat}>
-                 <VideoUi friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers} hasRequested = {friendInfo.hasRequested} hasAccepted = {friendInfo.hasAccepted}
+                 <VideoUi toggleFriendInfo = {toggleFriendInfo} friend_id = {friendInfo.user_id} socket = {socket} userdata = {userdata} myFollowers = {followers} hasRequested = {friendInfo.hasRequested} hasAccepted = {friendInfo.hasAccepted}
                  render = {() => {
                    if(Object.keys(friendInfo).length === 0) {
                      return <Userbar/>
@@ -92,7 +96,6 @@ const Sidebar = ({userdata, dispatch,followList, followers,following,handleLogou
                <Tab.Pane eventKey="#link2" className = {styles.container__tabpane__friends}>
                <FriendLayout refreshStatus = {refreshStatus} setRefresh = {setRefresh} followList = {followList} socket = {socket} initVideoChat = {initVideoChat} setActiveKey = {setActiveKey} userdata = {userdata} myFollowers = {followers} myFollowing = {following} dispatch = {dispatch}/>
                </Tab.Pane>
-       
                <Tab.Pane eventKey="#link3" className = {styles.container__tabpane__notifications}>
                  <RequestNotification userdata = {userdata} myFollowers = {followers} myFollowing = {following} dispatch = {dispatch} />
                </Tab.Pane>

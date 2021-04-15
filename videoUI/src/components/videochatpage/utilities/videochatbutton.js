@@ -23,7 +23,7 @@ let returnVidPage = () => {
 
     return (
         <>
-        <Col xl = {12} className = {styles.container__column}>
+        <Col xl = {12} className = {styles.container__column} sm = {12}>
             <div className = {styles.container__icon}>
             <FontAwesomeIcon icon = 'video' className = {styles.icon__video} onClick = {returnVidPage}/>
 

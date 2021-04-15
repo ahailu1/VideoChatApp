@@ -1,5 +1,5 @@
 @use './main.scss' as *;
-.column{
+.column {
     &__container{
     }
 }
@@ -39,15 +39,16 @@
     &__introduction{
         @media(min-width: 320px){
             position: relative;
-            padding: 5rem 1rem 5rem 1rem;
+            padding: 10rem 1rem 10rem 1rem;
         }
         @media(min-width: 578px){
             min-height:unset;
+            padding: 5rem 1rem 5rem 1rem;
         } 
         @media(min-width: 968px){
 
         }
-    &::after{
+    &::after {
         border-radius: 0.75rem 0 0 0.75rem;
         background-color: $third-color;
         height: 100%;
@@ -59,16 +60,28 @@
         content: '';
         position: absolute;
         top: 0;
+}
 
-    }
     }
 
 &__forms{
+    //background-color: lighten($fourth-color, 9%) !important;
+@media(min-width:320px){
+    background-color: $sixth-color !important;
     min-height: 80vh;
-    background-color: lighten($sixth-color, 0%) !important;
     padding: 8rem 0 8rem 0;
     background-color: $sixth-color !important;
-    //background-color: lighten($fourth-color, 9%) !important;
+
+}
+@media(min-width: 578px){
+    
+}
+@media(min-width: 998px){
+    min-height: 80vh;
+    padding: 8rem 0 8rem 0;
+    background-color: $sixth-color !important;
+
+}
 }
 &__footer{
     padding: 0 !important;

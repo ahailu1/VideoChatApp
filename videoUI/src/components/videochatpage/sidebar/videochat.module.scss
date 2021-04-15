@@ -27,12 +27,21 @@
         padding: 0 !important;
         margin: 0 !important;
     }
+    &__tabcontent{
+
+    }
     &__row{
+        background-color: $third-color;
+    }
+    &__column__tabcontent{
+        border-left: solid $sixth-color !important;
+
+    }
+    &__alltabs{
     }
 
-
     &__first{
-        height: 100vh;
+        height: auto !important;
         //border: solid orange !important;
         //flex-direction: column;
         //padding: 0 !important;

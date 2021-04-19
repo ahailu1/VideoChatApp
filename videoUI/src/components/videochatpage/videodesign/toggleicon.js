@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styles from './icon.module.scss';
 import {Button, Col} from 'react-bootstrap';
-let SetIcon = ({stream,iconName,initScreen, setRequest,setTerminate, toggleFriendInfo,socket,friend_id, userdata, ...props}) => {
+let SetIcon = ({stream,iconName,initScreen,myPeerConnection, setRequest,setTerminate, toggleFriendInfo,socket,friend_id, userdata, ...props}) => {
     // change state of props
     let [myIcon, toggleIcon] = useState(false);
     
@@ -35,13 +35,9 @@ let SetIcon = ({stream,iconName,initScreen, setRequest,setTerminate, toggleFrien
     }
 
 let terminateStream = async () => {
-    stream.getTracks().forEach(track => {
-        track.stop();
-    });
+    
     toggleIcon(!myIcon);
-        setRequest(false);
-        setTerminate(false);
-        await initScreen();
+    setTerminate(true);
         if(friend_id !== undefined){
             let {user_id} = userdata;
             let friendName = friend_id;
@@ -52,7 +48,6 @@ let terminateStream = async () => {
             socket.emit('terminateVideo', data);;
 
         }
-        toggleFriendInfo();
 
 }
 let displayIcon = () => {

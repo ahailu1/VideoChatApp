@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Col, Button, Row} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {initMediaDevice,getIceServers} from '../helpers/initVideo';
@@ -7,21 +7,34 @@ import SetIcon from './toggleicon';
 import styles from './myvideo.module.scss';
 import LoadVideo from './loadingvideo';
 const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAccepted = false,hasRequested = false, ...props}) => {
-   let [recipientId, setRecipientId] = useState('');
+   let [recipientId, setRecipientId] = useState(false);
    let [declineMessage, setDeclineRequest] = useState('');
    let [thisStream, setStream] = useState('');
    let [myPeerConnection, setPeerConnection] = useState('');
-    let [acceptedRequest, setRequest] = useState(false);
+   let [acceptedRequest, setRequest] = useState(false);
    let [iceServer, setServers] = useState([]);
    let [permissionError, setError] = useState(false);
    let [terminateStatus, setTerminate] = useState(false);
+    useEffect ( () => {
+        if(terminateStatus === true){
+            thisStream.getTracks().forEach(track => {
+                track.stop();
+            });
+            myPeerConnection.restartIce();
+            setPeerConnection('');
+            setStream('');
+            setDeclineRequest('video ended');
+             console.log([myPeerConnection, thisStream, terminateStatus, acceptedRequest])
+             setRequest(false);
+             setTerminate(false);
+             toggleFriendInfo({});
+            } else {
+                console.log([myPeerConnection, thisStream, terminateStatus, acceptedRequest]);
+                setDeclineRequest('');
+                initScreen();
+            }
+    }, [terminateStatus]);
 
-    useEffect(async () => {
-        await initScreen();
-    }, []);
-    useEffect (() => {
-
-    }, [permissionError]);
     useEffect(() => {
         if(hasAccepted === true && myPeerConnection !== '' && thisStream !== ''){
             //if i accept video request, make an offer; 
@@ -32,8 +45,6 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
         //if i accept a video chat request
     }, [hasAccepted, myPeerConnection]);
 
-
-
     useEffect(() => {
     // if my request is accepted
                 if(acceptedRequest === true && myPeerConnection !== ''){
@@ -43,16 +54,13 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
                 }
     }, [acceptedRequest, myPeerConnection]);
 
-    let queryDevice = async () => {
-        
+    let queryDevice = async () => {   
         window.location.reload();
     }
     let initScreen = async () => {
         await fetchData(userdata);
          await fetchRequest();
-
     }
-
 
     let fetchRequest = () => {
         let {user_id} = userdata;
@@ -80,13 +88,12 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
         socket.on(`decline_request_with_${user_id}`, data => {
                 setDeclineRequest('User is busy');
         });
-        socket.on(`terminate_video_with_${user_id}`, data => {             
-            setDeclineRequest('Video Chat Ended');
-                        setRequest(false);
-                        
-                    toggleFriendInfo({});
+        socket.on(`terminate_video_with_${user_id}`, async data => {       
+                  
+            setTerminate(true);
                     });
     }
+
     let addIceCandidates = () => {
         let {user_id} = userdata;
         myPeerConnection.addEventListener('icecandidate', (e) => {
@@ -109,8 +116,8 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
         }
       });
     }
-    let fetchData = async ({user_id}) => {
 
+    let fetchData = async ({user_id}) => {
         try{
             let stream = await initMediaDevice(setError);
             let {peerConnection, iceServers} = await getIceServers(user_id);
@@ -126,7 +133,6 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
         } catch (err) {
             setError(true);
         }
-        
 }
 let listenForOffer = async () => {
     let {user_id} = userdata;
@@ -148,14 +154,40 @@ let listenForOffer = async () => {
         });  
 }
         let setRemoteStream = () => {
-            let remoteStream = new MediaStream();
-            let remoteVid = document.getElementById('friendvid');
-            remoteVid.srcObject = remoteStream;
-            myPeerConnection.addEventListener('track', async(e) => {
-                remoteStream.addTrack(e.track, remoteStream);
-            });
-            remoteVid.play();
         }
+
+    let InitRemoteVid = (recipientId) => {
+        let videoInput = useRef(null);
+        let videoChat = (
+            <video autoPlay playsInline controls id = 'friendvid' ref = {videoInput} className = {styles.vid} width = "100%">
+            <source type = "video/mpg"/>
+            </video>
+            );
+        if(myPeerConnection !== ''){
+            myPeerConnection.addEventListener('connectionstatechange', e => {
+                console.log(e.srcElement.connectionState)
+
+                if(e.srcElement.connectionState == 'connected'){
+                    setRecipientId(true);  
+                    let remoteStream = new MediaStream();
+                    myPeerConnection.addEventListener('track', async(e) => {
+                        remoteStream.addTrack(e.track, remoteStream);
+                    });
+                    videoInput.current.srcObject = remoteStream
+                    videoInput.current.play();          
+                }
+        });
+        }
+       
+        if( (acceptedRequest === true || hasAccepted === true) && recipientId === true){
+            return (
+                videoChat
+            )
+        } else {
+            return <LoadVideo initVideo = {hasRequested} requestMessage = {declineMessage}/>
+        }
+            
+    }    
 
     let initStream = async (friend_id) => {
         let {user_id} = userdata;
@@ -196,18 +228,13 @@ let listenForOffer = async () => {
         <Col className = {styles.container__icon}>
             <SetIcon stream = {thisStream} iconName = 'video'/>
             <SetIcon stream = {thisStream}  iconName = 'microphone'/>
-            <SetIcon stream = {thisStream} userdata = {userdata} friend_id = {friend_id} socket = {socket} initScreen = {initScreen} iconName = 'phone' setRequest = {setRequest} toggleFriendInfo = {toggleFriendInfo} setTerminate = {setTerminate}/>
-
+            <SetIcon stream = {thisStream} myPeerConnection = {myPeerConnection} userdata = {userdata} friend_id = {friend_id} socket = {socket} initScreen = {initScreen} iconName = 'phone' setRequest = {setRequest} toggleFriendInfo = {toggleFriendInfo} setTerminate = {setTerminate}/>
         </Col>
+
         </Col>
 
         <Col lg = {{span: 5, offset: 1}} className = {styles.container__column__video}>
-            { (acceptedRequest === true || hasAccepted === true) && declineMessage === '' ?
-                <video autoPlay playsInline controls id = 'friendvid' className = {styles.vid} width = "100%">
-                <source type = "video/mpg"/>
-                </video>
-                : <LoadVideo initVideo = {hasRequested} requestMessage = {declineMessage}/>
-            }
+        {InitRemoteVid(recipientId)}
         </Col>
 
         </Col>

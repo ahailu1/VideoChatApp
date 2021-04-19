@@ -28,7 +28,6 @@ let initFriendsList = async () => {
 let modifyState = (myFriendsList, action) => {
   switch(action.type){
     case 'follow' :
-
       return {
         following: myFriendsList.following.concat(action.data),
         followers: myFriendsList.followers

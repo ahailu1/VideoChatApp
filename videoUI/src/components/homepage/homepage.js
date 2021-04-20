@@ -21,9 +21,9 @@ let SectionOne = ({handleAuthentication}) => {
         icon: 'user-plus'
     }
     let appfeatures3 = {
-        title: 'Instant Messaging',
-        paragraph: 'Send instant messages.',
-        icon: 'comment'
+        title: 'Android Comptable',
+        paragraph: 'Users can videochat with other android devices that use the latest version of google chrome for android',
+        icon: 'mobile-alt'
     }
   
 

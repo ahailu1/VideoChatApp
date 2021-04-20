@@ -9,6 +9,7 @@
     font-size: 3rem;
     color: $sixth-color;
 &__container{
+    animation: floatIcon ease-in-out infinite 1s;
     display: flex;
     background-color: $third-color;
     justify-content: center;
@@ -17,12 +18,7 @@
     width: 5rem;
     border: solid $third-color;
     border-radius: 50%;
-&:hover{
-    cursor: pointer;
-    color: $sixth-color;
-    border: lighten($third-color, 10%);
-    background-color: lighten($third-color, 10%);
-}
+    margin-top: -1rem;
 }
 &__text{
     @media(min-width: 320px){
@@ -156,4 +152,11 @@ width: 50%;
 
 .image{
 width: 70%;
+}
+
+@keyframes floatIcon {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(1.25rem); }
+    100% { transform: translateY(0); }
+
 }

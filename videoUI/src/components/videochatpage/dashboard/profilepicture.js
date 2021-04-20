@@ -3,10 +3,10 @@ import {Image} from 'react-bootstrap';
 import styles from './profilepicture.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-const Profilepicture = (props) => {
+const Profilepicture = ({userdata, ...props}) => {
 
 
-  let [imageUrl, setImage] = useState('/public/test123--profilepicture.jpg');
+  let [imageUrl, setImage] = useState(`/srv/images/${userdata.username}--profilepicture.jpg`);
 
 
 let fileSelector = () =>{
@@ -57,12 +57,12 @@ e.preventDefault();
   console.log(name);
   let fileReader = new FileReader();
 }
-
+let {username} = userdata;
 
 return (
 <>
 
-<Image src = {imageUrl !== "" ? imageUrl : `${process.env.React_APP_SITE_IMAGE_URL}`} thumbnail className = {styles.imageaz} />
+<Image src = {`/srv/images/${username}--profilepicture.jpg`} thumbnail className = {styles.imageaz} />
 <FontAwesomeIcon type = "submit" icon = "pencil-alt" className = {styles.icon} onClick = {handleFileSelect} />
 </>
 )

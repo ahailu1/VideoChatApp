@@ -54,6 +54,8 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
                 }
     }, [acceptedRequest, myPeerConnection]);
 
+    let videoInput = useRef(null);
+
     let queryDevice = async () => {   
         window.location.reload();
     }
@@ -106,6 +108,11 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
                 socket.emit('initIceCandidate', iceCandidates)
             }  
       });
+      myPeerConnection.addEventListener('connectionstatechange', e => {
+        if(e.srcElement.connectionState === 'connected'){
+            setRecipientId(true);  
+        }
+});
       socket.on(`iceCandidate_to_${user_id}`, async data => {
         if(data.iceCandidate){
             try{
@@ -154,32 +161,22 @@ let listenForOffer = async () => {
         });  
 }
         let setRemoteStream = () => {
+                let remoteStream = new MediaStream();
+                        myPeerConnection.addEventListener('track', async(e) => {
+                            remoteStream.addTrack(e.track, remoteStream);
+                        });
+                videoInput.current.srcObject = remoteStream;
+                videoInput.current.play();
         }
 
-    let InitRemoteVid = (recipientId) => {
-        let videoInput = useRef(null);
+    let InitRemoteVid = () => {
         let videoChat = (
             <video autoPlay playsInline controls id = 'friendvid' ref = {videoInput} className = {styles.vid} width = "100%">
             <source type = "video/mpg"/>
             </video>
             );
-        if(myPeerConnection !== ''){
-            myPeerConnection.addEventListener('connectionstatechange', e => {
-                console.log(e.srcElement.connectionState)
-
-                if(e.srcElement.connectionState == 'connected'){
-                    setRecipientId(true);  
-                    let remoteStream = new MediaStream();
-                    myPeerConnection.addEventListener('track', async(e) => {
-                        remoteStream.addTrack(e.track, remoteStream);
-                    });
-                    videoInput.current.srcObject = remoteStream
-                    videoInput.current.play();          
-                }
-        });
-        }
-       
-        if( (acceptedRequest === true || hasAccepted === true) && recipientId === true){
+        
+        if( (acceptedRequest === true || hasAccepted === true) ){
             return (
                 videoChat
             )
@@ -192,11 +189,10 @@ let listenForOffer = async () => {
     let initStream = async (friend_id) => {
         let {user_id} = userdata;
         socket.on(`initStream_answer_${user_id}`, async (data) => {
-            if(data.type === 'answer'){
+            if (data.type === 'answer') {
                 let remoteDescription = new RTCSessionDescription(data.answer);
                 await myPeerConnection.setRemoteDescription(remoteDescription);
             }
-
         });
         let myOffer = await myPeerConnection.createOffer();
         await myPeerConnection.setLocalDescription(myOffer);
@@ -234,7 +230,15 @@ let listenForOffer = async () => {
         </Col>
 
         <Col lg = {{span: 5, offset: 1}} className = {styles.container__column__video}>
-        {InitRemoteVid(recipientId)}
+        
+
+        {
+        
+        InitRemoteVid()
+        
+        }
+        
+
         </Col>
 
         </Col>

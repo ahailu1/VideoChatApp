@@ -48,7 +48,6 @@ const RenderButton = ({type, user_id, userdata,callback = null, callbackData= nu
               return true
             }
         } catch (err) {
-          alert('eerrrpr');
             toggleSpinner(false);
             setLoading(false)
         }

@@ -11,7 +11,6 @@ const Bio = (props) => {
 
     useEffect(() => {
         getBio();
-
     }, []);
 
     let getBio = async () => {
@@ -50,10 +49,8 @@ const Bio = (props) => {
         console.log('hello world')
         storeBio(setValue);
         setBio(setValue);
-        console.log([userBio, setValue, 'whats happening'])
         setToggle(false)
     } catch (err) {
-        console.log(' im trying')
         console.log(err);
         throw new Error(err);
     }

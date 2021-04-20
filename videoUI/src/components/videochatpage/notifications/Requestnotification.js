@@ -5,7 +5,6 @@ import {Container, Row, Col, Image, Button} from 'react-bootstrap';
 import axios from 'axios';
 import DisplayProfile from './displayProfile';
 import RenderButton from '../utilities/addbutton';
-import bgImage from '../../images/Picture40.svg';
 const RequestNotification =  ({userdata, myFollowers, myFollowing, dispatch}) => {
 
     useEffect (() => {

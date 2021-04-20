@@ -1,5 +1,8 @@
 @use '../main.scss' as * ;
 
+.error{
+    color: $sixth-color;
+}
 .column{
     &__one{
         padding: 0 !important; 

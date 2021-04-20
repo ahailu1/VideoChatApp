@@ -26,7 +26,6 @@ let Front = () => {
                   <div className = {`${styles.icon__container}`}>
                   <FontAwesomeIcon icon = 'angle-double-down' className = {styles.icon}/>
                   </div>
-                  <span className = {styles.icon__text}>get Started</span>
                 </Col>   
 
         </Col>  

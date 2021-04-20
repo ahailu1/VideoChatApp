@@ -12,7 +12,7 @@ const Profile = ({...props}) => {
         let tryme = async () => {
                 let {followers, following} = await getFollowers();
                 setFollowers(followers);
-                setFollowing(following)
+                setFollowing(following);
         }
         tryme();
     }, [])

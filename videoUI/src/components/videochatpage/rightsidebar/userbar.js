@@ -20,7 +20,6 @@ const Userbar = ({username,bio,date,user_id, ...props}) => {
             <>
             <TabContainer activeKey = {currentKey} className = {styles.container__alltabs}>
             <ListGroup className = {styles.container__listgroup}>
-        {renderItem('#chat', 'comment-dots')}
         {renderItem('#bio','user-plus')}
           </ListGroup>
 

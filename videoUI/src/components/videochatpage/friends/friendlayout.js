@@ -57,7 +57,7 @@ useEffect( async () => {
           }
       })
       )
-    } 
+    }
   }
     return(
         <Container className = {styles.container} fluid>

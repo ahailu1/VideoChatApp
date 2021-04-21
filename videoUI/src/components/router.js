@@ -11,11 +11,9 @@ const RouterApp = (props) => {
     const [userData, setUserData] = useState({username: "", token: "", authenticated: false, user_id: ''});
 
     useEffect(() => {
-        console.log(process.env.REACT_APP_SITE_URL);
         let userdata = Cookies.get('userdata');
         console.log(userdata);
         if(userdata === 'undefined' || userdata === undefined){
-            console.log(userdata);
                 authenticate(false);
             } else {
                 let info = JSON.parse(userdata);
@@ -28,7 +26,6 @@ const RouterApp = (props) => {
     let handleAuthentication = (username, token, isAuthenticated, user_id) => {
         if(isAuthenticated === true){
             Cookies.set('userdata', {username: username, token: token, authenticated: true, user_id: user_id});
-            console.log(username + 'whaat');
             setUserData({username, token, isAuthenticated, user_id});
             authenticate(true);          
   

@@ -17,10 +17,7 @@ const Bio = (props) => {
         let {user_id} = props.userdata;
         let bio = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/dashboard/getbio/${user_id}`);
         let thisBio = bio.data[0].bio;
-        console.log(thisBio);
-        console.log(typeof thisBio)
          if(thisBio === null || thisBio === "null"){
-            console.log(thisBio + 'phaggot')
         }
           else {
             setBio(thisBio);
@@ -41,18 +38,15 @@ const Bio = (props) => {
             bio: setValue 
         }
     }
-    console.log(setValue)
     try {
         let res = axios(config);
         console.log(res);
         let userBio = setValue;
-        console.log('hello world')
         storeBio(setValue);
         setBio(setValue);
         setToggle(false)
     } catch (err) {
         console.log(err);
-        throw new Error(err);
     }
 }
     let setVal = (e) => {

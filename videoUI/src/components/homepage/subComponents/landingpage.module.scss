@@ -2,6 +2,14 @@
 
 .columnaz{
     @media(min-width:320px){
+        border: solid $third-color !important;
+    }
+    @media(min-width: 576px) {
+            background-color: $third-color;
+    }
+    @media(min-width: 768px) {
+        border: none !important;
+        background-color: transparent;
     }
 }
 .icon{
@@ -42,7 +50,7 @@
         display: none;
         background-image: none;
     }
-    @media(min-width: 526px){
+    @media(min-width: 576px){
         display: none;
     }
     @media(min-width: 768px){
@@ -83,11 +91,13 @@
         }
         
         @media(min-width: 576px){
-            color: $third-color;
+            color: $sixth-color;
             text-align: left;
             font-size: 2.75rem;
             
-
+        }
+        @media(min-width:768px){
+            color: $third-color;
         }
         @media(min-width: 992px){
             color: $third-color;
@@ -123,16 +133,18 @@ width: 50%;
             color: $sixth-color;
             letter-spacing: 1px;
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 1.25rem;
             }
-        @media(min-width: 526px){
+        @media(min-width: 576px){
             font-size: 1.05rem;
             text-align: left;
             font-weight: 400;
 
-            color: $third-color;
+            color: $sixth-color;
         }
         @media(min-width: 768px){
+            color: $third-color;
+
             font-size: 1.15rem;
         }
         @media(min-width: 992px){

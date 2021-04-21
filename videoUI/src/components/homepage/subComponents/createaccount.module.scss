@@ -58,7 +58,6 @@ position: relative !important;
             background-size: contain;
             background-position: left;
             position: relative;
-
         }
         @media(min-width:768px){
             padding: 2rem;
@@ -133,12 +132,23 @@ position: relative !important;
             color: $sixth-color;
             font-size: 1.75rem;
             font-weight: 700;    
+            position: relative;
         }
         @media(min-width:568px){
             font-size: 2rem;
         }
-    &.createaccount{
+      &::after{
+        position: absolute;
+        bottom: 10%;
+        left: 0;
+        height: 100%;
+        width: 70%;
+        display: flex;
+        content: '';
+        line-height: 2rem;
         border-bottom: solid $sixth-color;
+      }  
+    &.createaccount{
         color: $sixth-color;
     }
     }

@@ -29,7 +29,6 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
              setTerminate(false);
              toggleFriendInfo({});
             } else {
-                console.log([myPeerConnection, thisStream, terminateStatus, acceptedRequest]);
                 setDeclineRequest('');
                 initScreen();
             }
@@ -74,10 +73,7 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
                     sender_id: recipient_id,
                     recipient_id : sender_id,
                 }
-                console.log(acceptedRequest)
                 setRequest(prev => {
-                    console.log(prev);
-                    console.log(acceptedRequest)
                     if(prev !== true){
                         socket.emit('confirmRequest', data);
                         return true;
@@ -104,7 +100,6 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
                     iceCandidate: e.candidate,
                     recipient_id: friend_id,
                 }
-                console.log(e.candidate);
                 socket.emit('initIceCandidate', iceCandidates)
             }  
       });

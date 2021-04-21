@@ -12,13 +12,13 @@ let CardTemplate = () => {
 
     return (
         <>
-        <Col className = {`d-sm-flex flex-xl-row flex-lg-row flex-md-row justify-content-md-center align-items-md-center flex-sm-column ${styles.container__card} ${activate && styles.toggled}`} xl = {10} md = {8}>
+        <Col className = {`d-sm-flex d-xs-flex flex-xl-row flex-lg-row flex-md-row flex-xs-row justify-content-md-center align-items-md-center ${styles.container__card} ${activate && styles.toggled}`} xl = {10} lg = {10} md = {10} sm = {10} xs = {11}>
         
-        <Col className = {`d-flex align-items-center justify-content-lg-center ${styles.container__icon}`} xl = {2} md = {2} sm = {1}>
+        <Col className = {`d-flex align-items-center justify-content-lg-center ${styles.container__icon}`} xl = {2} lg = {1} md = {1} sm = {1} xs = {1}>
             <FontAwesomeIcon icon = {props.icon} className = {`${styles.icon} ${activate && styles.toggled}`}/>
         </Col>
 
-        <Col className = {`col justify-content-center  ${styles.container__paragraph} ${activate && styles.toggled}`} xl = {10} lg = {12} md = {9} sm = {10}>
+        <Col className = {`col justify-content-center  ${styles.container__paragraph} ${activate && styles.toggled}`} xl = {10} lg = {10} md = {9} sm = {9} xs = {0}>
         <p className = {`${styles.title} ${activate && styles.toggled}`}>{props.title}</p>
         <p className = {`${styles.paragraph} ${activate && styles.toggled}`}>{props.paragraph}</p>
         </Col>

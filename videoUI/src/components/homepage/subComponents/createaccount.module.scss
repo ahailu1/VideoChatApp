@@ -67,22 +67,18 @@ position: relative !important;
 
         }
         @media(min-width: 1200px){
-            padding: 10rem 0 2rem 0;
-
+            padding: 15rem 0 5rem 0;
         }
         //position: relative;
     }
     &__login{
-        top: 0;
-        position: absolute;
-        left: 0;
         opacity: 0;
         visibility: hidden;
         transform: translateX(-100%);
-        opacity: 0;
         width: 0;
         height: 0;
         &.toggled{
+            top: 0;
             transition: all ease-in-out 1s;
             height: 100%;
             width: 100%;

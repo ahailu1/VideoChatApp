@@ -61,8 +61,7 @@ let {username} = userdata;
 
 return (
 <>
-
-<Image src = {`/srv/images/${username}--profilepicture.jpg`} thumbnail className = {styles.imageaz} />
+<Image src = {`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`} thumbnail className = {styles.imageaz} />
 <FontAwesomeIcon type = "submit" icon = "pencil-alt" className = {styles.icon} onClick = {handleFileSelect} />
 </>
 )

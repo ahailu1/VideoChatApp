@@ -5,7 +5,7 @@ let UserBio = ({username, bio, date, ...props}) => {
 return (
     <>
 <Col className = {styles.container__image}>
-<Image src = {`/srv/images/${username}--profilepicture.jpg`} thumbnail className = {styles.bio__image}/>
+<Image src = {`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`} thumbnail className = {styles.bio__image}/>
 </Col>
 <Col className = {styles.container__username}>
 <div className = {styles.bio__header}>Username</div>

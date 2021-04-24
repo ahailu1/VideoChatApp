@@ -10,7 +10,7 @@ let Front = () => {
 
   return(
       <>
-        <Col xl = {5} lg = {5} md = {6} sm = {12} className = {` flex-sm-column flex-xs-column flex-lg-column align-items-center align-self-center justify-content-center ${styles.columnaz}`}>
+        <Col xl = {5} lg = {5} md = {6} sm = {12} className = {`flex-sm-column flex-xs-column flex-lg-column align-items-center justify-content-center ${styles.columnaz}`}>
                 
                 <Col xl = {12} sm = {12} className = {`d-flex flex-column justify-content-center align-items-center ${styles.container__text}`}>
             <p className = {styles.text__header}>

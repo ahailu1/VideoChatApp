@@ -4,7 +4,7 @@ const { app, router } = require("../config/express");
 
 const saveFile = async (file, username) => {
   const location = path.resolve(path.join(__dirname, "../public/images"));
-  const imagePath = `${location}/${username}--profilepicture.jpg`;
+  const imagePath = `/srv/profile/${username}--profilepicture.jpg`;
   const relativePath = `/${username}--profilepicture.jpg`;
   try {
     const imageFile = await Buffer.from(file, "base64");
@@ -16,7 +16,6 @@ const saveFile = async (file, username) => {
     });
     return imagePath;
   } catch (e) {
-    res.status(422).send({ error: "invalid" });
     throw new Error(e);
   }
 };

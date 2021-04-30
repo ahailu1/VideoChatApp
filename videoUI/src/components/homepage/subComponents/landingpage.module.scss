@@ -11,6 +11,8 @@
         border: none !important;
         background-color: transparent;
     }
+    @media(min-width: 968px){
+    }
 }
 .icon{
     font-weight: 500;
@@ -26,7 +28,9 @@
     width: 5rem;
     border: solid $third-color;
     border-radius: 50%;
-    margin-top: -1rem;
+    &:hover{
+        cursor: pointer;
+    }
 }
 &__text{
     @media(min-width: 320px){
@@ -43,6 +47,7 @@
 .container{
    
 &__signup{
+    flex-shrink: 1;
 }
 
 &__column{
@@ -55,7 +60,6 @@
     }
     @media(min-width: 768px){
         background-position: top right;
-        display: flex;
         background-image: url('../../images/Picture8.svg');
         background-size: contain;
         background-repeat: no-repeat;
@@ -70,11 +74,11 @@
     @media(min-width: 320px){
         border-radius: 0.5rem;
         background-position: top;
-        align-items: flex-end;
         padding: 5rem 0 5rem 0;
     }
     @media(min-width: 526px){
         background-image: none;
+        flex-shrink: 0.5;
     }
 }
 }

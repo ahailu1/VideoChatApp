@@ -28,7 +28,7 @@ dbMethods.getUsers = async (username) => {
   return res;
 };
 dbMethods.insertUsers = async (username, password) => {
-  const text =    "insert into register_user(username, password,creation_date) values ($1, $2, CURRENT_DATE) returning user_id";
+  const text = "insert into register_user(username, password,creation_date) values ($1, $2, CURRENT_DATE) returning user_id";
   const query = [username, password];
 
   const client = await pool.connect();

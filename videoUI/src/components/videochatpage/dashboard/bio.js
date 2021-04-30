@@ -74,7 +74,7 @@ const Bio = (props) => {
     
     
     return (
-    <Col lg = {12} className = {styles.container__bio}>
+    <Col lg = {12} className = {`d-none d-lg-flex d-sm-none d-md-none ${styles.container__bio}`}>
      
      <Col>
      <form onSubmit = {submitBio}>

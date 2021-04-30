@@ -10,7 +10,6 @@ const connect = (io) => {
       console.log(`${data.recipient} is here`);
       const username = data.recipient;
       const thisData = data;
-      socket.emit("testing", "phaggot");
       socket.emit(`${username}`, thisData);
     });
   });

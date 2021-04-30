@@ -3,6 +3,7 @@ import {Image} from 'react-bootstrap';
 import styles from './profilepicture.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
+import photo from '../../images/default123--profilepicture.png';
 const Profilepicture = ({userdata, ...props}) => {
 
 
@@ -61,7 +62,7 @@ let {username} = userdata;
 
 return (
 <>
-<Image src = {`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`} thumbnail className = {styles.imageaz} />
+<Image src = {photo} thumbnail className = {styles.imageaz} />
 <FontAwesomeIcon type = "submit" icon = "pencil-alt" className = {styles.icon} onClick = {handleFileSelect} />
 </>
 )

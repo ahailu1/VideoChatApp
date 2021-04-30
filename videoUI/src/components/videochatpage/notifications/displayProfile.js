@@ -64,7 +64,7 @@ let DisplayNotification = ({username, date, bio}) => {
     
     <div className = {styles.profile__image__container}>
 
-    <img src = {`/srv/images/${username}--profilepicture.jpg`} className = {styles.profile__image} alt = 'profile'/>    
+    <img src = {`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`} className = {styles.profile__image} alt = 'profile'/>    
     <div className = {`${styles.profile__onlinestatus} ${onlineStatus && styles.toggled}`}>
        {onlineStatus === true ? 
         <>

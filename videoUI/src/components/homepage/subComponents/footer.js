@@ -27,7 +27,7 @@ const FooterPage = () => {
         </Col>
 
         <Col className = {`col align-items-center ${styles.container__link__item}`} xl = {1}>
-        <a href = 'https://linkedin.com/ahailu1/VideoChatApp' target = "_blank">
+        <a href = 'https://www.linkedin.com/in/alexanderhailu' target = "_blank" rel="noreferrer">
         <FontAwesomeIcon icon = {faLinkedinIn} className = {styles.icon}/>
        </a>
         <p className = {styles.text__paragraph}>LinkedIn</p>
@@ -35,7 +35,7 @@ const FooterPage = () => {
 
         <Col className = {`col align-items-center ${styles.container__link__item}`} xl = {1}>
 
-        <a href = 'https://linkedin.com/ahailu1/VideoChatApp' target = "_blank">
+        <a href = 'mailto:alex.hailu@hotmail.com' target = "_blank" rel="noopener noreferrer">
         <FontAwesomeIcon icon = 'envelope' className = {styles.icon}/>
        </a>
 

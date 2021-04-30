@@ -11,7 +11,7 @@ const iceCandidate = require("./router/getserver.js");
 const initSocket = require("./subscriptions/socketio");
 const { signalSocket } = require("./subscriptions/socketFunction");
 
-app.use(cors({ credentials: true, origin: "*" }));
+app.use(cors({ credentials: false, origin: "*" }));
 initServer();
 
 const io = initSocket(server);

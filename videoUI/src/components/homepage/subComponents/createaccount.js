@@ -156,7 +156,7 @@ const LoginForm = () => {
 
 <Col xl = {4} lg = {6} md = {12} className = {`d-flex ${styles.container__section}`} sm = {12} xs = {12}>
 
-<Col className = {`d-flex flex-column align-items-md-center justify-content-md-center ${styles.container__form}`} xl = {12} lg = {12} md = {6}>
+<Col id = 'form__target' className = {`d-flex flex-column align-items-md-center justify-content-md-center ${styles.container__form}`} xl = {12} lg = {12} md = {6}>
         <Col>
         <p className = {`${styles.form__title} ${styles.createaccount}`}>{changeForm ? 'Login' : 'Create Account'}</p>
         <p className = {styles.form__paragraph}>{changeForm ? 'Sign up Now' : 'Have An Account?'} <span className = {styles.form__textedit} onClick = {toggleForm}> {changeForm ? 'Register' : 'Login'}  </span></p>

@@ -14,6 +14,7 @@ const saveFile = async (file, username) => {
         throw new Error(err);
       }
     });
+    await writeFile();
     return imagePath;
   } catch (e) {
     throw new Error(e);

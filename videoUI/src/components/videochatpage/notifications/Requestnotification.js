@@ -31,7 +31,7 @@ return (
         </Col>
     </Row>
     <Row className = {styles.notification__list}>
-    <Col xl = {{span: 9, offset: 0}} className = {styles.container__list}>
+    <Col xl = {{span: 10, offset: 0}} className = {styles.container__list}>
             {
             getFriendRequests.length > 0 && getFriendRequests.map(el => {
         if(myFollowers.includes(el.requester_id) && myFollowing.includes(el.requester_id)){

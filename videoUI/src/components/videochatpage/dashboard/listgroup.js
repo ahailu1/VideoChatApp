@@ -27,7 +27,6 @@ return (
     <ListGroup className = {`${styles.container__list} ${!props.arrow && styles.toggled}`}>
     {tabLink('one', '#link1', 'Home', 'home')}
       {tabLink('two', '#link2', 'Friends', 'user')}
-      {tabLink('three', '#link3', 'Notifications', 'bell')}
       {tabLink('four', '#search', 'Search', 'search-plus')}
       </ListGroup>
       </>

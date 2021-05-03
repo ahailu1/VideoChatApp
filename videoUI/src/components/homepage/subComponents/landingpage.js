@@ -16,7 +16,7 @@ let Front = () => {
 
   return(
       <>
-        <Col xl = {5} lg = {5} md = {6} sm = {12} className = {`d-flex flex-sm-column flex-xs-column flex-lg-column align-items-xl-center align-items-lg-center ${styles.columnaz}`}>
+        <Col xl = {5} lg = {5} md = {6} sm = {12} className = {`flex-sm-column-reverse flex-xs-column-reverse flex-lg-column align-items-xl-center align-items-lg-center ${styles.columnaz}`}>
                 
                 <Col xl = {12} sm = {12} className = {`d-flex flex-column align-items-end justify-content-end ${styles.container__text}`}>
             <p className = {styles.text__header}>

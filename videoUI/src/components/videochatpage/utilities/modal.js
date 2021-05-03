@@ -66,8 +66,8 @@ const VideoModal = ({setActiveKey,socket,userdata,setModal,onHide,setFriendInfo,
 
 <Row className = {styles.container__row}>
 
-    <Col className = {styles.container__image} lg = {2} xl = {6}>
-    <Image className = {styles.modal__image} src = {`${process.env.React_APP_SITE_IMAGE_URL}`} rounded />
+    <Col className = {`d-flex flex-column align-items-center ${styles.container__image}`} lg = {2} xl = {6}>
+    <Image className = {styles.modal__image} src = {`${process.env.React_APP_SITE_IMAGE_URL}`} thumbnail rounded />
     
     <div className = {styles.container__username}>
     <span className = {styles.modal__username}>{modalInfo.username} </span>
@@ -77,7 +77,7 @@ const VideoModal = ({setActiveKey,socket,userdata,setModal,onHide,setFriendInfo,
 
     <Col className = {styles.container__message} lg = {3} xl = {6}>
    
-    <Col xl = {12} className = {styles.container__content}>
+    <Col xl = {12} className = {`d-flex flex-column align-items-center justify-content-center ${styles.container__content}`}>
     <p className = {styles.modal__text}>
     <span className = {styles.modal__username}>{modalInfo.username} </span>
     <span>has requested to video call you</span>

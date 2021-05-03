@@ -64,7 +64,7 @@ let DisplayNotification = ({username, date, bio}) => {
     
     <div className = {styles.profile__image__container}>
 
-    <img src = {`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`} className = {styles.profile__image} alt = 'profile'/>    
+    <Image src = {`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`} thumbnail className = {styles.profile__image} alt = 'profile'/>    
     <div className = {`${styles.profile__onlinestatus} ${onlineStatus && styles.toggled}`}>
        {onlineStatus === true ? 
         <>
@@ -101,7 +101,7 @@ let DisplayNotification = ({username, date, bio}) => {
 
     {
     friendsList !== true &&
-        <Col lg = {2} xl = {3} classNamae = {`d-flex flex-direction-row`}>
+        <Col lg = {3} xl = {3} classNamae = {`d-flex flex-direction-row`}>
 
         <span className = {styles.request__header}>{username} </span> 
     <span className = {styles.request__text}>has followed you!</span>

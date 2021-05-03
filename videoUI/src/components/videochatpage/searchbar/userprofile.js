@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import styles from './userprofile.module.scss';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Image} from 'react-bootstrap';
 import axios from 'axios';
 
 const Profile = ({...props}) => {
@@ -40,7 +40,8 @@ const Profile = ({...props}) => {
             <Col className = {styles.container__userprofile} lg = {{span: 3, offset:0}}>
                    
                    <Col className = {styles.container__image} lg = {12}>
-                   <img src = {`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`} alt = "" className = {styles.images}/> 
+
+                   <Image src = {`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`} thumbnail alt = "" className = {styles.images}/> 
                    <div className = {styles.container__username}>
                    <span className = {`${styles.profile__text} ${styles.username}`}>
                    {username}

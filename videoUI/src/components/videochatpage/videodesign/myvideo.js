@@ -19,24 +19,26 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
     useEffect ( () => {
         if(terminateStatus === true){
 
-            console.log(thisStream + 'is the status');
             if(thisStream !== undefined){
                 thisStream.getTracks().forEach(track => {
-                    track.stop();
                 });
             }
-            myPeerConnection.removeEventListener('icecandidate', {capture: false});
-            myPeerConnection.removeEventListener('track', {capture: false});
+            myPeerConnection.restartIce();
             setPeerConnection('');
             setStream('');
             setDeclineRequest('video ended');
-             console.log([myPeerConnection, thisStream, terminateStatus, acceptedRequest])
              setRequest(false);
              setThisOffer(false);
              setThisAnswer(false);
              setTerminate(false);
              toggleFriendInfo({});
             } else {
+                if(hasAccepted === true){
+                }
+                if(hasRequested === true){
+                    
+                }
+
                 setDeclineRequest('');
                 initScreen();
             }
@@ -44,6 +46,7 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
 
     useEffect(() => {
         if(hasAccepted === true && myPeerConnection !== '' && thisStream !== ''){
+            initNegotiation();
             //if i accept video request, make an offer; 
             setDeclineRequest('');
             initStream(friend_id);
@@ -51,6 +54,21 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
         }
         //if i accept a video chat request
     }, [hasAccepted, myPeerConnection]);
+
+    useEffect(() => {
+        if(myPeerConnection !== '' && thisStream !== ''){
+            if(thisStream !== undefined){
+                thisStream.getTracks().forEach(el => {
+                    myPeerConnection.addTrack(el, thisStream);
+                });
+            }
+              let video = document.getElementById('myvid');
+              console.log(video);
+              video.srcObject = thisStream;
+              video.play();
+            }
+        
+    }, [myPeerConnection, thisStream]);
 
     useEffect(() => {
     // if my request is accepted
@@ -66,6 +84,14 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
     let queryDevice = async () => {   
         window.location.reload();
     }
+
+    let initNegotiation = () => {
+        myPeerConnection.onnegotiationneeded =  async (e) => {
+            
+        };
+    }
+
+
     let initScreen = async () => {
         await fetchData(userdata);
          await fetchRequest();
@@ -95,59 +121,54 @@ const VideoUi = ({friend_id,socket,userdata,myFollowers,toggleFriendInfo, hasAcc
                 setDeclineRequest('User is busy');
         });
         socket.on(`terminate_video_with_${user_id}`, async data => {       
-                  
+                  console.log('just got terminated buddy');
             setTerminate(true);
                     });
     }
 
     let addIceCandidates = () => {
         let {user_id} = userdata;
-        myPeerConnection.addEventListener('icecandidate', (e) => {
-            if(e.candidate){
+
+        myPeerConnection.onicecandidate = (e) => {
+            if(e.candidate == null) {
+            return;
+            }
                 let iceCandidates = {
                     iceCandidate: e.candidate,
                     recipient_id: friend_id,
                 }
-                socket.emit('initIceCandidate', iceCandidates)
+                socket.emit('initIceCandidate', iceCandidates);
+                myPeerConnection.onicecandidate = null;
             }  
-      });
       myPeerConnection.addEventListener('connectionstatechange', e => {
         if(e.srcElement.connectionState === 'connected'){
+            console.log(' we connected boyo adadssdakdassad');
         }
 });
-let queue = [];
+
       socket.on(`iceCandidate_to_${user_id}`, async data => {
         if(data.iceCandidate){
             try{
-                if(myPeerConnection.localDescription){
-                    queue.length > 0 && queue.forEach(async el => {
+                    let item = myPeerConnection.iceGatheringState;
+                    console.log(item);
                         await myPeerConnection.addIceCandidate(data.iceCandidate);
-                    });
-                    await myPeerConnection.addIceCandidate(data.iceCandidate);
-                } else {
-                    queue.push(data.iceCandidate);
-
-                }
+               
             } catch (err) {
+                myPeerConnection.restartIce();
                 console.log(err)
             }
         }
       });
     }
 
+
     let fetchData = async ({user_id}) => {
         try{
             let stream = await initMediaDevice(setError);
             let {peerConnection, iceServers} = await getIceServers(user_id);
-              stream.getTracks().forEach(el => { 
-                  peerConnection.addTrack(el, stream);
-              });
-              setPeerConnection(peerConnection);
-              setServers(iceServers);
+              await setPeerConnection(peerConnection);
+              await setServers(iceServers);
               setStream(stream);
-              let video = document.getElementById('myvid');
-              video.srcObject = stream;
-              video.play();
         } catch (err) {
             setError(true);
         }
@@ -156,37 +177,37 @@ let listenForOffer = async () => {
     let {user_id} = userdata;
     socket.on(`initStream_offer_${user_id}`, async data => {
     if(data.type === 'offer'){
-            if(thisOffer === false){
-                setThisOffer(async state => {
-                    if(state === false){
-                        myPeerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
-                        let answer = await myPeerConnection.createAnswer();
-                        await myPeerConnection.setLocalDescription(answer);    
-                        let recipient_id = data.sender;
-                        let info = {
-                            sender: user_id,
-                            recipient_id: recipient_id,
-                            answer: answer,
-                            isOnline: true,
-                            type: 'answer',
-                        }
-                        console.log(info);
-                        socket.emit('initStream', info);
-                        return true
-                    } else {
-                        return true;
+        if(thisOffer === false){
+            setThisOffer(async offer => {
+                if(offer === false){
+                    await myPeerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
+                    let answer = await myPeerConnection.createAnswer();
+                    await myPeerConnection.setLocalDescription(answer);    
+                    let recipient_id = data.sender;
+                    let info = {
+                        sender: user_id,
+                        recipient_id: recipient_id,
+                        answer: answer,
+                        isOnline: true,
+                        type: 'answer',
                     }
-    
-                });
+                    console.log(info);
+                    console.log('just got an offer now im gonna send an answer to the offer');
+                    socket.emit('initStream', info);
 
-            }                }
+                } else {
+                    return true
+                }
+            });
+        }
+                    }
         });  
 }
         let setRemoteStream = () => {
                 let remoteStream = new MediaStream();
-                        myPeerConnection.addEventListener('track', async(e) => {
-                            remoteStream.addTrack(e.track, remoteStream);
-                        });
+                        myPeerConnection.ontrack = async(e) => {
+                            await remoteStream.addTrack(e.track, remoteStream);
+                        }
                 videoInput.current.srcObject = remoteStream;
                 videoInput.current.play();
         }
@@ -209,6 +230,8 @@ let listenForOffer = async () => {
     }    
 
     let initStream = async (friend_id) => {
+        console.log(friend_id);
+        console.log([hasAccepted, hasRequested, 'hello im testing']);
         let {user_id} = userdata;
         let myOffer = await myPeerConnection.createOffer();
                     await myPeerConnection.setLocalDescription(myOffer);
@@ -218,18 +241,21 @@ let listenForOffer = async () => {
                         offer: myOffer,
                         type: 'offer'
                     }
+                    console.log(myOffer);
+                    console.log('about to send offer')
                     socket.emit('initStream', info); 
         socket.on(`initStream_answer_${user_id}`, async (data) => {
             if (data.type === 'answer') {
+                console.log('received an answer to my offer')
                 if(thisAnswer === false){
                     setThisAnswer(async state => {
                         if(state === false){
                             try {
-                                console.log([data.answer, 'phaggot'])
-                                let remoteDescription = new RTCSessionDescription(data.answer);
-                                console.log(myPeerConnection.signalingState + ' is the state');
-                                await myPeerConnection.setRemoteDescription(remoteDescription);            
-                                return true;
+                                    console.log([data.answer, 'phaggot'])
+                                    let remoteDescription = new RTCSessionDescription(data.answer);
+                                    console.log(myPeerConnection.signalingState + ' is the state');
+                                    await myPeerConnection.setRemoteDescription(remoteDescription);            
+                                    return true;
 
                             } catch (err) {
                                 console.log(err);

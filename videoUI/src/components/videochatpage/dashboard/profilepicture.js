@@ -3,11 +3,10 @@ import {Image} from 'react-bootstrap';
 import styles from './profilepicture.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import photo from '../../images/default123--profilepicture.png';
 const Profilepicture = ({userdata, ...props}) => {
 
-
-  let [imageUrl, setImage] = useState(`/srv/images/${userdata.username}--profilepicture.jpg`);
+  let {username} = userdata;
+  let [imageUrl, setImage] = useState(`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`);
 
 
 let fileSelector = () =>{
@@ -21,7 +20,7 @@ let fileSelector = () =>{
 }
 
 let handleChange = (e) => {
-  let {username} = props.userdata;
+  let {username} = userdata;
   let item = e.target.files[0];
   let reader = new FileReader();
   reader.readAsDataURL(item);
@@ -57,12 +56,12 @@ e.preventDefault();
   let name = e.target;
   console.log(name);
   let fileReader = new FileReader();
+  setImage(`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`);
 }
-let {username} = userdata;
 
 return (
 <>
-<Image src = {photo} thumbnail className = {styles.imageaz} />
+<Image src = {imageUrl} thumbnail className = {styles.imageaz} />
 <FontAwesomeIcon type = "submit" icon = "pencil-alt" className = {styles.icon} onClick = {handleFileSelect} />
 </>
 )

@@ -251,7 +251,6 @@ let listenForOffer = async () => {
                     setThisAnswer(async state => {
                         if(state === false){
                             try {
-                                    console.log([data.answer, 'phaggot'])
                                     let remoteDescription = new RTCSessionDescription(data.answer);
                                     console.log(myPeerConnection.signalingState + ' is the state');
                                     await myPeerConnection.setRemoteDescription(remoteDescription);            

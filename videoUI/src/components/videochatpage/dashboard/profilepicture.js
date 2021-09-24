@@ -6,7 +6,7 @@ import axios from 'axios';
 const Profilepicture = ({userdata, ...props}) => {
 
   let {username} = userdata;
-  let [imageUrl, setImage] = useState(`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`);
+  let [imageUrl, setImage] = useState(false);
 
 
 let fileSelector = () =>{
@@ -27,7 +27,6 @@ let handleChange = (e) => {
   reader.onload = () => {
     let sendFile = reader.result;
     let bytesOnly = sendFile.split(',')[1];
-    console.log(bytesOnly);
     let config = {
       url: `${process.env.REACT_APP_SITE_URL}/api/dashboard/uploadprofile/${username}`,
       method: 'PUT',
@@ -40,7 +39,7 @@ let handleChange = (e) => {
       console.log(el.data);
       let path = el.data.path;
       let newPath = path.split('videoChatApp');
-      console.log(path);
+      setImage(`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`);
 
     }).catch(err => {
       console.log(err);
@@ -56,12 +55,11 @@ e.preventDefault();
   let name = e.target;
   console.log(name);
   let fileReader = new FileReader();
-  setImage(`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`);
 }
 
 return (
 <>
-<Image src = {imageUrl} thumbnail className = {styles.imageaz} />
+<Image src = {imageUrl === false ? `${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg` : imageUrl } thumbnail className = {styles.imageaz} />
 <FontAwesomeIcon type = "submit" icon = "pencil-alt" className = {styles.icon} onClick = {handleFileSelect} />
 </>
 )

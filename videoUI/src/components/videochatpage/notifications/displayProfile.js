@@ -33,13 +33,11 @@ let DisplayProfile = ({userdata,user_id,bio,myFollowers, myFollowing,friendsList
     let fetchFriendsList = async (user_id) => {
             try{
                 let {data} = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendcount/${user_id}`);
-                console.log(data);
                 let friendsList = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/friendslist/${user_id}`);
                 let sortList = friendsList.data;    
                 
                 if(data.length > 0){
                     let {followers, following} = data[0];
-                    console.log(following + 'hello');
                     setFollowers(followers);
                     setFollowing(following);
                 } else {
@@ -98,19 +96,9 @@ let DisplayNotification = ({username, date, bio}) => {
     <p className = {styles.profile__heading}>Following</p>
     </Col>
 
-
-    {
-    friendsList !== true &&
-        <Col lg = {3} xl = {3} classNamae = {`d-flex flex-direction-row`}>
-
-        <span className = {styles.request__header}>{username} </span> 
-    <span className = {styles.request__text}>has followed you!</span>
-    </Col>
-        }
-
     </Col>
     
-    <Col className = {styles.column__testing} lg = {3} xl = {3} md = {3} sm = {3} xs = {2}>  
+    <Col className = {styles.column__testing} lg = {3} xl = {3} md = {3} sm = {4} xs = {3}>  
     {props.render()}
     </Col>
 

@@ -79,7 +79,7 @@ const VideoModal = ({setActiveKey,socket,userdata,setModal,onHide,setFriendInfo,
    
     <Col xl = {12} className = {`d-flex flex-column align-items-center justify-content-center ${styles.container__content}`}>
     <p className = {styles.modal__text}>
-    <span className = {styles.modal__username}>{modalInfo.username} </span>
+    <span className = {styles.modal__username}>{modalInfo.username}</span>
     <span>has requested to video call you</span>
     </p>
     </Col>

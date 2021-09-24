@@ -1,4 +1,4 @@
-const { bodyParser } = require("../config/express");
+const { bodyParser, express } = require("../config/express");
 
 const fileLimit = bodyParser.urlencoded({ extended: true, limit: "50mb" });
 const jsonLimit = bodyParser.json({ limit: "50mb" });
@@ -12,8 +12,8 @@ const setBio = require("./updateprofile");
 const getBio = require("./getprofile");
 
 module.exports = (app) => {
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true, limit: "50mb" }));
   app.use("/api", fetchAllUsers);
   app.use("/api", [fileLimit, jsonLimit, uploadImage]);
   app.use("/api", createAccount.router);

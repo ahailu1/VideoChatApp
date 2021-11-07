@@ -3,4 +3,4 @@
 /config/.env
 /config/config.js
 /public/images
-/certificates
+./certificates

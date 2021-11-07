@@ -1,4 +1,5 @@
 /VideoApi/node_modules
+/VideoApi/certificates
 /videoUi/node_modules
 /node_modules
 /redis

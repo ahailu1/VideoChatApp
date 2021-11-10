@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && nodemon index.js",
+    "start": "nodemon index.js",
     "dockerinit": " docker container run --name videoapi_container --rm --interactive -p 5000:5000 -p 54532:5432 -v image_volume:/srv -v videoapi_volume:/var/www videoapi ",
     "lint": "eslint --fix --ext .js,.jsx, .",
     "test": "jest"

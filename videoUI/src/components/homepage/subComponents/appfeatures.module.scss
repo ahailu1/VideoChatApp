@@ -39,6 +39,7 @@ color: $third-color;
 
     //color: $sixth-color;
     text-align: left;
+    border: solid yellow !important;
 font-size: 0.9rem;
 &.toggled{
     color: $sixth-color;
@@ -52,7 +53,7 @@ font-size: 0.9rem;
     @media(min-width: 578px){
         display: flex;
         font-size: 2.2rem;
-        animation: iconbounce 4s ease-in-out infinite;
+        //animation: iconbounce 4s ease-in-out infinite;
         transition: all ease-in-out 0.5s;
     
     }

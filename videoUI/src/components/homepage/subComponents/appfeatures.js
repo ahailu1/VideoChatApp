@@ -9,7 +9,7 @@ import axios from 'axios';
 const AppFeatures = ({activate = false, ...props}) => {
 
 let CardTemplate = () => {
-
+    console.log('alex nice try bro')
     return (
         <>
         <Col className = {`d-sm-flex d-xs-flex flex-xl-row flex-lg-row flex-md-row flex-xs-row justify-content-md-center align-items-md-center ${styles.container__card} ${activate && styles.toggled}`} xl = {10} lg = {10} md = {10} sm = {10} xs = {11}>

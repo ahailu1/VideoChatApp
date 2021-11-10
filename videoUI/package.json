@@ -18,10 +18,10 @@
     "js-cookie": "^3.0.1",
     "linkify": "^0.2.1",
     "react": "^17.0.2",
-    "react-bootstrap": "^2.0.2",
+    "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
     "react-router": "^6.0.1",
-    "react-router-dom": "^6.0.1",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "sass": "^1.43.4",
     "serve": "^13.0.2",
@@ -29,7 +29,7 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "set PORT=3001 && react-scripts start",
+    "start": "react-scripts start",
     "initdocker": "docker create --name frontend_container -p 3000:3000 -v frontend_volume:/var/www frontend_image",
     "dockerstart": "docker start --interactive frontend_container",
     "build": "react-scripts build",

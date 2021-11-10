@@ -4,7 +4,7 @@ services:
     frontend:
         build: ./videoUI
         ports: 
-            - "3001:3001"
+            - "3000:3000"
         volumes:
             - ./videoUI:/var/www/frontend/
         restart: always
@@ -35,7 +35,7 @@ services:
         build: ./redis
         expose:
             - "6379"
-        restart: always      
+        restart: always
 
 
 

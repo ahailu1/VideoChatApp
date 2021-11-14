@@ -18,9 +18,9 @@ let Front = () => {
       <>
         <Col xl = {5} lg = {5} md = {6} sm = {12} className = {`flex-sm-column-reverse flex-xs-column-reverse flex-lg-column align-items-xl-center align-items-lg-center ${styles.columnaz}`}>
                 
-                <Col xl = {12} sm = {12} className = {`d-flex flex-column align-items-end justify-content-end ${styles.container__text}`}>
+                <Col xl = {12} sm = {12} className = {`d-flex flex-column align-items-center justify-content-center ${styles.container__text}`}>
             <p className = {styles.text__header}>
-              Welcome to Online Video Chatter
+               Peer to Peer Video Chat
             </p>
             <p className = {styles.text__paragraph}>
                 Here you can have real-time high-definition video chat for personal use. No email registration or account verification required. Simply create an

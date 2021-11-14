@@ -89,7 +89,7 @@
             color: $sixth-color;
             text-align: center;
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: 800;
             position: relative;
             padding: 0rem 0 1.5rem 1rem;
         }
@@ -107,7 +107,8 @@
             color: $third-color;
         }
         @media(min-width: 1200px){
-            font-size: 3em;
+            font-size: 5rem;
+            text-align: center;
             color: $third-color;
         }
 &::after{
@@ -155,6 +156,7 @@ width: 50%;
             font-size: 1.25rem;
         }
         @media(min-width: 1200px){
+            text-align: center;
             font-size: 1.25rem;
         }
     }

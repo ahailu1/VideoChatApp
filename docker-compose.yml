@@ -6,7 +6,7 @@ services:
         ports: 
             - "3000:3000"
         volumes:
-            - ./videoUI:/var/www/frontend/
+            - ./videoUI:/var/www/frontend
         restart: always
         links:
             - webserver
@@ -15,7 +15,7 @@ services:
         ports:
             - "80:80"
         volumes:
-            - ./nginx/configuration/:/etc/nginx/conf.d/
+            - ./nginx/configuration/:/etc/nginx/conf.d
             - ./VideoApi/public/images:/srv/images
         restart: always
         links:

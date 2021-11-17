@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AppNavbar from './subComponents/navigation';
 import CreateAccountForm from './subComponents/createaccount';
+import Createv2 from './subComponents/createv2';
 import {Col, Row, Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './homepage.module.scss';
@@ -49,7 +50,7 @@ let SectionOne = ({handleAuthentication}) => {
             </Col>
 
             <CreateAccountForm handleAuthentication = {handleAuthentication} />  
-            
+            <Createv2 />
 
         </Row>
        

@@ -1,0 +1,45 @@
+@use '../main.scss' as * ;
+
+.form{
+    &__container{
+        display: flex;
+        flex-direction: column;
+    }
+    &__input{
+        background-color: $third-color;
+        width: 100%;
+        border: none;
+        color: $primary-color;
+        font-weight: 800;
+        font-size: 1rem;
+        border-radius: 0.35rem;
+        outline: none;
+        padding: 0.35rem;
+    }
+}
+
+
+.input{
+    &__container{
+        background-color: $third-color;
+        width: 40%;
+        border-radius: 0.35rem;
+        display: flex;
+        //box-shadow: 0 px 3px 0px $third-color;
+        border: solid $fourth-color;
+    }
+    &__logo__container{
+        font-size: 2.5rem;
+        padding: 0 0.5rem 0 0.5rem;
+        border-right: solid $fourth-color;
+        background-color: $fourth-color;
+    }
+    &__icon{
+        color: $third-color !important;
+    }
+}
+
+
+.header{
+font-size: 3rem;
+}

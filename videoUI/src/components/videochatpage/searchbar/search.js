@@ -56,6 +56,7 @@ let getInputValue = (e) => {
 let getAll = async (userdata) => {
     let {user_id} = userdata;
     try {
+        console.log(user_id)
     let users = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/fetch/allusers/${user_id}`);
     //let requests = await axios.get(`http://localhost:5000/api/getrequests/${user_id}`);
      let totalUsers = users.data.users;

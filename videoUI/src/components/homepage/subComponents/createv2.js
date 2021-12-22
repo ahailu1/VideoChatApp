@@ -1,58 +1,101 @@
 import React, { useState } from 'react';
 import styles from './createv2.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-const Createv2 = () => {
+import axios from 'axios';
+const Createv2 = ({handleAuthentication, loginStatus}) => {
 
 let [username, getUsername] = useState('');
 let [password, getPassword] = useState('');
 let [confirmPassword, getConfirmPassword] = useState('');
-
+let [isMatching, setMatchingError] = useState('');
 let onUsernameChange = (e) => {
     let item = e.target.value;
     console.log(item);
-    getUsername(item)
+    setMatchingError('');
+    getUsername(item);
 }
-let onPasswordChange = () => {
+
+let onPasswordChange = (e) => {
+    let pwd = e.target.value;
+    console.log(pwd);
+    setMatchingError('');
+
+    getPassword(pwd);
 
 }
-let onConfirmPasswordChange = () => {
+
+let onConfirmPasswordChange = (e) => {
+    let confirmPwd = e.target.value;
+    console.log(confirmPwd);
+    setMatchingError('');
+    getConfirmPassword(confirmPwd);
+}
+
+let onLogin = async (e) => {
+
+e.preventDefault();
+try {   
+    let response = await axios.post(`${process.env.REACT_APP_SITE_URL}/api/login`, {
+        username: username,
+        password: password
+    });
+    let {token, user_id} = await response.data;
+        console.log(token,user_id, username);
+    handleAuthentication(username, token, true, user_id);
+    console.log([token, user_id, 'hello']);
+} catch (err) {
 
 }
-let onFormSubmit = () => {
 
+}
+
+
+let onFormSubmit = async (e) => {
+    e.preventDefault();
+    alert('hello world')
+let userPassword = password;
+let userLogin = username;
+let confirmUserPassword = confirmPassword;
+if(password !== confirmPassword) {
+setMatchingError('passwords dont match');
+} else {
+    try{
+       let getResponse =  await axios.post(`${process.env.REACT_APP_SITE_URL}/api/createaccount`, {
+            username,
+            password,
+            confirmPassword
+        });
+       let {data} = getResponse;
+
+        let {token, user_id} = data;
+        console.log([token,user_id]);
+        handleAuthentication(username, token, true, user_id);
+    } catch (err) {
+        throw new Error();
+    }
+} 
 };
-
-let LoginForm = ({onInputChange}) => {
-    let FormItems = (
-    <div className = {`${styles.input__container}`}>
-    <span className = {`${styles.input__logo__container}`}><FontAwesomeIcon icon = 'user' className = {`${styles.input__icon}`} /> </span>    
-    <input type = 'text' value = {username} onChange = {onInputChange} placeholder = "Username" className = {`${styles.form__input}`}/>
-    </div>   
-    )
-    return (
-        FormItems
-    )
-}
-
-let FinalRender = ({getUsername}) => {
-
-return (
-    <>
-    <form onSubmit = {onFormSubmit}> 
-    <LoginForm onInputChange = {onUsernameChange} />
-    <LoginForm onInputChange = {onPasswordChange} />
-    <LoginForm onInputChange = {onConfirmPasswordChange}/>
-    </form>
-    </>
-)
-
-}
 
     return (
         <>
-        </>
-
+  <form onSubmit = {loginStatus === true ? onLogin : onFormSubmit} className = {`${styles.form} ${loginStatus && styles.toggled}`}> 
+        <div className = {`${styles.input__container}`}>
+    <span className = {`${styles.input__logo__container}`}><FontAwesomeIcon icon = 'user' className = {`${styles.input__icon}`} /> </span>    
+    <input type = 'text' value = {username} onChange = {onUsernameChange} placeholder = "Username" className = {`${styles.form__input}`}/>
+    </div>  
+    <div className = {`${styles.input__container}`}>
+    <span className = {`${styles.input__logo__container}`}><FontAwesomeIcon icon = 'user' className = {`${styles.input__icon}`} /> </span>    
+    <input required type = 'password' value = {password} onChange = {onPasswordChange} placeholder = "Password" className = {`${styles.form__input}`}/>
+    </div>   
+    {loginStatus !== true &&  
+        <div className = {`${styles.input__container} ${loginStatus === true ? styles.toggled : ''}`}>
+    <span className = {`${styles.input__logo__container}`}><FontAwesomeIcon icon = 'user' className = {`${styles.input__icon}`} /> </span>    
+    <input  type = 'password' value = {confirmPassword} onChange = {onConfirmPasswordChange} placeholder = "Confirm Password" className = {`${styles.form__input}`}/>
+    </div>}
+    <div> {isMatching === "" ? '' : 'passwords do not match'} </div>    
+    <button type = 'submit' className = {`${styles.button}`} >Create</button>
+        </form>        
+    </>
     );
 
 }

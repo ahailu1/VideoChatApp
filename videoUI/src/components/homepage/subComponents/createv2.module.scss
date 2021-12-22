@@ -1,9 +1,15 @@
 @use '../main.scss' as * ;
 
 .form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
     &__container{
         display: flex;
         flex-direction: column;
+        justify-content: space-around;
     }
     &__input{
         background-color: $third-color;
@@ -14,7 +20,7 @@
         font-size: 1rem;
         border-radius: 0.35rem;
         outline: none;
-        padding: 0.35rem;
+        padding: 0 0 0 0.35rem;
     }
 }
 
@@ -23,18 +29,29 @@
     &__container{
         background-color: $third-color;
         width: 40%;
+        margin: 1rem 0 1rem;
         border-radius: 0.35rem;
         display: flex;
+        transition: all ease-in-out 0.5s;
         //box-shadow: 0 px 3px 0px $third-color;
         border: solid $fourth-color;
+    &.toggled{
+        margin-left: -100rem;
+        visibility: hidden;
+        transition: all ease-in-out 0.05s;
+    }
     }
     &__logo__container{
         font-size: 2.5rem;
-        padding: 0 0.5rem 0 0.5rem;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
         border-right: solid $fourth-color;
         background-color: $fourth-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     &__icon{
+        font-size: 1.5rem;
         color: $third-color !important;
     }
 }
@@ -42,4 +59,19 @@
 
 .header{
 font-size: 3rem;
+}
+
+.button{
+    border: none;
+
+    border-radius: 0.4rem;
+    background-color: $fourth-color;
+    color: $third-color;
+    font-weight: 800;
+    box-shadow: 0 0 3px 0 $third-color;
+    margin: 0.75rem 0 0.5rem 0;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+&:hover{
+    background-color: darken($fourth-color, 15%);
+}
 }

@@ -16,7 +16,7 @@ services:
             - "80:80"
         volumes:
             - ./nginx/configuration/:/etc/nginx/conf.d
-            - ./VideoApi/public/images:/srv/images
+            - ./videoUI/public/images:/var/www/videoChatApp/videoUI/public/images
         restart: always
         links:
             - backend

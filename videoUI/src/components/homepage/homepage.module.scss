@@ -4,6 +4,57 @@
     }
 }
 
+.account{
+    margin: -5rem 0 0 0;
+    border-radius: 0 0.35rem 0.35rem 0;
+    padding: 3rem 0 3rem 0;
+    background-color: $third-color;
+&__header{
+    font-size: 3rem;
+    visibility: visible;
+    font-weight: 800;
+    color: $primary-color;
+    transition: all ease-in-out 0.5s;
+&.toggled{
+    opacity: 0;
+        transition: all ease-in-out 0.75s;
+}
+}
+&__header__create{
+    font-size: 3rem;
+    font-weight: 800;
+    color: $primary-color;
+    transition: all ease-in-out 0.5s;
+
+    &.toggled{
+
+    }
+}    
+&__container{
+
+}
+&__question{
+    font-size:1.5rem;
+    color: $primary-color;
+&__link {
+    cursor: pointer;
+    text-decoration: none;
+    color: $fourth-color;
+    font-size: 1.15rem;
+    padding: 0 0 0 1rem;
+    letter-spacing: 1px;
+    font-weight: 800;
+&:hover{
+    font-size: 1.5rem;
+    color: $primary-color;
+    transition: all ease-in-out 0.5s;
+}
+
+}
+
+}
+}
+
 .page{
     &__heading{
         padding: 1rem;

@@ -59,7 +59,8 @@ e.preventDefault();
 
 return (
 <>
-<Image src = {imageUrl === false ? `${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg` : imageUrl } thumbnail className = {styles.imageaz} />
+{console.log(process.env.REACT_APP_SITE_IMAGE_URL)}
+<Image src = {imageUrl === false ? `${process.env.REACT_APP_SITE_IMAGE_URL}/${username}--profilepicture.jpg` : imageUrl } thumbnail className = {styles.imageaz} />
 <FontAwesomeIcon type = "submit" icon = "pencil-alt" className = {styles.icon} onClick = {handleFileSelect} />
 </>
 )

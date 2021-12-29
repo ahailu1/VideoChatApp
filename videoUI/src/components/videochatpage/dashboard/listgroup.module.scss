@@ -3,12 +3,10 @@
 
 .container{
 
-
 &__list{
     display: flex;
     
     justify-content: center;
-    //border: solid red !important;
  
     
     & > a{

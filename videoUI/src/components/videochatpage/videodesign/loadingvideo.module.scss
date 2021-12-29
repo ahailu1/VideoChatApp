@@ -14,6 +14,8 @@
 }
 .video{
     &__text{
+        padding: 0.5rem !important;
+        text-align: center;
         font-weight: 700;
         font-size: 0.75rem;
         text-transform: capitalize;

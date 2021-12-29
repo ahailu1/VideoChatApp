@@ -21,12 +21,13 @@ background-color: $third-color;
 }
 .text{
     &__header{
-        font-size: 2rem;
+        font-size: 3rem;
         letter-spacing: 2px;
         text-transform: capitalize;
         margin: 0.5rem 0 0.5rem 0;
         padding: 1rem 0 1rem 0;
         font-weight: 800;
+        font-family: sans-serif;
         color: $fourth-color;
     
     }

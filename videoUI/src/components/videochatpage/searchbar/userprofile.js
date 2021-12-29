@@ -41,7 +41,7 @@ const Profile = ({...props}) => {
                    
                    <Col className = {styles.container__image} lg = {12}>
 
-                   <Image src = {`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`} thumbnail alt = "" className = {styles.images}/> 
+                   <Image src = {`${process.env.REACT_APP_SITE_IMAGE_URL}/${username}--profilepicture.jpg`} thumbnail alt = "" className = {styles.images}/> 
                    <div className = {styles.container__username}>
                    <span className = {`${styles.profile__text} ${styles.username}`}>
                    {username}

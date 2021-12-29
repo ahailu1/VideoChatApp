@@ -44,7 +44,8 @@ try {
     handleAuthentication(username, token, true, user_id);
     console.log([token, user_id, 'hello']);
 } catch (err) {
-
+    let loginErr = err.response.data.error;
+    setMatchingError(loginErr);
 }
 
 }
@@ -56,9 +57,16 @@ let onFormSubmit = async (e) => {
 let userPassword = password;
 let userLogin = username;
 let confirmUserPassword = confirmPassword;
+const regex = /^[a-zA-Z0-9-_]{7,}$/;
+const regexTestUsername = regex.test(userLogin);
+
 if(password !== confirmPassword) {
-setMatchingError('passwords dont match');
-} else {
+ setMatchingError('passwords dont match');
+} else if(userLogin.length >= 15) {
+        setMatchingError('Username should not be longer than 15 characters')
+    } else if(regexTestUsername !== true){
+    setMatchingError('username must at least 7 characters only contain the characters a-z, 0-9, -_');
+  } else {
     try{
        let getResponse =  await axios.post(`${process.env.REACT_APP_SITE_URL}/api/createaccount`, {
             username,
@@ -68,10 +76,16 @@ setMatchingError('passwords dont match');
        let {data} = getResponse;
 
         let {token, user_id} = data;
+        console.log(data);
         console.log([token,user_id]);
         handleAuthentication(username, token, true, user_id);
     } catch (err) {
-        throw new Error();
+        if(err.response.data.data.error !== undefined) {
+
+            let errorMsg = err.response.data.data.error;
+            console.log(errorMsg);
+            setMatchingError(errorMsg)
+        }
     }
 } 
 };
@@ -92,7 +106,7 @@ setMatchingError('passwords dont match');
     <span className = {`${styles.input__logo__container}`}><FontAwesomeIcon icon = 'user' className = {`${styles.input__icon}`} /> </span>    
     <input  type = 'password' value = {confirmPassword} onChange = {onConfirmPasswordChange} placeholder = "Confirm Password" className = {`${styles.form__input}`}/>
     </div>}
-    <div> {isMatching === "" ? '' : 'passwords do not match'} </div>    
+    <div className = {`${styles.account__error}`}> {isMatching === "" ? '' : `${isMatching}`} </div>    
     <button type = 'submit' className = {`${styles.button}`} >Create</button>
         </form>        
     </>

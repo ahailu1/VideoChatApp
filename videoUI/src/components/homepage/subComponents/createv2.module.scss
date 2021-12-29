@@ -75,3 +75,8 @@ font-size: 3rem;
     background-color: darken($fourth-color, 15%);
 }
 }
+.account__error{
+    font-size: 1rem;
+    text-transform: capitalize;
+    color: $primary-color;
+}

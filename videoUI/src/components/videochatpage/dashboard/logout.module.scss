@@ -6,6 +6,7 @@
             padding: 0 !important;
             border: none;
             margin: 0.5rem 0 0 0 !important;
+
             justify-content: flex-start !important;
             align-self: flex-start;
         }
@@ -16,11 +17,11 @@
             display: flex;
         &.toggled{
             opacity: 1;
-            display: flex;
+            display: flex !important;
             visibility: visible;
             align-items: center;
             justify-content: flex-start;
-            padding: 0 !important;
+            padding: 1rem !important;
             margin: 0 !important;
             transition: all ease-in-out 0.5s;
         }

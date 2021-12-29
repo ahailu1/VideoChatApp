@@ -49,7 +49,7 @@
     }
 
 &__column__userbar{
-    //border: solid orange !important;
+
     background-color: lighten($third-color, 5%) !important;
 }
 &__tabpane{
@@ -58,6 +58,7 @@
         overflow-x: hidden;
         background-color: darken($third-color, 1%);
         height: 100vh;
+
     }
     &__notifications{
         overflow-y: hidden;
@@ -87,8 +88,6 @@
     }
 
     &__first{
-        padding: 0 !important;
-        margin: 0 !important;
         height: 100vh;
         background-color: $third-color;
         //padding: 0rem !important;
@@ -128,6 +127,7 @@
     border-radius: 50%;
     font-size: 1.5rem;
     color: $primary-color;
+
     &.toggled{
         font-size: 1rem;
     }
@@ -141,6 +141,9 @@
         width: 3rem;
         background-color: lighten($third-color, 10%);
         border-radius: 50%;
+        &:hover{
+            background-color: $fourth-color !important;
+        }
     &.toggled{
         height: 2.5rem;
         width: 2.5rem;

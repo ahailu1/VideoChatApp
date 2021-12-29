@@ -8,13 +8,13 @@ const saveFile = async (file, username) => {
   const relativePath = `/${username}--profilepicture.jpg`;
   try {
     const imageFile = await Buffer.from(file, "base64");
-    const writeFile = await fs.writeFile(`${imagePath}`, imageFile, (err) => {
+    const writeFiles = await fs.writeFile(`${location}`, imageFile, (err) => {
       if (err) {
         console.log(err);
         throw new Error(err);
       }
     });
-    await writeFile();
+    await writeFiles();
     return imagePath;
   } catch (e) {
     throw new Error(e);

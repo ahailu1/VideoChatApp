@@ -8,12 +8,13 @@ const cors = require("cors");
 const router = express.Router();
 
 const { port } = require("./config.js");
-
+/*
 const certificatePath = path.resolve(path.join(__dirname, "../certificates"));
 const options = {
   key: fs.readFileSync(`${certificatePath}/key.pem`),
   cert: fs.readFileSync(`${certificatePath}/cert.pem`),
 };
+*/
 const server = require("http").createServer(app);
 
 const initServer = () => {

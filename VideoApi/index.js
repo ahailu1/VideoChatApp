@@ -13,7 +13,6 @@ const { signalSocket } = require("./subscriptions/socketFunction");
 
 app.use(cors({ credentials: false, origin: "*" }));
 initServer();
-
 const io = initSocket(server);
 const initRoute = require("./router/index")(app);
 

@@ -15,3 +15,4 @@ module.exports = {
   client,
   Pool,
 };
+//create table user_profile(constraint user_id_fk foreign key(user_id foreign (user_id) , bio varchar()

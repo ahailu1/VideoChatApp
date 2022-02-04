@@ -30,12 +30,15 @@ dbMethods.getUsers = async (username) => {
 dbMethods.insertUsers = async (username, password) => {
   const text = "insert into register_user(username, password,creation_date) values ($1, $2, CURRENT_DATE) returning user_id";
   const query = [username, password];
-
-  const client = await pool.connect();
+    try{
+      const client = await pool.connect();
+    } catch (err) {
+      console.log('errior ass');
+      console.log(err);
+    }
 
   try {
     await client.query("begin");
-
     const results = await client.query(text, query);
     const { user_id } = results.rows[0];
     const textTwo = "insert into user_profile(user_id) values ($1)";

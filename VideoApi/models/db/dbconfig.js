@@ -6,10 +6,10 @@ const {
   dbName,
   dbPort,
 } = require("../../config/config");
-let config = { ssl: { require: false, rejectUnauthorized: false } };
+let config = { ssl:false};
 
-const pool = new Pool();
-const client = new Client();
+const pool = new Pool({ssl: false});
+const client = new Client({ssl: false});
 module.exports = {
   pool,
   client,

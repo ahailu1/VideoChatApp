@@ -9,6 +9,7 @@ const LandingPage = (props) => {
 
 let initScroll = () => {
   let target = document.getElementById('form__target');
+  console.log(target);
   target.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
 }
 
@@ -30,7 +31,7 @@ let Front = () => {
 
                 <Col xl = {12} sm = {12} className = {`d-flex flex-row justify-content-center ${styles.container__signup}`}>
                   <div id = 'icon__button' onClick = {initScroll} className = {`${styles.icon__container}`}>
-                  <FontAwesomeIcon icon = 'angle-double-down' className = {styles.icon}/>
+                  <FontAwesomeIcon icon = 'angle-double-down' id = "form__target" className = {styles.icon}/>
                   </div>
                 </Col>   
 

@@ -45,8 +45,6 @@ let handleCreateAccount = async (e) => {
     } else {
         try{
             let response = await axios(config);
-            console.log(response);
-            console.log('hello woasdsda create rld');
             let {token, user_id} = response.data;
             console.log([token, user_id, 'phaggot'])
             handleAuthentication(username, token, true, user_id);

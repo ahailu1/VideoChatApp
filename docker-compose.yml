@@ -7,6 +7,8 @@ services:
             - "3000:3000"
         volumes:
             - ./videoUI:/var/www/frontend
+            - ./videoUI/public/images:/srv/profile
+
         restart: always
         links:
             - webserver
@@ -17,6 +19,8 @@ services:
         volumes:
             - ./nginx/configuration/:/etc/nginx/conf.d
             - ./videoUI/public/images:/srv/profile
+            - ./videoUI:/var/www/frontend
+
         restart: always
         links:
             - backend

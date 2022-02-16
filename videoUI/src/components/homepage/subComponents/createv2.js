@@ -53,7 +53,6 @@ try {
 
 let onFormSubmit = async (e) => {
     e.preventDefault();
-    alert('hello world')
 let userPassword = password;
 let userLogin = username;
 let confirmUserPassword = confirmPassword;
@@ -107,7 +106,7 @@ if(password !== confirmPassword) {
     <input  type = 'password' value = {confirmPassword} onChange = {onConfirmPasswordChange} placeholder = "Confirm Password" className = {`${styles.form__input}`}/>
     </div>}
     <div className = {`${styles.account__error}`}> {isMatching === "" ? '' : `${isMatching}`} </div>    
-    <button type = 'submit' className = {`${styles.button}`} >Create</button>
+    <button type = 'submit' className = {`${styles.button}`} >{loginStatus ? 'login' : 'create'}</button>
         </form>        
     </>
     );

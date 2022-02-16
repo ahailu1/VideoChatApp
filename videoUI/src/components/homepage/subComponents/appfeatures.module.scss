@@ -7,8 +7,14 @@
         background-color: $sixth-color;
        z-index: 5;
         @media(min-width:320px){
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin: 0.75rem 0 0.75rem 0;
-            padding: 0.75rem 0 0.75rem 0;
+            padding: 1.5rem;
+        }
+        @media(min-width: 768px){
+
         }
        &.toggled{
            background-color: $third-color;
@@ -39,7 +45,6 @@ color: $third-color;
 
     //color: $sixth-color;
     text-align: left;
-    border: solid orange !important;
 font-size: 0.9rem;
 &.toggled{
     color: $sixth-color;

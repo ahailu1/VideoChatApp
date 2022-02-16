@@ -80,6 +80,7 @@ useEffect( async () => {
     </Row>
   </Tab>
   <Tab eventKey="profile" title="Following">
+    
     <Row>                      
     {displayFriendsList(friendsList, 'following')}
     </Row>

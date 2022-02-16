@@ -2,7 +2,9 @@ const { dbMethods } = require("./createuser.js");
 const { pool } = require("./db/dbconfig");
 
 // add friend
-
+//postgres command
+//create table friendship(requester_id int not null, recipient_id int not null,creation_date timestamp not null, primary key (requester_id, recipient_id), constraint fk_requester_id foreign key(requester_id) references register_user(user_id), constraint fk_recipient_id foreign key(recipient_id) references register_user(user_id));
+//create table friendship_status(status_code int, requester_id int, recipient_id int, creation_date timestamp, specifier_id int, constraint friendship_status_pk primary key(requester_id, recipient_id), constraint friendship_status_foreign_key foreign key(recipient_id, requester_id) references friendship(recipient_id, requester_id));
 dbMethods.addFriend = async (user_id, friend_id) => {
   const info = {
     statusCode: 100,

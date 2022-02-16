@@ -11,6 +11,7 @@ const checkUsers = async (username) => {
     }
     return getUsers;
   } catch (err) {
+    console.log(err);
     console.log("database error");
     throw new Error(err);
   }
@@ -47,14 +48,14 @@ const insertUsers = async (username, password, confirmPassword) => {
   try {
     const password = await bcrypt.hash(userPassword, saltRounds);
     const { user_id } = await dbMethods.insertUsers(username, password);
-    console.log(user_id);
-    console.log("i tried");
     const initAcc = {
       authenticated: true,
       user_id,
     };
     return initAcc;
   } catch (err) {
+    console.log(err);
+    console.log('some error');
     errors.authenticated = false;
     errors.error = "network error";
     return errors;

@@ -3,7 +3,6 @@ import {Col, Button, Row, Spinner} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './loadingvideo.module.scss';
 
-
 const LoadVideo = ({initVideo = false, requestMessage}) => {
 
 

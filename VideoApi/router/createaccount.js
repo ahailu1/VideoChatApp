@@ -8,15 +8,14 @@ router.post("/createaccount", async (req, res) => {
     console.log([username, password, confirmPassword]);
     console.log("trying over here");
     const item = await insertUsers(username, password, confirmPassword);
-    console.log(item);
     const { authenticated } = item;
-    console.log([authenticated, "phaggot is not authentic"]);
     if (authenticated === true) {
       const { user_id } = item;
 
       const token = await createToken(username);
       res.status(200).send({ token, user_id });
     } else {
+      console.log('nor workingalex  ');
       res.status(422).send({ data: item });
     }
   } catch (err) {

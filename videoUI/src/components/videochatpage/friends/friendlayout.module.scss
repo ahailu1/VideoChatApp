@@ -10,7 +10,7 @@ background-color: $third-color;
 }
 &__header{
     border-radius: 0.5rem !important;
-    background-color: lighten($third-color, 5%);
+    //background-color: lighten($third-color, 5%);
     margin: 0.5rem 1rem 1rem 1rem !important;
 }
 &__profile{
@@ -21,7 +21,7 @@ background-color: $third-color;
 }
 .text{
     &__header{
-        font-size: 3rem;
+        font-size: 6rem;
         letter-spacing: 2px;
         text-transform: capitalize;
         margin: 0.5rem 0 0.5rem 0;

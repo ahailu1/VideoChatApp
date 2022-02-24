@@ -67,7 +67,7 @@ const VideoModal = ({setActiveKey,socket,userdata,setModal,onHide,setFriendInfo,
 <Row className = {styles.container__row}>
 
     <Col className = {`d-flex flex-column align-items-center ${styles.container__image}`} lg = {2} xl = {6}>
-    <Image className = {styles.modal__image} src = {`${process.env.React_APP_SITE_IMAGE_URL}`} thumbnail rounded />
+    <Image className = {styles.modal__image} src = {`${process.env.React_APP_SITE_IMAGE_URL}--${modalInfo.sender_id}--profilepicture.jpg`} thumbnail rounded />
     
     <div className = {styles.container__username}>
     <span className = {styles.modal__username}>{modalInfo.username} </span>

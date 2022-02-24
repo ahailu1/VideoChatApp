@@ -29,7 +29,13 @@ let setSearchBar = () => {
         <div className = {`${styles.container__friendslist} ${inputValue && styles.toggled}`} lg = {6}>
             <ul className = {`${styles.container__list} ${inputValue && styles.toggled}`}>
             {filteredUsers.length > 0 && filteredUsers.map(el => {
-                return <li className = {styles.container__list__item}>{el.username}</li>
+                console.log(el.username + 'hello');
+                console.log(userdata.user_id);
+                console.log(el);
+
+                if(el.user_id !== userdata.user_id){
+                    return <li className = {styles.container__list__item}>{el.username}</li>
+                }
             })}
 
             </ul>
@@ -95,10 +101,15 @@ let getAll = async (userdata) => {
                 action = 'unfollow'
                 type = 'follow'
             }
-            return <Profile myFollowers = {myFollowers} bio = {el.bio} myFollowing = {myFollowing} date = {el.creation_date} username = {el.username} user_id = {el.user_id} userdata = {userdata} render = {() => 
-                { return <RenderButton type = {type} userdata = {userdata} user_id = {el.user_id} callback = {dispatch} callbackData = {action} /> } } /> 
-
-            })
+            console.log(el);
+            if(el.user_id !== userdata.user_id){
+                return <Profile myFollowers = {myFollowers} bio = {el.bio} myFollowing = {myFollowing} date = {el.creation_date} username = {el.username} user_id = {el.user_id} userdata = {userdata} render = {() => 
+                    { 
+                        return <RenderButton type = {type} userdata = {userdata} user_id = {el.user_id} callback = {dispatch} callbackData = {action} /> 
+                    } } />     
+            }
+            
+            })                                                                                                                                                                                                              
             }
      </Row>
 </>

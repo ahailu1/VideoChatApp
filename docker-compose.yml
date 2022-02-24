@@ -8,7 +8,6 @@ services:
         volumes:
             - ./videoUI:/var/www/frontend
             - ./videoUI/public/images:/srv/profile
-
         restart: always
         links:
             - webserver
@@ -20,7 +19,6 @@ services:
             - ./nginx/configuration/:/etc/nginx/conf.d
             - ./videoUI/public/images:/srv/profile
             - ./videoUI:/var/www/frontend
-
         restart: always
         links:
             - backend
@@ -30,6 +28,8 @@ services:
             - "5001:5001"
         volumes: 
             - ./VideoApi:/var/www/api
+            - ./videoUI/public/images:/srv/profile
+
         environment:
             - DOCKER_IP = host.docker.internal
         restart: always

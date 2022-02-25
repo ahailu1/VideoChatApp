@@ -26,6 +26,7 @@ let handleChange = (e) => {
   reader.readAsDataURL(item);
   reader.onload = () => {
     let sendFile = reader.result;
+    console.log(reader.result);
     let bytesOnly = sendFile.split(',')[1];
     let config = {
       url: `${process.env.REACT_APP_SITE_URL}/api/dashboard/uploadprofile/${username}`,
@@ -36,10 +37,11 @@ let handleChange = (e) => {
       }
     }
     axios(config).then(el => {
-      console.log(el.data);
+      console.log(bytesOnly);
+      console.log('right ehre');
       let path = el.data.path;
       let newPath = path.split('videoChatApp');
-      setImage(`${process.env.REACT_APP_SITE_URL}/src/components/images/profile/${username}--profilepicture.jpg`);
+      setImage(sendFile);
 
     }).catch(err => {
       console.log(err);
@@ -60,7 +62,7 @@ e.preventDefault();
 return (
 <>
 {console.log(process.env.REACT_APP_SITE_IMAGE_URL)}
-<Image src = {imageUrl === false ? `${process.env.REACT_APP_SITE_IMAGE_URL}/${username}--profilepicture.jpg` : imageUrl } thumbnail className = {styles.imageaz} />
+<img src = {imageUrl === false ? `${process.env.REACT_APP_SITE_IMAGE_URL}/${username}--profilepicture.jpg` : imageUrl } thumbnail className = {styles.imageaz} />
 <FontAwesomeIcon type = "submit" icon = "pencil-alt" className = {styles.icon} onClick = {handleFileSelect} />
 </>
 )

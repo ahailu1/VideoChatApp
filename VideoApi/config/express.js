@@ -7,7 +7,7 @@ const cors = require("cors");
 
 const router = express.Router();
 
-const { port } = require("./config.js");
+const { port, accountSid } = require("./config.js");
 /*
 const certificatePath = path.resolve(path.join(__dirname, "../certificates"));
 const options = {
@@ -20,6 +20,7 @@ const server = require("http").createServer(app);
 const initServer = () => {
   server.listen(port, (err) => {
     console.log(err);
+    console.log(port + accountSid + 'is owrking');
     console.log(`server listening on port${port}`);
   });
 };

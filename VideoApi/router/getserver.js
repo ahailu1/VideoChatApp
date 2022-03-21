@@ -8,6 +8,7 @@ router.get("/iceservers/:username", async (req, res, next) => {
     res.status(200).send({ iceServers });
   } catch (err) {
     res.status(422).send({ error: "couldnt fetch ice servers" });
+    console.log('some error')
     throw new Error(err);
   }
 });
